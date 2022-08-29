@@ -1,9 +1,7 @@
+import MainPage from "./components/pages/MainPage";
+
 function App() {
-  return (
-    <div>
-      <h3>Bart-t-tender</h3>
-    </div>
-  );
+  return <MainPage />;
 }
 
 export default App;
