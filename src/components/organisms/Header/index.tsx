@@ -1,13 +1,13 @@
 import * as React from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { DefaultTheme, keyframes } from "styled-components";
 import { Container } from "../../atoms/Container";
 
-const moveVertically = () => keyframes`
+const moveVertically = (theme: DefaultTheme) => keyframes`
     0% {
-    color: #aa71ef;
+    color: ${theme.accent};
   }
   100% {
-    color: #5685dd;
+    color: ${theme.accentLighter};
   }
 `;
 
@@ -20,7 +20,8 @@ const HeaderWrapper = styled.div`
 `;
 
 const Logo = styled.h2`
-  animation: ${moveVertically()} 5s linear infinite alternate both;
+  animation: ${(props) => moveVertically(props.theme)} 5s linear infinite
+    alternate both;
   /* color: ${(props) => props.theme.text}; */
   font-size: 2em;
   font-family: "Oleo Script Swash Caps";
