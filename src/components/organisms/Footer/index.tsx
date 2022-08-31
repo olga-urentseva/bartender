@@ -1,24 +1,33 @@
 import styled from "styled-components";
 import { Container } from "../../atoms/Container";
+import Wave from "./Wave";
 
 const FooterComponent = styled.footer`
-  -webkit-box-shadow: 0 -0.4em 1.5em -0.8em
-    ${(props) => props.theme.accentLighter};
-  -moz-box-shadow: 0 -0.4em 1.5em -0.8em ${(props) => props.theme.accentLighter};
-  box-shadow: 0 -0.4em 1.5em -0.8em ${(props) => props.theme.accentLighter};
+  background-color: ${(props) => props.theme.primary};
 `;
 
 const FooterTitle = styled.h3`
-  color: ${(props) => props.theme.textLighter};
-  margin: 0;
+  color: ${(props) => props.theme.textInversion};
+  position: absolute;
+  bottom: 1em;
+`;
+
+const WavyFooter = styled(Wave)`
+  position: relative;
+`;
+
+const FooterContainer = styled(Container)`
+  margin: 0 1em;
+  padding: 0;
 `;
 
 function Footer() {
   return (
     <FooterComponent>
-      <Container>
+      <WavyFooter />
+      <FooterContainer>
         <FooterTitle>Bart-t-tender</FooterTitle>
-      </Container>
+      </FooterContainer>
     </FooterComponent>
   );
 }
