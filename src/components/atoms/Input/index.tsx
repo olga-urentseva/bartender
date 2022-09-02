@@ -15,7 +15,6 @@ export const Input = styled.input`
   border-radius: 1em;
   padding: 1em;
   width: 100%;
-  max-width: 40em;
   box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
   color: ${(props) => props.theme.text};
   font-size: 1em;
