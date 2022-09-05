@@ -11,7 +11,6 @@ const FooterTitle = styled.h3`
   color: ${(props) => props.theme.textInversion};
   position: absolute;
   bottom: 1em;
-  margin: 0 1em;
   font-weight: 400;
   font-size: 1em;
 `;
@@ -27,7 +26,9 @@ function Footer() {
   return (
     <FooterComponent>
       <WavyFooter />
-      <FooterTitle>Bart-t-tender</FooterTitle>
+      <FooterContainer>
+        <FooterTitle>Bart-t-tender</FooterTitle>
+      </FooterContainer>
     </FooterComponent>
   );
 }
