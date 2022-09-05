@@ -29,11 +29,6 @@ body {
   flex-direction: column;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 a {
   font-weight: 500;
   color: #646cff;
