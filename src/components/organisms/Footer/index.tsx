@@ -7,19 +7,20 @@ const FooterComponent = styled.footer`
   position: relative;
 `;
 
+const FooterContainer = styled(Container)`
+  margin: 0 auto;
+  padding: 0;
+`;
+
+const WavyFooter = styled(Wave)``;
+
 const FooterTitle = styled.h3`
   color: ${(props) => props.theme.textInversion};
   position: absolute;
   bottom: 1em;
   font-weight: 400;
-  font-size: 1em;
-`;
-
-const WavyFooter = styled(Wave)``;
-
-const FooterContainer = styled(Container)`
-  margin: 0 auto;
-  padding: 0;
+  font-size: 1.2em;
+  margin: 1em;
 `;
 
 function Footer() {

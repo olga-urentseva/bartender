@@ -54,6 +54,10 @@ function MainPage() {
             url="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/b7qzo21493070167.jpg"
             coctailName="Amaretto"
           />
+          <CoctailCard
+            url="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/b7qzo21493070167.jpg"
+            coctailName="Amaretto"
+          />
         </CoctailCardsWrapper>
       </InnerWrapper>
     </Layout>

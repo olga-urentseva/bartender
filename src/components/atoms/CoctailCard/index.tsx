@@ -1,19 +1,26 @@
 import { ReactComponentElement, ReactElement } from "react";
 import styled, { DefaultTheme } from "styled-components";
 
-type InnerWrapperProps = {
+type CardProps = {
   theme: DefaultTheme;
   url: string;
 };
 
-const InnerWrapper = styled.div<InnerWrapperProps>`
+const InnerWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  max-width: 18em;
+  width: 100%;
+  height: auto;
+`;
+
+const Card = styled.div<CardProps>`
+  display: flex;
+  height: 12em;
   max-width: 100%;
   box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
   border-radius: 1em;
-  width: 100%;
   max-width: 18em;
-  height: 15em;
   background-image: url(${(props) => props.url});
   background-position: center;
   background-size: cover;
@@ -38,16 +45,24 @@ const InnerWrapper = styled.div<InnerWrapperProps>`
   }
 `;
 
-type CardProps = {
+const CoctailTitle = styled.h2`
+  font-size: 1.2em;
+  color: ${(props) => props.theme.text};
+`;
+
+type CoctailCardProps = {
   url: string;
   coctailName: string;
 };
 
-function CoctailCard({ url, coctailName = "Name" }: CardProps) {
+function CoctailCard({ url, coctailName = "Name" }: CoctailCardProps) {
   return (
-    <InnerWrapper url={url}>
-      <h3>{coctailName}</h3>
-      <h4>Ingredients</h4>
+    <InnerWrapper>
+      <Card url={url}>
+        <h3>{coctailName}</h3>
+        <h4>Ingredients</h4>
+      </Card>
+      <CoctailTitle>{coctailName}</CoctailTitle>
     </InnerWrapper>
   );
 }
