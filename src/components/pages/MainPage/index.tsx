@@ -26,23 +26,6 @@ const CoctailCardsWrapper = styled.div`
 
 function MainPage() {
   const [inputValue, setInputValue] = useState("");
-  const [coctails, setCoctails] = useState<any>();
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    get(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`
-    )
-      .then((json) => {
-        setCoctails(json);
-        console.log(coctails);
-      })
-      .catch((error) => {
-        console.error(error);
-
-        setIsError(true);
-      });
-  }, [inputValue]);
 
   return (
     <Layout>
