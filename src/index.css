@@ -29,6 +29,18 @@ body {
   flex-direction: column;
 }
 
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1em;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

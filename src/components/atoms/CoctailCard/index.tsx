@@ -1,5 +1,5 @@
-import { ReactComponentElement, ReactElement } from "react";
 import styled, { DefaultTheme } from "styled-components";
+import { Coctail } from "../../../types/Coctail";
 
 type CardProps = {
   theme: DefaultTheme;
@@ -14,6 +14,14 @@ const InnerWrapper = styled.div`
   height: auto;
 `;
 
+const ColorFilter = styled.div`
+  width: auto;
+  height: auto;
+  background-color: ${(props) => props.theme.accentLighter};
+  border-radius: 1em;
+  opacity: 80%;
+`;
+
 const Card = styled.div<CardProps>`
   display: flex;
   height: 12em;
@@ -25,6 +33,7 @@ const Card = styled.div<CardProps>`
   background-position: center;
   background-size: cover;
   transition: 0.3s;
+  padding: 0 1em;
 
   h3,
   h4,
@@ -50,19 +59,54 @@ const CoctailTitle = styled.h2`
   color: ${(props) => props.theme.text};
 `;
 
+const IngredientsWrapper = styled.div`
+  color: ${(props) => props.theme.textInversion};
+  display: flex;
+  overflow: scroll;
+  width: 100%;
+`;
+
 type CoctailCardProps = {
-  url: string;
-  coctailName: string;
+  info: Coctail;
 };
 
-function CoctailCard({ url, coctailName = "Name" }: CoctailCardProps) {
+// fix this. Connect with Coctail type, if name is null, so should be null measure.
+type Ingrdient = {
+  name: string;
+  measure: string | null;
+};
+
+function CoctailCard({ info }: CoctailCardProps) {
+  let ingredients: Ingrdient[] = [];
+
+  for (let i = 0; i < 15; i++) {
+    const ingredientNameKey = `strIngredient${i}` as keyof Coctail;
+    const ingredientMeasureKey = `strMeasure${i}` as keyof Coctail;
+    const ingredientName = info[ingredientNameKey];
+    const ingredientMeasure = info[ingredientMeasureKey];
+
+    if (!ingredientName) {
+      continue;
+    }
+
+    ingredients.push({
+      name: ingredientName,
+      measure: ingredientMeasure,
+    });
+  }
+
+  const ingredientsInfo = ingredients.map((ingredient) => {
+    return <h3>{`${ingredient.name}: ${ingredient.measure}`}</h3>;
+  });
+
   return (
     <InnerWrapper>
-      <Card url={url}>
-        <h3>{coctailName}</h3>
-        <h4>Ingredients</h4>
-      </Card>
-      <CoctailTitle>{coctailName}</CoctailTitle>
+      <ColorFilter>
+        <Card url={info.strDrinkThumb}>
+          <IngredientsWrapper>{ingredientsInfo}</IngredientsWrapper>
+        </Card>
+      </ColorFilter>
+      <CoctailTitle>{info.strDrink}</CoctailTitle>
     </InnerWrapper>
   );
 }

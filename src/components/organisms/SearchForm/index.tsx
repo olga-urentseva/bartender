@@ -5,7 +5,8 @@ import Input from "../../atoms/Input";
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  flex: 1 0 15em;
+  max-width: 40em;
+  position: relative;
 `;
 
 const Label = styled.label`
