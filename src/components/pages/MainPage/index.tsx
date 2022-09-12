@@ -1,64 +1,66 @@
-import styled from "styled-components";
-import CoctailCard from "../../atoms/CoctailCard";
-import Input from "../../atoms/Input";
+import { useEffect, useState } from "react";
+
+import { Status, useAsync } from "../../../hooks/useAsync";
+import { get } from "../../../lib/http";
+import { Cocktail } from "../../../types/Cocktail";
+
+import CocktailCard from "../../atoms/CocktailCard";
+import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
+
+import styled from "styled-components";
+import Loader from "../../atoms/Loader";
 
 const InnerWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 2em 5em;
-  justify-content: space-between;
-  align-content: flex-start;
+  gap: 2em;
   margin: 3em 0;
-`;
-
-const Form = styled.form`
-  display: flex;
   flex-direction: column;
-  flex: 1 0 15em;
 `;
 
-const Label = styled.label`
-  font-size: 1.5em;
-  color: ${(props) => props.theme.accent};
-  font-weight: 500;
-`;
-
-const CoctailCardsWrapper = styled.div`
+const CocktailCardsWrapper = styled.div`
   display: flex;
-  width: 100%;
   gap: 1em;
-  flex: 1 1 30em;
   flex-direction: row;
   flex-wrap: wrap;
 `;
 
+const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 function MainPage() {
+  const [inputValue, setInputValue] = useState("");
+
+  const [run, state] = useAsync(() =>
+    get(
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`
+    )
+  );
+
+  useEffect(() => {
+    run();
+  }, [inputValue]);
+
+  let cocktailCards;
+  if (state.status === Status.SUCCESS) {
+    cocktailCards = state.data.drinks?.map((drink: Cocktail) => {
+      return <CocktailCard info={drink} key={drink.idDrink} />;
+    });
+  }
+
   return (
     <Layout>
       <InnerWrapper>
-        <Form>
-          <Label>What do you have in your bar?</Label>
-          <Input type="text" placeholder="Limoncello" />
-        </Form>
-        <CoctailCardsWrapper>
-          <CoctailCard
-            url="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/b7qzo21493070167.jpg"
-            coctailName="Amaretto"
-          />
-          <CoctailCard
-            url="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/b7qzo21493070167.jpg"
-            coctailName="Amaretto"
-          />
-          <CoctailCard
-            url="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/b7qzo21493070167.jpg"
-            coctailName="Amaretto"
-          />
-          <CoctailCard
-            url="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/b7qzo21493070167.jpg"
-            coctailName="Amaretto"
-          />
-        </CoctailCardsWrapper>
+        <SearchForm inputValue={inputValue} setInputValue={setInputValue} />
+        {state.status === Status.IN_PROGRESS && (
+          <LoaderWrapper>
+            <Loader />
+          </LoaderWrapper>
+        )}
+        <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
       </InnerWrapper>
     </Layout>
   );

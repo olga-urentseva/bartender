@@ -9,7 +9,11 @@ const Main = styled.main`
   background-color: ${(props) => props.theme.primary};
 `;
 
-const Layout = ({ children }: { children: ReactElement | string }) => {
+const Layout = ({
+  children,
+}: {
+  children: ReactElement | string | ReactElement[];
+}) => {
   return (
     <>
       <Header />
