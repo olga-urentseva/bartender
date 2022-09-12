@@ -148,7 +148,7 @@ type Ingredient15 =
       strMeasure15: null;
     };
 
-export type Coctail = {
+export type Cocktail = {
   idDrink: string;
   strDrink: string;
   strAlcoholic: string;

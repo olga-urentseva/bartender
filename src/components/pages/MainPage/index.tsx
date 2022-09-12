@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 import { Status, useAsync } from "../../../hooks/useAsync";
 import { get } from "../../../lib/http";
-import { Coctail } from "../../../types/Coctail";
+import { Cocktail } from "../../../types/Cocktail";
 
-import CoctailCard from "../../atoms/CoctailCard";
+import CocktailCard from "../../atoms/CocktailCard";
 import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
 
@@ -19,7 +19,7 @@ const InnerWrapper = styled.div`
   flex-direction: column;
 `;
 
-const CoctailCardsWrapper = styled.div`
+const CocktailCardsWrapper = styled.div`
   display: flex;
   gap: 1em;
   flex-direction: row;
@@ -44,10 +44,10 @@ function MainPage() {
     run();
   }, [inputValue]);
 
-  let coctailCards;
+  let cocktailCards;
   if (state.status === Status.SUCCESS) {
-    coctailCards = state.data.drinks?.map((drink: Coctail) => {
-      return <CoctailCard info={drink} key={drink.idDrink} />;
+    cocktailCards = state.data.drinks?.map((drink: Cocktail) => {
+      return <CocktailCard info={drink} key={drink.idDrink} />;
     });
   }
 
@@ -60,7 +60,7 @@ function MainPage() {
             <Loader />
           </LoaderWrapper>
         )}
-        <CoctailCardsWrapper>{coctailCards}</CoctailCardsWrapper>
+        <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
       </InnerWrapper>
     </Layout>
   );

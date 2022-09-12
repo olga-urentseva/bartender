@@ -1,5 +1,5 @@
 import styled, { DefaultTheme } from "styled-components";
-import { Coctail } from "../../../types/Coctail";
+import { Cocktail } from "../../../types/Cocktail";
 
 type CardProps = {
   theme: DefaultTheme;
@@ -54,7 +54,7 @@ const Card = styled.div<CardProps>`
   }
 `;
 
-const CoctailTitle = styled.h2`
+const CocktailTitle = styled.h2`
   font-size: 1.2em;
   color: ${(props) => props.theme.text};
 `;
@@ -66,8 +66,8 @@ const IngredientsWrapper = styled.div`
   width: 100%;
 `;
 
-type CoctailCardProps = {
-  info: Coctail;
+type CocktailCardProps = {
+  info: Cocktail;
 };
 
 // fix this. Connect with Coctail type, if name is null, so should be null measure.
@@ -76,12 +76,12 @@ type Ingrdient = {
   measure: string | null;
 };
 
-function CoctailCard({ info }: CoctailCardProps) {
+function CocktailCard({ info }: CocktailCardProps) {
   let ingredients: Ingrdient[] = [];
 
   for (let i = 0; i < 15; i++) {
-    const ingredientNameKey = `strIngredient${i}` as keyof Coctail;
-    const ingredientMeasureKey = `strMeasure${i}` as keyof Coctail;
+    const ingredientNameKey = `strIngredient${i}` as keyof Cocktail;
+    const ingredientMeasureKey = `strMeasure${i}` as keyof Cocktail;
     const ingredientName = info[ingredientNameKey];
     const ingredientMeasure = info[ingredientMeasureKey];
 
@@ -106,9 +106,9 @@ function CoctailCard({ info }: CoctailCardProps) {
           <IngredientsWrapper>{ingredientsInfo}</IngredientsWrapper>
         </Card>
       </ColorFilter>
-      <CoctailTitle>{info.strDrink}</CoctailTitle>
+      <CocktailTitle>{info.strDrink}</CocktailTitle>
     </InnerWrapper>
   );
 }
 
-export default CoctailCard;
+export default CocktailCard;
