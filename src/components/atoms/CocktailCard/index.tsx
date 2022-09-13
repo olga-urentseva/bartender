@@ -70,7 +70,7 @@ type CocktailCardProps = {
   info: Cocktail;
 };
 
-// fix this. Connect with Coctail type, if name is null, so should be null measure.
+// fix this. Connect with Cocktail type, if name is null, so should be null measure.
 type Ingrdient = {
   name: string;
   measure: string | null;
