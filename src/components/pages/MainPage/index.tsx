@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Status, useAsync } from "../../../hooks/useAsync";
 import { get } from "../../../lib/http";
@@ -33,12 +33,25 @@ const LoaderWrapper = styled.div`
 
 function MainPage() {
   const [inputValue, setInputValue] = useState("");
+  const inputIngredients = useMemo(() => {
+    if (!inputValue) {
+      return;
+    } else {
+      const ingredients = inputValue
+        .split(",")
+
+        .map((i) => i.trim().replace(" ", "_"))
+        .filter((i) => i.length > 0);
+      return ingredients.join("&i=");
+    }
+  }, [inputValue]);
 
   const [run, state] = useAsync(() =>
     get(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`
+      `https://thecocktaildb.com/api/json/v1/1/filter.php?i=${inputIngredients}`
     )
   );
+  console.log(state);
 
   useEffect(() => {
     run();
