@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { Container } from "../../atoms/Container";
 import Wave from "./Wave";

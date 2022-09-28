@@ -1,4 +1,4 @@
-import styled, { DefaultTheme, keyframes, ThemeProps } from "styled-components";
+import styled, { DefaultTheme, keyframes } from "styled-components";
 
 const moveVertically = (theme: DefaultTheme) => keyframes`
     0% {

@@ -1,3 +1,4 @@
+import React from "react";
 import styled, { DefaultTheme, keyframes } from "styled-components";
 import { Container } from "../../atoms/Container";
 

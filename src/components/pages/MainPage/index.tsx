@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { Status, useAsync } from "../../../hooks/useAsync";
 import { get } from "../../../lib/http";
@@ -33,42 +33,52 @@ const LoaderWrapper = styled.div`
 
 function MainPage() {
   const [inputValue, setInputValue] = useState("");
-  const inputIngredients = useMemo(() => {
-    if (!inputValue) {
-      return;
-    } else {
-      const ingredients = inputValue
+  const inputValueWithDefault = inputValue || "lime";
+  const inputIngredients = useMemo(
+    () =>
+      inputValueWithDefault
         .split(",")
-
         .map((i) => i.trim().replace(" ", "_"))
-        .filter((i) => i.length > 0);
-      return ingredients.join("&i=");
-    }
-  }, [inputValue]);
+        .filter((i) => i.length > 0),
+    [inputValue]
+  );
 
-  const [run, state] = useAsync(() =>
-    get(
-      `https://thecocktaildb.com/api/json/v1/1/filter.php?i=${inputIngredients}`
+  const [run, { data, status, error }] = useAsync(() =>
+    Promise.all(
+      inputIngredients.map((ing) =>
+        get(`https://thecocktaildb.com/api/json/v1/1/filter.php?i=${ing}`)
+      )
     )
   );
-  console.log(state);
+
+  // мне нужен массив из обьектов {name: blala, id: 123}
+  // у меня есть массив с неограниченным колическтвом обьектов [{drinks: [{name: blala, id: 123}}], {drinks: {name: blala, id: 123}}]
+  // скопировать самый длинный массив под drinks в новый массив
+  // нужно перебрать каждый элемент массива {drinks: [{name: blala, id: 123}], зайти под ключ drinks и дальше снова перебрать все элементы.
+  // перебираем каждый элемент массива под ключом drinks, это обьекты, и проверяем:
+  // если в массиве есть обьект, где под ключом id лежит номер id перебираемого элемента, то ничего не делаем.
+  // если нет - удаляем обьект из массива
+
+  // const searchedDrinks = data.filter(firstRequest);
+  console.log(data?.length);
 
   useEffect(() => {
     run();
   }, [inputValue]);
 
   let cocktailCards;
-  if (state.status === Status.SUCCESS) {
-    cocktailCards = state.data.drinks?.map((drink: Cocktail) => {
-      return <CocktailCard info={drink} key={drink.idDrink} />;
-    });
+  if (status === Status.SUCCESS) {
+    console.log(data);
+    // cocktailCards = data.drinks?.map((drink: Cocktail) => {
+    //   return <CocktailCard info={drink} key={drink.idDrink} />;
+    // });
   }
 
   return (
     <Layout>
       <InnerWrapper>
         <SearchForm inputValue={inputValue} setInputValue={setInputValue} />
-        {state.status === Status.IN_PROGRESS && (
+        {status === Status.IN_PROGRESS && (
           <LoaderWrapper>
             <Loader />
           </LoaderWrapper>

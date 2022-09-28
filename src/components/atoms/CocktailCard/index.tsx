@@ -1,4 +1,6 @@
+import React from "react";
 import styled, { DefaultTheme } from "styled-components";
+
 import { Cocktail } from "../../../types/Cocktail";
 
 type CardProps = {
@@ -77,7 +79,7 @@ type Ingrdient = {
 };
 
 function CocktailCard({ info }: CocktailCardProps) {
-  let ingredients: Ingrdient[] = [];
+  const ingredients: Ingrdient[] = [];
 
   for (let i = 0; i < 15; i++) {
     const ingredientNameKey = `strIngredient${i}` as keyof Cocktail;
@@ -96,7 +98,11 @@ function CocktailCard({ info }: CocktailCardProps) {
   }
 
   const ingredientsInfo = ingredients.map((ingredient) => {
-    return <h3>{`${ingredient.name}: ${ingredient.measure}`}</h3>;
+    return (
+      <h3
+        key={ingredient.name}
+      >{`${ingredient.name}: ${ingredient.measure}`}</h3>
+    );
   });
 
   return (
