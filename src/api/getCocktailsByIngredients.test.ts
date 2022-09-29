@@ -32,12 +32,16 @@ describe("getCocktailsByIngredients", () => {
     expect(calledIngredients).toEqual(ingredients);
   });
 
-  describe("when there are no intersections", async () => {
+  describe("when there are no intersections", () => {
     it("returns empty array", async () => {
       const mockedResponse = [
         {
           drinks: [
-            { strDrink: "Limoncello Spritz", idDrink: "1", strDrinkThumb: "url1" },
+            {
+              strDrink: "Limoncello Spritz",
+              idDrink: "1",
+              strDrinkThumb: "url1",
+            },
           ],
         },
         {
@@ -64,8 +68,9 @@ describe("getCocktailsByIngredients", () => {
           }
         )
       );
+
+      const cocktails = await getCocktailsByIngredients(ingredients);
+      expect(cocktails).toEqual([]);
     });
-    const cocktails = await getCocktailsByIngredients(ingredients);
-    expect(cocktails).toEqual([]);
   });
 });
