@@ -73,4 +73,122 @@ describe("getCocktailsByIngredients", () => {
       expect(cocktails).toEqual([]);
     });
   });
+
+  describe("when there is intersections", () => {
+    it("returns an array with 1 element if there is 1 intersection", async () => {
+      const mockedResponse = [
+        {
+          drinks: [
+            {
+              strDrink: "Limoncello Spritz",
+              idDrink: "1",
+              strDrinkThumb: "url1",
+            },
+          ],
+        },
+        {
+          drinks: [
+            {
+              strDrink: "Limoncello Spritz",
+              idDrink: "1",
+              strDrinkThumb: "url1",
+            },
+          ],
+        },
+        {
+          drinks: [
+            {
+              strDrink: "California Lemonade",
+              idDrink: "3",
+              strDrinkThumb: "url3",
+            },
+          ],
+        },
+      ];
+
+      MswServer.use(
+        rest.get(
+          "https://thecocktaildb.com/api/json/v1/1/filter.php",
+          (req, res, ctx) => {
+            return res(ctx.json(mockedResponse));
+          }
+        )
+      );
+
+      const cocktails = await getCocktailsByIngredients(ingredients);
+      expect(cocktails).toEqual([mockedResponse[0]]);
+    });
+
+    it("returns an array with 2 elements if there are 2 intersections", async () => {
+      const mockedResponse = [
+        {
+          drinks: [
+            {
+              strDrink: "Limoncello Spritz",
+              idDrink: "1",
+              strDrinkThumb: "url1",
+            },
+            {
+              strDrink: "Amaretto",
+              idDrink: "4",
+              strDrinkThumb: "url4",
+            },
+          ],
+        },
+        {
+          drinks: [
+            {
+              strDrink: "Limoncello Spritz",
+              idDrink: "1",
+              strDrinkThumb: "url1",
+            },
+            {
+              strDrink: "White Russian",
+              idDrink: "3",
+              strDrinkThumb: "url3",
+            },
+          ],
+        },
+        {
+          drinks: [
+            {
+              strDrink: "California Lemonade",
+              idDrink: "3",
+              strDrinkThumb: "url3",
+            },
+            {
+              strDrink: "Amaretto",
+              idDrink: "4",
+              strDrinkThumb: "url4",
+            },
+          ],
+        },
+      ];
+
+      const expectedResult = [
+        {
+          strDrink: "Limoncello Spritz",
+          idDrink: "1",
+          strDrinkThumb: "url1",
+        },
+        {
+          strDrink: "Amaretto",
+          idDrink: "4",
+          strDrinkThumb: "url4",
+        },
+      ];
+
+      MswServer.use(
+        rest.get(
+          "https://thecocktaildb.com/api/json/v1/1/filter.php",
+          (req, res, ctx) => {
+            return res(ctx.json(mockedResponse));
+          }
+        )
+      );
+
+      const cocktails = await getCocktailsByIngredients(ingredients);
+      expect(cocktails).toEqual(expectedResult);
+    });
+  });
 });
