@@ -10,6 +10,7 @@ import Layout from "../../templates/Layout";
 
 import styled from "styled-components";
 import Loader from "../../atoms/Loader";
+import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
 const InnerWrapper = styled.div`
   display: flex;
@@ -44,23 +45,8 @@ function MainPage() {
   );
 
   const [run, { data, status, error }] = useAsync(() =>
-    Promise.all(
-      inputIngredients.map((ing) =>
-        get(`https://thecocktaildb.com/api/json/v1/1/filter.php?i=${ing}`)
-      )
-    )
+    getCocktailsByIngredients(inputIngredients)
   );
-
-  // мне нужен массив из обьектов {name: blala, id: 123}
-  // у меня есть массив с неограниченным колическтвом обьектов [{drinks: [{name: blala, id: 123}}], {drinks: {name: blala, id: 123}}]
-  // скопировать самый длинный массив под drinks в новый массив
-  // нужно перебрать каждый элемент массива {drinks: [{name: blala, id: 123}], зайти под ключ drinks и дальше снова перебрать все элементы.
-  // перебираем каждый элемент массива под ключом drinks, это обьекты, и проверяем:
-  // если в массиве есть обьект, где под ключом id лежит номер id перебираемого элемента, то ничего не делаем.
-  // если нет - удаляем обьект из массива
-
-  // const searchedDrinks = data.filter(firstRequest);
-  console.log(data?.length);
 
   useEffect(() => {
     run();
