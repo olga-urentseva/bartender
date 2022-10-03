@@ -32,9 +32,7 @@ describe("getCocktailsByIngredients", () => {
     expect(calledIngredients).toEqual(ingredients);
   });
 
-  //it("handles empty API response", () => {});
-
-  describe.only("when there are no intersections", () => {
+  describe("when there are no intersections", () => {
     beforeEach(() => {
       MswServer.use(
         rest.get(
@@ -83,125 +81,175 @@ describe("getCocktailsByIngredients", () => {
       );
     });
 
-    it("returns empty array", async () => {
+    it("returns an empty array", async () => {
       const cocktails = await getCocktailsByIngredients(ingredients);
       expect(cocktails).toEqual([]);
     });
   });
 
-  describe("when there is intersections", () => {
-    it("returns an array with 1 element if there is 1 intersection", async () => {
-      const mockedResponse = [
-        {
-          drinks: [
-            {
-              strDrink: "Limoncello Spritz",
-              idDrink: "1",
-              strDrinkThumb: "url1",
-            },
-          ],
-        },
-        {
-          drinks: [
-            {
-              strDrink: "Limoncello Spritz",
-              idDrink: "1",
-              strDrinkThumb: "url1",
-            },
-          ],
-        },
-        {
-          drinks: [
-            {
-              strDrink: "California Lemonade",
-              idDrink: "3",
-              strDrinkThumb: "url3",
-            },
-          ],
-        },
-      ];
-
+  describe("when there is 1 intersection", () => {
+    beforeEach(() => {
       MswServer.use(
         rest.get(
           "https://thecocktaildb.com/api/json/v1/1/filter.php",
           (req, res, ctx) => {
-            return res(ctx.json(mockedResponse));
+            switch (req.url.searchParams.get("i")) {
+              case "lime":
+                return res(
+                  ctx.json({
+                    drinks: [
+                      {
+                        strDrink: "Limoncello Spritz",
+                        idDrink: "1",
+                        strDrinkThumb: "url1",
+                      },
+                      {
+                        strDrink: "Amaretto",
+                        idDrink: "2",
+                        strDrinkThumb: "url2",
+                      },
+                    ],
+                  })
+                );
+              case "vodka":
+                return res(
+                  ctx.json({
+                    drinks: [
+                      {
+                        strDrink: "White Russian",
+                        idDrink: "2",
+                        strDrinkThumb: "url2",
+                      },
+                      {
+                        strDrink: "Limoncello Spritz",
+                        idDrink: "1",
+                        strDrinkThumb: "url1",
+                      },
+                    ],
+                  })
+                );
+              case "gin":
+                return res(
+                  ctx.json({
+                    drinks: [
+                      {
+                        strDrink: "Gin Tonic",
+                        idDrink: "3",
+                        strDrinkThumb: "url3",
+                      },
+                      {
+                        strDrink: "Limoncello Spritz",
+                        idDrink: "1",
+                        strDrinkThumb: "url1",
+                      },
+                    ],
+                  })
+                );
+            }
           }
         )
       );
-
-      const cocktails = await getCocktailsByIngredients(ingredients);
-      expect(cocktails).toEqual([mockedResponse[0]]);
     });
-
-    it("returns an array with 2 elements if there are 2 intersections", async () => {
-      const mockedResponse = [
-        {
-          drinks: [
-            {
-              strDrink: "Limoncello Spritz",
-              idDrink: "1",
-              strDrinkThumb: "url1",
-            },
-            {
-              strDrink: "Amaretto",
-              idDrink: "4",
-              strDrinkThumb: "url4",
-            },
-          ],
-        },
-        {
-          drinks: [
-            {
-              strDrink: "Limoncello Spritz",
-              idDrink: "1",
-              strDrinkThumb: "url1",
-            },
-            {
-              strDrink: "White Russian",
-              idDrink: "3",
-              strDrinkThumb: "url3",
-            },
-          ],
-        },
-        {
-          drinks: [
-            {
-              strDrink: "California Lemonade",
-              idDrink: "3",
-              strDrinkThumb: "url3",
-            },
-            {
-              strDrink: "Amaretto",
-              idDrink: "4",
-              strDrinkThumb: "url4",
-            },
-          ],
-        },
-      ];
-
+    it("returns an array with 1 element", async () => {
       const expectedResult = [
         {
           strDrink: "Limoncello Spritz",
           idDrink: "1",
           strDrinkThumb: "url1",
         },
-        {
-          strDrink: "Amaretto",
-          idDrink: "4",
-          strDrinkThumb: "url4",
-        },
       ];
-
+      const cocktails = await getCocktailsByIngredients(ingredients);
+      expect(cocktails).toEqual(expectedResult);
+    });
+  });
+  describe("when there is 2 intersections", () => {
+    beforeEach(() => {
       MswServer.use(
         rest.get(
           "https://thecocktaildb.com/api/json/v1/1/filter.php",
           (req, res, ctx) => {
-            return res(ctx.json(mockedResponse));
+            switch (req.url.searchParams.get("i")) {
+              case "lime":
+                return res(
+                  ctx.json({
+                    drinks: [
+                      {
+                        strDrink: "Limoncello Spritz",
+                        idDrink: "1",
+                        strDrinkThumb: "url1",
+                      },
+                      {
+                        strDrink: "Amaretto",
+                        idDrink: "2",
+                        strDrinkThumb: "url2",
+                      },
+                    ],
+                  })
+                );
+              case "vodka":
+                return res(
+                  ctx.json({
+                    drinks: [
+                      {
+                        strDrink: "White Russian",
+                        idDrink: "2",
+                        strDrinkThumb: "url2",
+                      },
+                      {
+                        strDrink: "Limoncello Spritz",
+                        idDrink: "1",
+                        strDrinkThumb: "url1",
+                      },
+                      {
+                        strDrink: "Amaretto",
+                        idDrink: "2",
+                        strDrinkThumb: "url2",
+                      },
+                    ],
+                  })
+                );
+              case "gin":
+                return res(
+                  ctx.json({
+                    drinks: [
+                      {
+                        strDrink: "Amaretto",
+                        idDrink: "2",
+                        strDrinkThumb: "url2",
+                      },
+                      {
+                        strDrink: "Gin Tonic",
+                        idDrink: "3",
+                        strDrinkThumb: "url3",
+                      },
+                      {
+                        strDrink: "Limoncello Spritz",
+                        idDrink: "1",
+                        strDrinkThumb: "url1",
+                      },
+                    ],
+                  })
+                );
+            }
           }
         )
       );
+    });
 
+    it("returns an array with 2 elements", async () => {
+      // In alphabet order
+      const expectedResult = [
+        {
+          strDrink: "Amaretto",
+          idDrink: "2",
+          strDrinkThumb: "url2",
+        },
+        {
+          strDrink: "Limoncello Spritz",
+          idDrink: "1",
+          strDrinkThumb: "url1",
+        },
+      ];
       const cocktails = await getCocktailsByIngredients(ingredients);
       expect(cocktails).toEqual(expectedResult);
     });
