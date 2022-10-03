@@ -1,10 +1,5 @@
 import { get } from "../lib/http";
-
-type Cocktail = {
-  idDrink: string;
-  strDrink: string;
-  strDrinkThumb: string;
-};
+import { CocktailByIngredient } from "../types/CocktailByIngredient";
 
 export default async function getCocktailsByIngredients(ingredients: string[]) {
   if (ingredients.length === 0) {
@@ -14,7 +9,7 @@ export default async function getCocktailsByIngredients(ingredients: string[]) {
   const responses = (
     await Promise.all(
       ingredients.map((ing) =>
-        get<{ drinks: Cocktail[] }>(
+        get<{ drinks: CocktailByIngredient[] }>(
           `https://thecocktaildb.com/api/json/v1/1/filter.php?i=${ing}`
         )
       )
@@ -22,11 +17,11 @@ export default async function getCocktailsByIngredients(ingredients: string[]) {
   ).map((response) => response?.drinks || []);
 
   let cocktailIdsFromPrevResponse!: string[];
-  let cocktailByIdFromPrevResponse: Record<string, Cocktail> = {};
+  let cocktailByIdFromPrevResponse: Record<string, CocktailByIngredient> = {};
 
   responses.forEach((response) => {
     const tempIds: string[] = [];
-    const tempCocktailsById: Record<string, Cocktail> = {};
+    const tempCocktailsById: Record<string, CocktailByIngredient> = {};
 
     response.forEach((cocktail) => {
       if (

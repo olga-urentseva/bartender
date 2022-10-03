@@ -1,11 +1,9 @@
 import React from "react";
 import styled, { DefaultTheme } from "styled-components";
 
-import { Cocktail } from "../../../types/Cocktail";
-
 type CardProps = {
   theme: DefaultTheme;
-  url: string;
+  picture: string;
 };
 
 const InnerWrapper = styled.div`
@@ -27,11 +25,10 @@ const ColorFilter = styled.div`
 const Card = styled.div<CardProps>`
   display: flex;
   height: 12em;
-  max-width: 100%;
   box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
   border-radius: 1em;
   max-width: 18em;
-  background-image: url(${(props) => props.url});
+  background-image: url(${(props) => props.picture});
   background-position: center;
   background-size: cover;
   transition: 0.3s;
@@ -61,58 +58,51 @@ const CocktailTitle = styled.h2`
   color: ${(props) => props.theme.text};
 `;
 
-const IngredientsWrapper = styled.div`
-  color: ${(props) => props.theme.textInversion};
-  display: flex;
-  overflow: scroll;
-  width: 100%;
-`;
-
 type CocktailCardProps = {
-  info: Cocktail;
+  cocktailName: string;
+  picture: string;
+  id: string;
 };
 
 // fix this. Connect with Cocktail type, if name is null, so should be null measure.
-type Ingrdient = {
-  name: string;
-  measure: string | null;
-};
+// type Ingrdient = {
+//   name: string;
+//   measure: string | null;
+// };
 
-function CocktailCard({ info }: CocktailCardProps) {
-  const ingredients: Ingrdient[] = [];
+function CocktailCard({ cocktailName, picture, id }: CocktailCardProps) {
+  // const ingredients: Ingrdient[] = [];
+  //
+  // for (let i = 0; i < 15; i++) {
+  //   const ingredientNameKey = `strIngredient${i}` as keyof Cocktail;
+  //   const ingredientMeasureKey = `strMeasure${i}` as keyof Cocktail;
+  //   const ingredientName = info[ingredientNameKey];
+  //   const ingredientMeasure = info[ingredientMeasureKey];
+  //
+  //   if (!ingredientName) {
+  //     continue;
+  //   }
+  //
+  //   ingredients.push({
+  //     name: ingredientName,
+  //     measure: ingredientMeasure,
+  //   });
+  // }
 
-  for (let i = 0; i < 15; i++) {
-    const ingredientNameKey = `strIngredient${i}` as keyof Cocktail;
-    const ingredientMeasureKey = `strMeasure${i}` as keyof Cocktail;
-    const ingredientName = info[ingredientNameKey];
-    const ingredientMeasure = info[ingredientMeasureKey];
-
-    if (!ingredientName) {
-      continue;
-    }
-
-    ingredients.push({
-      name: ingredientName,
-      measure: ingredientMeasure,
-    });
-  }
-
-  const ingredientsInfo = ingredients.map((ingredient) => {
-    return (
-      <h3
-        key={ingredient.name}
-      >{`${ingredient.name}: ${ingredient.measure}`}</h3>
-    );
-  });
+  // const ingredientsInfo = ingredients.map((ingredient) => {
+  //   return (
+  //     <h3
+  //       key={ingredient.name}
+  //     >{`${ingredient.name}: ${ingredient.measure}`}</h3>
+  //   );
+  // });
 
   return (
     <InnerWrapper>
       <ColorFilter>
-        <Card url={info.strDrinkThumb}>
-          <IngredientsWrapper>{ingredientsInfo}</IngredientsWrapper>
-        </Card>
+        <Card picture={picture} />
       </ColorFilter>
-      <CocktailTitle>{info.strDrink}</CocktailTitle>
+      <CocktailTitle>{cocktailName}</CocktailTitle>
     </InnerWrapper>
   );
 }

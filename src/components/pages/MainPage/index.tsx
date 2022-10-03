@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import { Status, useAsync } from "../../../hooks/useAsync";
-import { get } from "../../../lib/http";
-import { Cocktail } from "../../../types/Cocktail";
+import { CocktailByIngredient } from "../../../types/CocktailByIngredient";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import SearchForm from "../../organisms/SearchForm";
@@ -54,10 +53,16 @@ function MainPage() {
 
   let cocktailCards;
   if (status === Status.SUCCESS) {
-    console.log(data);
-    // cocktailCards = data.drinks?.map((drink: Cocktail) => {
-    //   return <CocktailCard info={drink} key={drink.idDrink} />;
-    // });
+    cocktailCards = data?.map((cocktail: CocktailByIngredient) => {
+      return (
+        <CocktailCard
+          id={cocktail.idDrink}
+          cocktailName={cocktail.strDrink}
+          picture={cocktail.strDrinkThumb}
+          key={cocktail.idDrink}
+        />
+      );
+    });
   }
 
   return (
