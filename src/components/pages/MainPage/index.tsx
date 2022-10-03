@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { Status, useAsync } from "../../../hooks/useAsync";
-import { get } from "../../../lib/http";
-import { Cocktail } from "../../../types/Cocktail";
+import { CocktailByIngredient } from "../../../types/CocktailByIngredient";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import SearchForm from "../../organisms/SearchForm";
@@ -10,6 +9,7 @@ import Layout from "../../templates/Layout";
 
 import styled from "styled-components";
 import Loader from "../../atoms/Loader";
+import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
 const InnerWrapper = styled.div`
   display: flex;
@@ -33,11 +33,18 @@ const LoaderWrapper = styled.div`
 
 function MainPage() {
   const [inputValue, setInputValue] = useState("");
+  const inputValueWithDefault = inputValue || "lime";
+  const inputIngredients = useMemo(
+    () =>
+      inputValueWithDefault
+        .split(",")
+        .map((i) => i.trim().replace(" ", "_"))
+        .filter((i) => i.length > 0),
+    [inputValue]
+  );
 
-  const [run, state] = useAsync(() =>
-    get(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`
-    )
+  const [run, { data, status, error }] = useAsync(() =>
+    getCocktailsByIngredients(inputIngredients)
   );
 
   useEffect(() => {
@@ -45,9 +52,16 @@ function MainPage() {
   }, [inputValue]);
 
   let cocktailCards;
-  if (state.status === Status.SUCCESS) {
-    cocktailCards = state.data.drinks?.map((drink: Cocktail) => {
-      return <CocktailCard info={drink} key={drink.idDrink} />;
+  if (status === Status.SUCCESS) {
+    cocktailCards = data?.map((cocktail: CocktailByIngredient) => {
+      return (
+        <CocktailCard
+          id={cocktail.idDrink}
+          cocktailName={cocktail.strDrink}
+          picture={cocktail.strDrinkThumb}
+          key={cocktail.idDrink}
+        />
+      );
     });
   }
 
@@ -55,7 +69,7 @@ function MainPage() {
     <Layout>
       <InnerWrapper>
         <SearchForm inputValue={inputValue} setInputValue={setInputValue} />
-        {state.status === Status.IN_PROGRESS && (
+        {status === Status.IN_PROGRESS && (
           <LoaderWrapper>
             <Loader />
           </LoaderWrapper>

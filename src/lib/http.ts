@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 export type Jsonable =
   | string
   | number
@@ -10,25 +8,31 @@ export type Jsonable =
   | { [key: string]: Jsonable }
   | { toJSON(): Jsonable };
 
-async function request(url: string, options: RequestInit) {
+async function request<T = unknown>(url: string, options: RequestInit) {
   const response = await fetch(url, options);
   if (!response.ok) {
     throw new Error(`Server responded with ${response.status} code`);
   }
-  const json = await response.json();
-  return json;
+  const responseBody = await response.text();
+  if (responseBody) {
+    return JSON.parse(responseBody) as T;
+  }
+  return null;
 }
 
-export function get(url: string, options: Partial<RequestInit> = {}) {
-  return request(url, { ...options, method: "GET" });
+export function get<T = unknown>(
+  url: string,
+  options: Partial<RequestInit> = {}
+) {
+  return request<T>(url, { ...options, method: "GET" });
 }
 
-export function post(
+export function post<T = unknown>(
   url: string,
   data: Jsonable,
   options: Partial<RequestInit> = {}
 ) {
-  return request(url, {
+  return request<T>(url, {
     ...options,
     method: "POST",
     body: JSON.stringify(data),
