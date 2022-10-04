@@ -12,6 +12,7 @@ const InnerWrapper = styled.div`
   max-width: 18em;
   width: 100%;
   height: auto;
+  position: relative;
 `;
 
 const ColorFilter = styled.div`
@@ -25,31 +26,21 @@ const ColorFilter = styled.div`
 const Card = styled.div<CardProps>`
   display: flex;
   height: 12em;
-  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
+  box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.accentLighter};
   border-radius: 1em;
   max-width: 18em;
   background-image: url(${(props) => props.picture});
   background-position: center;
-  background-size: cover;
-  transition: 0.3s;
   padding: 0 1em;
-
-  h3,
-  h4,
-  div {
-    display: none;
-  }
+  position: relative;
+  background-size: 100%;
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
 
   :hover {
     cursor: pointer;
-    background-image: none;
-    background-color: ${(props) => props.theme.accentLighter};
-  }
-
-  :hover h3,
-  :hover h4,
-  :hover div {
-    display: block;
+    background-size: 105%;
+    box-shadow: 0 1.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
   }
 `;
 

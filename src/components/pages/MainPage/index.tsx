@@ -6,10 +6,11 @@ import { CocktailByIngredient } from "../../../types/CocktailByIngredient";
 import CocktailCard from "../../atoms/CocktailCard";
 import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
+import Loader from "../../atoms/Loader";
+
+import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
 import styled from "styled-components";
-import Loader from "../../atoms/Loader";
-import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
 const InnerWrapper = styled.div`
   display: flex;
