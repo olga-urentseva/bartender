@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { DefaultTheme, keyframes } from "styled-components";
-import { Container } from "../../atoms/Container";
+import Container from "../../atoms/Container";
 
 const moveVertically = (theme: DefaultTheme) => keyframes`
     0% {
@@ -12,7 +12,7 @@ const moveVertically = (theme: DefaultTheme) => keyframes`
 `;
 
 const HeaderComponent = styled.header`
-  background-color: ${(props) => props.theme.primary};
+  padding: 2em 0;
 `;
 
 const HeaderWrapper = styled.div`
@@ -24,7 +24,7 @@ const Logo = styled.h2`
     alternate both;
   /* color: ${(props) => props.theme.text}; */
   font-size: 2em;
-  font-family: "Oleo Script Swash Caps";
+  font-family: "Oleo Script Swash Caps", serif;
   margin: 0;
 `;
 
