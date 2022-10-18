@@ -6,4 +6,5 @@ export const theme = {
   accent: "#6A79AF",
   accentLighter: "#99A8DE",
   shadow: "#000000",
+  error: "#ca5586",
 };

@@ -7,6 +7,7 @@ import CocktailCard from "../../atoms/CocktailCard";
 import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
 import Loader from "../../atoms/Loader";
+import ErrorMessage from "../../atoms/ErrorMessage";
 
 import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
@@ -66,6 +67,9 @@ function MainPage() {
     <Layout>
       <FormWrapper>
         <SearchForm inputValue={inputValue} setInputValue={setInputValue} />
+        {error ? (
+          <ErrorMessage>Something went wrong, please try again</ErrorMessage>
+        ) : null}
       </FormWrapper>
       {status === Status.IN_PROGRESS ? (
         <LoaderWrapper>
