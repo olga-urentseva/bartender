@@ -12,19 +12,15 @@ import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
 import styled from "styled-components";
 
-const InnerWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
-  margin: 3em 0;
-  flex-direction: column;
+const FormWrapper = styled.div`
+  margin-bottom: 2em;
 `;
 
 const CocktailCardsWrapper = styled.div`
-  display: flex;
-  gap: 1em;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  grid-auto-rows: max-content;
 `;
 
 const LoaderWrapper = styled.div`
@@ -68,15 +64,15 @@ function MainPage() {
 
   return (
     <Layout>
-      <InnerWrapper>
+      <FormWrapper>
         <SearchForm inputValue={inputValue} setInputValue={setInputValue} />
-        {status === Status.IN_PROGRESS && (
-          <LoaderWrapper>
-            <Loader />
-          </LoaderWrapper>
-        )}
-        <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
-      </InnerWrapper>
+      </FormWrapper>
+      {status === Status.IN_PROGRESS ? (
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
+      ) : null}
+      <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
     </Layout>
   );
 }

@@ -6,41 +6,36 @@ type CardProps = {
   picture: string;
 };
 
-const InnerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 18em;
-  width: 100%;
-  height: auto;
-  position: relative;
-`;
+const Card = styled.div``;
 
-const ColorFilter = styled.div`
-  width: auto;
-  height: auto;
-  background-color: ${(props) => props.theme.accentLighter};
-  border-radius: 1em;
-  opacity: 80%;
-`;
-
-const Card = styled.div<CardProps>`
-  display: flex;
-  height: 12em;
+const Image = styled.div<CardProps>`
   box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.accentLighter};
   border-radius: 1em;
-  max-width: 18em;
   background-image: url(${(props) => props.picture});
   background-position: center;
-  padding: 0 1em;
-  position: relative;
   background-size: 100%;
   -webkit-transition: 0.2s ease-in;
   transition: 0.2s ease-in;
+  position: relative;
+  padding-bottom: 70%;
 
-  :hover {
+  &:hover {
     cursor: pointer;
     background-size: 105%;
     box-shadow: 0 1.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
+  }
+
+  &::after {
+    background-color: ${(props) => props.theme.accentLighter};
+    border-radius: 1em;
+    opacity: 20%;
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 `;
 
@@ -89,12 +84,10 @@ function CocktailCard({ cocktailName, picture, id }: CocktailCardProps) {
   // });
 
   return (
-    <InnerWrapper>
-      <ColorFilter>
-        <Card picture={picture} />
-      </ColorFilter>
+    <Card>
+      <Image picture={picture} />
       <CocktailTitle>{cocktailName}</CocktailTitle>
-    </InnerWrapper>
+    </Card>
   );
 }
 
