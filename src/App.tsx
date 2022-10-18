@@ -7,7 +7,6 @@ const GlobalStyles = createGlobalStyle`
     height: 100%;
     display: flex;
     flex-direction: column;
-
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -32,7 +31,6 @@ const GlobalStyles = createGlobalStyle`
     height: 100%;
     display: flex;
     flex-direction: column;
-    
   }
 `;
 
