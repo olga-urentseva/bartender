@@ -1,17 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
+import styled from "styled-components";
 
 import { Status, useAsync } from "../../../hooks/useAsync";
+import useDebouncedValue from "../../../hooks/useDebouncedValue";
 import { CocktailByIngredient } from "../../../types/CocktailByIngredient";
+import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
 import Loader from "../../atoms/Loader";
 import ErrorMessage from "../../atoms/ErrorMessage";
-
-import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
-
-import styled from "styled-components";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
@@ -45,9 +44,11 @@ function MainPage() {
     getCocktailsByIngredients(inputIngredients)
   );
 
+  const debouncedInputValue = useDebouncedValue<string>(inputValue, 300);
+
   useEffect(() => {
     run();
-  }, [inputValue]);
+  }, [debouncedInputValue]);
 
   let cocktailCards;
   if (status === Status.SUCCESS) {
