@@ -155,6 +155,7 @@ export type Cocktail = {
   strDrinkThumb: string;
   strGlass: string;
   strInstructions: string;
+  strCategory: string;
 } & Ingredient1 &
   Ingredient2 &
   Ingredient3 &
