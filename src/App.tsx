@@ -1,6 +1,9 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import MainPage from "./components/pages/MainPage";
 import { theme } from "./assets/styles/theme";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from "react";
+import CocktailPage from "./components/pages/CocktailPage";
 
 const GlobalStyles = createGlobalStyle`
   #root {
@@ -33,12 +36,22 @@ const GlobalStyles = createGlobalStyle`
     flex-direction: column;
   }
 `;
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainPage />,
+  },
+  {
+    path: "/cocktails/:cocktailId",
+    element: <CocktailPage />,
+  },
+]);
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <MainPage />
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 }
