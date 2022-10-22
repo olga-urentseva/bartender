@@ -22,7 +22,6 @@ const HeaderWrapper = styled.div`
 const Logo = styled.h2`
   animation: ${(props) => moveVertically(props.theme)} 5s linear infinite
     alternate both;
-  /* color: ${(props) => props.theme.text}; */
   font-size: 2em;
   font-family: "Oleo Script Swash Caps", serif;
   margin: 0;
