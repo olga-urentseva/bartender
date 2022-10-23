@@ -30,7 +30,6 @@ function SearchForm({ inputValue, setInputValue }: SearchFormProps) {
         placeholder="Lime"
         value={inputValue}
         onChange={(e) => {
-          e.preventDefault();
           setInputValue(e.target.value);
         }}
       />
