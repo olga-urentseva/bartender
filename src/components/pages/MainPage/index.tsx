@@ -11,7 +11,6 @@ import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
 import Loader from "../../atoms/Loader";
 import ErrorMessage from "../../atoms/ErrorMessage";
-import { Link } from "react-router-dom";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
@@ -55,14 +54,12 @@ function MainPage() {
   if (status === Status.SUCCESS) {
     cocktailCards = data?.map((cocktail: CocktailByIngredient) => {
       return (
-        <Link to={`cocktails/${cocktail.idDrink}`} key={cocktail.idDrink}>
-          <CocktailCard
-            id={cocktail.idDrink}
-            cocktailName={cocktail.strDrink}
-            picture={cocktail.strDrinkThumb}
-            key={cocktail.idDrink}
-          />
-        </Link>
+        <CocktailCard
+          id={cocktail.idDrink}
+          cocktailName={cocktail.strDrink}
+          picture={cocktail.strDrinkThumb}
+          key={cocktail.idDrink}
+        />
       );
     });
   }

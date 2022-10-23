@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { DefaultTheme } from "styled-components";
+import { Link } from "react-router-dom";
 
 type CardProps = {
   theme: DefaultTheme;
@@ -44,6 +45,10 @@ const CocktailTitle = styled.h2`
   color: ${(props) => props.theme.text};
 `;
 
+const CardLink = styled(Link)`
+  text-decoration: none;
+`;
+
 type CocktailCardProps = {
   cocktailName: string;
   picture: string;
@@ -54,7 +59,9 @@ function CocktailCard({ cocktailName, picture, id }: CocktailCardProps) {
   return (
     <Card>
       <Image picture={picture} />
-      <CocktailTitle>{cocktailName}</CocktailTitle>
+      <CardLink to={`cocktails/${id}`} key={id}>
+        <CocktailTitle>{cocktailName}</CocktailTitle>
+      </CardLink>
     </Card>
   );
 }
