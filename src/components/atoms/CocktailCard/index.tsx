@@ -36,7 +36,8 @@ const Card = styled.div`
   position: relative;
   padding-bottom: 3em;
 
-  &:hover {
+  &:hover,
+  &:focus-within {
     ${Image} {
       background-size: 105%;
       box-shadow: 0 1.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
