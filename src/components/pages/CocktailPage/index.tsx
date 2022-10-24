@@ -35,7 +35,7 @@ const CocktailPage = () => {
       <Wrapper>
         {status === Status.IN_PROGRESS ? <Loader /> : null}
         {cocktail}
-        {status === Status.FAILURE ? (
+        {status === Status.FAILURE || error ? (
           <ErrorMessage>Something went wrong. Please try again</ErrorMessage>
         ) : null}
       </Wrapper>
