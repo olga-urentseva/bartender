@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { DefaultTheme } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type CardProps = {
   theme: DefaultTheme;
@@ -56,9 +56,14 @@ type CocktailCardProps = {
 };
 
 function CocktailCard({ cocktailName, picture, id }: CocktailCardProps) {
+  const navigate = useNavigate();
+  function imageOnClick() {
+    navigate(`cocktails/${id}`);
+  }
+
   return (
     <Card>
-      <Image picture={picture} />
+      <Image picture={picture} onClick={imageOnClick} />
       <CardLink to={`cocktails/${id}`} key={id}>
         <CocktailTitle>{cocktailName}</CocktailTitle>
       </CardLink>
