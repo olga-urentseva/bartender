@@ -7,11 +7,6 @@ type CardProps = {
   picture: string;
 };
 
-const Card = styled.div`
-  position: relative;
-  padding-bottom: 3em;
-`;
-
 const Image = styled.div<CardProps>`
   box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.accentLighter};
   border-radius: 1em;
@@ -22,12 +17,6 @@ const Image = styled.div<CardProps>`
   transition: 0.2s ease-in;
   padding-bottom: 70%;
   position: relative;
-
-  &:hover {
-    cursor: pointer;
-    background-size: 105%;
-    box-shadow: 0 1.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
-  }
 
   &::after {
     background-color: ${(props) => props.theme.accentLighter};
@@ -40,6 +29,18 @@ const Image = styled.div<CardProps>`
     bottom: 0;
     left: 0;
     right: 0;
+  }
+`;
+
+const Card = styled.div`
+  position: relative;
+  padding-bottom: 3em;
+
+  &:hover {
+    ${Image} {
+      background-size: 105%;
+      box-shadow: 0 1.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
+    }
   }
 `;
 
