@@ -11,6 +11,10 @@ import CocktailInfo from "../../organisms/CocktailInfo";
 import { Cocktail } from "../../../types/Cocktail";
 
 const Wrapper = styled.div``;
+const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const CocktailPage = () => {
   const { cocktailId } = useParams();
@@ -24,19 +28,24 @@ const CocktailPage = () => {
   }, []);
 
   let cocktail;
-  if (status === Status.SUCCESS) {
-    const dataDrink = data?.drinks[0];
-    console.log(dataDrink);
+  if (status === Status.SUCCESS && data) {
+    const dataDrink = data.drinks[0];
     cocktail = <CocktailInfo data={dataDrink} />;
   }
 
   return (
     <Layout>
       <Wrapper>
-        {status === Status.IN_PROGRESS ? <Loader /> : null}
+        {status === Status.IN_PROGRESS ? (
+          <LoaderWrapper>
+            <Loader />
+          </LoaderWrapper>
+        ) : null}
         {cocktail}
-        {status === Status.FAILURE || error ? (
-          <ErrorMessage>Something went wrong. Please try again</ErrorMessage>
+        {status === Status.FAILURE ? (
+          <ErrorMessage>
+            Something went wrong. Please try again. Error: {error?.message}
+          </ErrorMessage>
         ) : null}
       </Wrapper>
     </Layout>
