@@ -9,7 +9,7 @@ export enum Status {
 
 type AsyncFunction<T> = () => Promise<T>;
 
-export function useAsync<T = never>(asyncFunction: AsyncFunction<T>) {
+export default function useAsync<T = never>(asyncFunction: AsyncFunction<T>) {
   const [data, setData] = useState<T>();
   const [status, setStatus] = useState<Status>(Status.IDLE);
   const [error, setError] = useState<Error>();

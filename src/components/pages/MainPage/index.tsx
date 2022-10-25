@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
-import { Status, useAsync } from "../../../hooks/useAsync";
+import useAsync, { Status } from "../../../hooks/useAsync";
 import useDebouncedValue from "../../../hooks/useDebouncedValue";
 import { CocktailByIngredient } from "../../../types/CocktailByIngredient";
 import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
