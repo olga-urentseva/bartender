@@ -19,8 +19,8 @@ const LoaderWrapper = styled.div`
 const CocktailPage = () => {
   const { cocktailId } = useParams();
 
-  const [run, { data, status, error }] = useAsync(() =>
-    getCocktailById(cocktailId)
+  const [run, { data, status, error }] = useAsync<Cocktail | null>(() =>
+    cocktailId ? getCocktailById(cocktailId) : Promise.resolve(null)
   );
 
   useEffect(() => {
@@ -29,8 +29,7 @@ const CocktailPage = () => {
 
   let cocktail;
   if (status === Status.SUCCESS && data) {
-    const dataDrink = data.drinks[0];
-    cocktail = <CocktailInfo data={dataDrink} />;
+    cocktail = <CocktailInfo data={data} />;
   }
 
   return (
