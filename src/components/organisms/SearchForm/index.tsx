@@ -23,11 +23,11 @@ type SearchFormProps = {
 
 function SearchForm({ inputValue, setInputValue }: SearchFormProps) {
   return (
-    <Form>
+    <Form onSubmit={(e) => e.preventDefault()}>
       <Label>What do you have in your bar?</Label>
       <Input
         type="text"
-        placeholder="Limoncello"
+        placeholder="Lime"
         value={inputValue}
         onChange={(e) => {
           setInputValue(e.target.value);

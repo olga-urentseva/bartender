@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
-import { Status, useAsync } from "../../../hooks/useAsync";
+import useAsync, { Status } from "../../../hooks/useAsync";
 import useDebouncedValue from "../../../hooks/useDebouncedValue";
 import { CocktailByIngredient } from "../../../types/CocktailByIngredient";
 import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
@@ -19,7 +19,7 @@ const FormWrapper = styled.div`
 const CocktailCardsWrapper = styled.div`
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
   grid-auto-rows: max-content;
 `;
 

@@ -2,10 +2,10 @@ import styled, { DefaultTheme, keyframes } from "styled-components";
 
 const moveVertically = (theme: DefaultTheme) => keyframes`
     0% {
-    border: 0.1em ${theme.accent} solid;
+    border: 0.05em ${theme.accent} solid;
   }
   100% {
-    border: 0.1em ${theme.accentLighter} solid;
+    border: 0.05em ${theme.accentLighter} solid;
   }
 `;
 
