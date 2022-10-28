@@ -51,6 +51,7 @@ const AdditionalInfoWrapper = styled.div`
 type Ingredient = {
   name: string;
   measure: string | null;
+  id: number;
 };
 const CocktailInfo = ({ data }: { data: Cocktail }) => {
   const ingredients: Ingredient[] = [];
@@ -66,6 +67,7 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
     }
 
     ingredients.push({
+      id: i,
       name: ingredientName,
       measure: ingredientMeasure,
     });
@@ -75,7 +77,7 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
     const measure = ingredient.measure || "up to you";
     return (
       <InfoText
-        key={ingredient.name}
+        key={ingredient.id}
       >{`${ingredient.name}: ${measure}`}</InfoText>
     );
   });
