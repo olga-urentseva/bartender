@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { Cocktail } from "../../../types/Cocktail";
 import useAsync, { Status } from "../../../hooks/useAsync";
 import getCocktailById from "../../../api/getCocktailById";
+
 import Loader from "../../atoms/Loader";
 import Layout from "../../templates/Layout";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import CocktailInfo from "../../organisms/CocktailInfo";
-import { Cocktail } from "../../../types/Cocktail";
 
 const Wrapper = styled.div``;
 const LoaderWrapper = styled.div`
