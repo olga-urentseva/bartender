@@ -4,6 +4,8 @@ import { theme } from "./assets/styles/theme";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
 import CocktailPage from "./components/pages/CocktailPage";
+import getCocktailById from "./api/getCocktailById";
+import ErrorPage from "./components/pages/ErrorPage";
 
 const GlobalStyles = createGlobalStyle`
   #root {
@@ -40,10 +42,19 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/cocktails/:cocktailId",
     element: <CocktailPage />,
+    loader: async ({ params }) => {
+      const response = await getCocktailById(params.cocktailId);
+      if (!response) {
+        throw new Response("Cocktail not found", { status: 404 });
+      }
+      return response;
+    },
+    errorElement: <ErrorPage />,
   },
 ]);
 
