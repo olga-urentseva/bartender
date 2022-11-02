@@ -1,5 +1,5 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import MainPage from "./components/pages/MainPage";
+import MainPage, { MainPageLoader } from "./components/pages/MainPage";
 import { theme } from "./assets/styles/theme";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
@@ -42,6 +42,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+    loader: ({ request }) => MainPageLoader({ request: request }),
     errorElement: <ErrorPage />,
   },
   {
