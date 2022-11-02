@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
-import useAsync, { Status } from "../../../hooks/useAsync";
 import useDebouncedValue from "../../../hooks/useDebouncedValue";
 import { CocktailByIngredient } from "../../../types/CocktailByIngredient";
 import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
@@ -9,8 +9,6 @@ import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 import CocktailCard from "../../atoms/CocktailCard";
 import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
-import Loader from "../../atoms/Loader";
-import ErrorMessage from "../../atoms/ErrorMessage";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
@@ -23,60 +21,52 @@ const CocktailCardsWrapper = styled.div`
   grid-auto-rows: max-content;
 `;
 
-const LoaderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+export async function MainPageLoader({ request }: { request: Request }) {
+  const url = new URL(request.url);
+  const searchParams = url.searchParams.get("ingredient")?.split(",");
+  return getCocktailsByIngredients(searchParams);
+}
 
 function MainPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState("");
+
   const inputValueWithDefault = inputValue || "lime";
+
+  const cocktailsData = useLoaderData() as CocktailByIngredient[];
+
+  const debouncedInputValue = useDebouncedValue<string>(inputValue, 300);
+
   const inputIngredients = useMemo(
     () =>
       inputValueWithDefault
         .split(",")
-        .map((i) => i.trim().replace(" ", "_"))
-        .filter((i) => i.length > 0),
+        .map((i) => i.trim().replace(/\s+/, "_"))
+        .filter((i) => i.length > 0)
+        .join(","),
     [inputValue]
   );
 
-  const [run, { data, status, error }] = useAsync(() =>
-    getCocktailsByIngredients(inputIngredients)
-  );
-
-  const debouncedInputValue = useDebouncedValue<string>(inputValue, 300);
-
   useEffect(() => {
-    run();
+    setSearchParams({ ingredient: inputIngredients || "lime" });
   }, [debouncedInputValue]);
 
-  let cocktailCards;
-  if (status === Status.SUCCESS) {
-    cocktailCards = data?.map((cocktail: CocktailByIngredient) => {
-      return (
-        <CocktailCard
-          id={cocktail.idDrink}
-          cocktailName={cocktail.strDrink}
-          picture={cocktail.strDrinkThumb}
-          key={cocktail.idDrink}
-        />
-      );
-    });
-  }
+  const cocktailCards = cocktailsData?.map((cocktail: CocktailByIngredient) => {
+    return (
+      <CocktailCard
+        id={cocktail.idDrink}
+        cocktailName={cocktail.strDrink}
+        picture={cocktail.strDrinkThumb}
+        key={cocktail.idDrink}
+      />
+    );
+  });
 
   return (
     <Layout>
       <FormWrapper>
         <SearchForm inputValue={inputValue} setInputValue={setInputValue} />
-        {error ? (
-          <ErrorMessage>Something went wrong, please try again</ErrorMessage>
-        ) : null}
       </FormWrapper>
-      {status === Status.IN_PROGRESS ? (
-        <LoaderWrapper>
-          <Loader />
-        </LoaderWrapper>
-      ) : null}
       <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
     </Layout>
   );

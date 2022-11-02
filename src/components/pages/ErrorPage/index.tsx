@@ -30,9 +30,12 @@ function ErrorPage() {
 
   return (
     <Wrapper>
-      <ErrorTitle>&#128511; Error: {error.status} &#128511;</ErrorTitle>
+      <ErrorTitle>
+        &#128511; Error: {error.status || "Something went wrong"} &#128511;
+      </ErrorTitle>
       <ErrorText>
-        &#128555; {error.data || error.statusText} &#128555;
+        &#128555; {error.data || error.statusText || "Please try again"}{" "}
+        &#128555;
       </ErrorText>
     </Wrapper>
   );

@@ -1,8 +1,10 @@
 import { get } from "../lib/http";
 import { CocktailByIngredient } from "../types/CocktailByIngredient";
 
-export default async function getCocktailsByIngredients(ingredients: string[]) {
-  if (ingredients.length === 0) {
+export default async function getCocktailsByIngredients(
+  ingredients: string[] | undefined
+) {
+  if (!ingredients || ingredients.length === 0) {
     return [];
   }
 
