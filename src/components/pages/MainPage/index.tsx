@@ -24,14 +24,15 @@ const CocktailCardsWrapper = styled.div`
 export async function MainPageLoader({ request }: { request: Request }) {
   const url = new URL(request.url);
   const searchParams = url.searchParams.get("ingredient")?.split(",");
+  if (!searchParams) {
+    return getCocktailsByIngredients(["lime"]);
+  }
   return getCocktailsByIngredients(searchParams);
 }
 
 function MainPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState("");
-
-  const inputValueWithDefault = inputValue || "lime";
 
   const cocktailsData = useLoaderData() as CocktailByIngredient[];
 
@@ -39,7 +40,7 @@ function MainPage() {
 
   const inputIngredients = useMemo(
     () =>
-      inputValueWithDefault
+      inputValue
         .split(",")
         .map((i) => i.trim().replace(/\s+/, "_"))
         .filter((i) => i.length > 0)
@@ -48,7 +49,11 @@ function MainPage() {
   );
 
   useEffect(() => {
-    setSearchParams({ ingredient: inputIngredients || "lime" });
+    if (inputValue) {
+      setSearchParams({ ingredient: inputIngredients });
+    } else {
+      setSearchParams();
+    }
   }, [debouncedInputValue]);
 
   const cocktailCards = cocktailsData?.map((cocktail: CocktailByIngredient) => {
