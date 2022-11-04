@@ -34,7 +34,6 @@ const Image = styled.div<CardProps>`
 
 const Card = styled.div`
   position: relative;
-  padding-bottom: 3em;
 
   &:hover,
   &:focus-within {
@@ -47,18 +46,21 @@ const Card = styled.div`
 
 const CardLink = styled(Link)`
   text-decoration: none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+
+  ::before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
 `;
 
 const CocktailTitle = styled.h2`
   font-size: 1.2em;
   color: ${(props) => props.theme.text};
-  position: absolute;
-  bottom: -0.2em;
 `;
 
 type CocktailCardProps = {
