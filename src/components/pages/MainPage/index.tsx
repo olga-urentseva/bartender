@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import {
+  useLoaderData,
+  useNavigation,
+  useSearchParams,
+} from "react-router-dom";
 import styled from "styled-components";
 
 import useDebouncedValue from "../../../hooks/useDebouncedValue";
@@ -9,6 +13,8 @@ import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 import CocktailCard from "../../atoms/CocktailCard";
 import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
+import ErrorMessage from "../../atoms/ErrorMessage";
+import Loader from "../../atoms/Loader";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
@@ -35,6 +41,7 @@ function MainPage() {
   const [inputValue, setInputValue] = useState("");
 
   const cocktailsData = useLoaderData() as CocktailByIngredient[];
+  const { state } = useNavigation();
 
   const debouncedInputValue = useDebouncedValue<string>(inputValue, 300);
 
@@ -72,7 +79,15 @@ function MainPage() {
       <FormWrapper>
         <SearchForm inputValue={inputValue} setInputValue={setInputValue} />
       </FormWrapper>
-      <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
+      {state === "loading" ? (
+        <Loader />
+      ) : cocktailCards.length > 0 ? (
+        <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
+      ) : (
+        <ErrorMessage>
+          There are no cocktails with your ingredients &#128557;
+        </ErrorMessage>
+      )}
     </Layout>
   );
 }
