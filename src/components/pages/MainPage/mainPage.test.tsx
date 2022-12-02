@@ -41,7 +41,9 @@ describe("MainPage", () => {
     it("should show 'no cocktails' message", async () => {
       render(<RouterProvider router={getMockedRouter()} />);
 
+      // act is required here to wait till the page will be rerendered after promise (p) resolved
       await act(async () => {
+        // we should wait untill promise resolve, because only then react will rerender the page with expected message
         await p;
       });
 
