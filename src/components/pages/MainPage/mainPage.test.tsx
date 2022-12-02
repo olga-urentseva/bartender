@@ -1,47 +1,54 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { act, render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { CocktailsByIngredientMock } from "../../../__mocks__/CocktailsByIngredientMock";
 import MainPage from "./index";
-import { BrowserRouter } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router-dom";
+import ErrorPage from "../ErrorPage";
 
 describe("MainPage", () => {
-  afterEach(() => {
-    vi.clearAllMocks();
-  });
-  beforeEach(() => {
-    vi.mock("../../../hooks/useAsync", () => {
-      return {
-        default: () => [
-          vi.fn(),
-          {
-            data: CocktailsByIngredientMock,
-            status: "success",
-            error: "false",
-          },
-        ],
-        Status: {
-          IDLE: "IDLE",
-          IN_PROGRESS: "IN_PROGRESS",
-          SUCCESS: "SUCCESS",
-          FAILURE: "FAILURE",
-        },
-      };
-    });
-  });
+  let mockedLoader: () => Promise<any>;
 
-  describe("if status = Success", () => {
-    it("should show search bar", () => {
-      render(
-        <BrowserRouter>
-          <MainPage />
-        </BrowserRouter>
-      );
+  // wrap in function to use in lazyEvaluation
+  function getMockedRouter() {
+    return createMemoryRouter(
+      [
+        {
+          path: "/",
+          element: <MainPage />,
+          loader: mockedLoader,
+          errorElement: <ErrorPage />,
+        },
+      ],
+      {
+        initialEntries: ["/"],
+        initialIndex: 0,
+      }
+    );
+  }
+
+  describe("successfully loaded with NO cocktails", () => {
+    let p: Promise<any> | undefined;
+    mockedLoader = vi.fn(() => {
+      const promise = Promise.resolve([]);
+      p = promise;
+      return promise;
+    });
+
+    beforeEach(() => {
+      p = undefined;
+    });
+
+    it("should show 'no cocktails' message", async () => {
+      render(<RouterProvider router={getMockedRouter()} />);
+
+      await act(async () => {
+        await p;
+      });
 
       expect(
-        screen.getByText("What do you have in your bar?")
+        screen.getByText("There are no cocktails with your ingredients 😭")
       ).toBeInTheDocument();
     });
   });
+  describe("successfully loaded with SOME cocktails", () => {});
 });
