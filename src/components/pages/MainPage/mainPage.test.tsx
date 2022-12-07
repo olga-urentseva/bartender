@@ -1,9 +1,11 @@
 import { act, render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import MainPage from "./index";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "../ErrorPage";
+import { CocktailsByIngredientMock } from "../../../__mocks__/CocktailsByIngredientMock";
 
 describe("MainPage", () => {
   let mockedLoader: () => Promise<any>;
@@ -85,5 +87,28 @@ describe("MainPage", () => {
       ).toBeInTheDocument();
     });
   });
-  // describe("successfully loaded with SOME cocktails", () => {});
+
+  describe("successfully loaded with SOME cocktails", () => {
+    let p: Promise<any> | undefined;
+
+    beforeEach(() => {
+      p = undefined;
+      mockedLoader = vi.fn(() => {
+        const promise = Promise.resolve(CocktailsByIngredientMock);
+        p = promise;
+        return promise;
+      });
+    });
+
+    it("should show cocktails", async () => {
+      render(<RouterProvider router={getMockedRouter()} />);
+
+      await act(async () => {
+        await p;
+      });
+
+      expect(screen.getByText("Cocktail 1")).toBeInTheDocument();
+      expect(screen.getByText("Cocktail 2")).toBeInTheDocument();
+    });
+  });
 });
