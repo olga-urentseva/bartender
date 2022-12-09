@@ -16,7 +16,9 @@ const loading = (theme: DefaultTheme) => keyframes`
    }
 `;
 
-const Loader = styled.div`
+const Loader = styled.div.attrs(() => ({
+  role: "alert",
+}))`
   width: 1em;
   height: 1em;
   background: ${(props) => props.theme.accentLighter};
