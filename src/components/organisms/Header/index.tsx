@@ -22,6 +22,8 @@ const HeaderWrapper = styled.div`
 
 const LogoLink = styled(Link)`
   text-decoration: none;
+  padding: 1em;
+  margin-left: -1em;
 `;
 
 const Logo = styled.h2`
@@ -30,6 +32,7 @@ const Logo = styled.h2`
   font-size: 2em;
   font-family: "Oleo Script Swash Caps", serif;
   margin: 0;
+  display: inline-block;
 `;
 
 export default function Header() {
