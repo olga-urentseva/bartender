@@ -45,8 +45,6 @@ export default function CocktailsLibraryPage() {
   const cocktailsData = useLoaderData() as CocktailByName;
   const { state } = useNavigation();
 
-  console.log(cocktailsData);
-
   useEffect(() => {
     if (searchInputValue) {
       setSearchParams({ name: searchInputValue });
@@ -58,10 +56,11 @@ export default function CocktailsLibraryPage() {
   const cocktails = cocktailsData?.drinks?.map((drink) => {
     return (
       <CocktailCard
-        cocktailName={drink.strDrink}
+        cocktailName={drink.strDrink.toUpperCase()}
         picture={drink.strDrinkThumb}
         id={drink.idDrink}
         key={drink.idDrink}
+        higlight={searchInputValue}
       />
     );
   });

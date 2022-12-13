@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import Input from "../../atoms/Input";
@@ -31,7 +30,7 @@ function SearchForm({ inputValue, setInputValue, title }: SearchFormProps) {
         placeholder="Lime"
         value={inputValue}
         onChange={(e) => {
-          setInputValue(e.target.value);
+          setInputValue(e.target.value.toUpperCase());
         }}
       />
     </Form>
