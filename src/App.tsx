@@ -6,6 +6,9 @@ import React from "react";
 import CocktailPage from "./components/pages/CocktailPage";
 import getCocktailById from "./api/getCocktailById";
 import ErrorPage from "./components/pages/ErrorPage";
+import CocktailsLibraryPage, {
+  CocktailsLibraryLoader,
+} from "./components/pages/CocktailsLibraryPage";
 
 const GlobalStyles = createGlobalStyle`
   #root {
@@ -55,6 +58,12 @@ const router = createBrowserRouter([
       }
       return response;
     },
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/cocktails",
+    element: <CocktailsLibraryPage />,
+    loader: ({ request }) => CocktailsLibraryLoader({ request: request }),
     errorElement: <ErrorPage />,
   },
 ]);

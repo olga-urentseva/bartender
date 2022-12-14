@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { DefaultTheme } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 type CardProps = {
   theme: DefaultTheme;
@@ -58,23 +58,55 @@ const CardLink = styled(Link)`
   }
 `;
 
-const CocktailTitle = styled.h2`
+const CocktailTitle = styled.h2<{ higlight?: string }>`
   font-size: 1.2em;
   color: ${(props) => props.theme.text};
+`;
+
+const HiglightSymbols = styled.span`
+  color: ${(props) => props.theme.textLighter};
 `;
 
 type CocktailCardProps = {
   cocktailName: string;
   picture: string;
   id: string;
+  higlight?: string;
 };
 
-function CocktailCard({ cocktailName, picture, id }: CocktailCardProps) {
+function CocktailCard({
+  cocktailName,
+  picture,
+  id,
+  higlight,
+}: CocktailCardProps) {
+  const location = useLocation();
+
+  const cocktailLink = location.pathname.includes("cocktails")
+    ? `${id}`
+    : `cocktails/${id}`;
+
   return (
     <Card>
       <Image picture={picture} />
-      <CardLink to={`cocktails/${id}`} key={id}>
-        <CocktailTitle>{cocktailName}</CocktailTitle>
+      <CardLink to={cocktailLink} key={id}>
+        <CocktailTitle>
+          {higlight
+            ? cocktailName
+                .split(higlight)
+                .flatMap((part, i) =>
+                  i === 0
+                    ? part
+                    : [
+                        <HiglightSymbols key={i}>{higlight}</HiglightSymbols>,
+                        part,
+                      ]
+                )
+                .map((part, i) => (
+                  <React.Fragment key={i}>{part}</React.Fragment>
+                ))
+            : cocktailName}
+        </CocktailTitle>
       </CardLink>
     </Card>
   );

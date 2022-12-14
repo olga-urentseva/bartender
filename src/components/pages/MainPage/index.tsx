@@ -67,7 +67,7 @@ function MainPage() {
     return (
       <CocktailCard
         id={cocktail.idDrink}
-        cocktailName={cocktail.strDrink}
+        cocktailName={cocktail.strDrink.toUpperCase()}
         picture={cocktail.strDrinkThumb}
         key={cocktail.idDrink}
       />
@@ -77,7 +77,11 @@ function MainPage() {
   return (
     <Layout>
       <FormWrapper>
-        <SearchForm inputValue={inputValue} setInputValue={setInputValue} />
+        <SearchForm
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          title="What do you have in your bar?"
+        />
       </FormWrapper>
       {state === "loading" ? (
         <Loader />

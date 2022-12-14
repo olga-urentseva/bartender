@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import Input from "../../atoms/Input";
@@ -19,18 +18,19 @@ const Label = styled.label`
 type SearchFormProps = {
   inputValue: string;
   setInputValue: (value: string) => void;
+  title: string;
 };
 
-function SearchForm({ inputValue, setInputValue }: SearchFormProps) {
+function SearchForm({ inputValue, setInputValue, title }: SearchFormProps) {
   return (
     <Form onSubmit={(e) => e.preventDefault()}>
-      <Label>What do you have in your bar?</Label>
+      <Label>{title}</Label>
       <Input
         type="text"
         placeholder="Lime"
         value={inputValue}
         onChange={(e) => {
-          setInputValue(e.target.value);
+          setInputValue(e.target.value.toUpperCase());
         }}
       />
     </Form>
