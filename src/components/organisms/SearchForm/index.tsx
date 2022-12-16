@@ -7,6 +7,7 @@ const Form = styled.form`
   flex-direction: column;
   max-width: 40em;
   position: relative;
+  flex: 3 1 auto;
 `;
 
 const Label = styled.label`
