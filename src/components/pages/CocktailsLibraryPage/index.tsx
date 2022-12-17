@@ -7,7 +7,9 @@ import {
 import styled from "styled-components";
 
 import getCocktailByName from "../../../api/getCocktailByName";
+import useDebouncedValue from "../../../hooks/useDebouncedValue";
 import { CocktailByName } from "../../../types/CocktailByName";
+
 import CocktailCard from "../../atoms/CocktailCard";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Loader from "../../atoms/Loader";
@@ -45,13 +47,15 @@ export default function CocktailsLibraryPage() {
   const cocktailsData = useLoaderData() as CocktailByName;
   const { state } = useNavigation();
 
+  const debouncedInputValue = useDebouncedValue<string>(searchInputValue, 300);
+
   useEffect(() => {
     if (searchInputValue) {
       setSearchParams({ name: searchInputValue });
     } else {
       setSearchParams();
     }
-  }, [searchInputValue]);
+  }, [debouncedInputValue]);
 
   const cocktails = cocktailsData?.drinks?.map((drink) => {
     return (
@@ -80,7 +84,7 @@ export default function CocktailsLibraryPage() {
         <CocktailCardsWrapper>{cocktails}</CocktailCardsWrapper>
       ) : (
         <ErrorMessage>
-          There are no cocktails with your ingredients &#128557;
+          There are no cocktails with this name &#128557;
         </ErrorMessage>
       )}
     </Layout>
