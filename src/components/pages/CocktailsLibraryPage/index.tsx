@@ -80,7 +80,7 @@ export default function CocktailsLibraryPage() {
         <CocktailCardsWrapper>{cocktails}</CocktailCardsWrapper>
       ) : (
         <ErrorMessage>
-          There are no cocktails with your ingredients &#128557;
+          There are no cocktails with this name &#128557;
         </ErrorMessage>
       )}
     </Layout>
