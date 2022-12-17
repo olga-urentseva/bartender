@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   useLoaderData,
   useNavigation,
@@ -15,9 +15,14 @@ import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Loader from "../../atoms/Loader";
+import SearchIngredients from "../../organisms/SearchIngredients";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex-wrap: wrap;
 `;
 
 const CocktailCardsWrapper = styled.div`
@@ -81,6 +86,10 @@ function MainPage() {
           inputValue={inputValue}
           setInputValue={setInputValue}
           title="What do you have in your bar?"
+        />
+        <SearchIngredients
+          ingredients={inputIngredients}
+          setInputIngredients={setInputValue}
         />
       </FormWrapper>
       {state === "loading" ? (
