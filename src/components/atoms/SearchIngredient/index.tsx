@@ -4,13 +4,18 @@ const DeleteButton = styled.button`
   background-color: ${(props) => props.theme.textInversion};
   border: 0.1em solid transparent;
   border-radius: 50%;
-  padding: 0.5em;
   color: ${(props) => props.theme.accent};
   font-size: 1em;
   padding: 0.05em 0.35em;
   box-shadow: 0.01em 0.1em 1.5em -0.1em #99a8de;
   cursor: pointer;
-  display: none;
+  display: block;
+  position: absolute;
+  left: 100%;
+  transform: translate(-50%, -50%);
+  top: 0;
+
+  clip-path: inset(50%);
 `;
 
 const IngredientItom = styled.div`
@@ -27,10 +32,7 @@ const IngredientItom = styled.div`
     background-color: ${(props) => props.theme.accentLighter};
 
     ${DeleteButton} {
-      display: block;
-      position: absolute;
-      right: -15%;
-      top: -45%;
+      clip-path: none;
     }
   }
 `;
