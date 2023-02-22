@@ -32,7 +32,7 @@ const CocktailCardsWrapper = styled.div`
   grid-auto-rows: max-content;
 `;
 
-export async function MainPageLoader({ request }: { request: Request }) {
+export async function mainPageLoader({ request }: { request: Request }) {
   const url = new URL(request.url);
   const searchParams = url.searchParams.get("ingredient")?.split(",");
   if (!searchParams) {
