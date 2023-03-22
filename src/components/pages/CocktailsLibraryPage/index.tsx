@@ -60,7 +60,7 @@ export default function CocktailsLibraryPage() {
   const cocktails = cocktailsData?.drinks?.map((drink) => {
     return (
       <CocktailCard
-        cocktailName={drink.strDrink.toUpperCase()}
+        cocktailName={drink.strDrink}
         picture={drink.strDrinkThumb}
         id={drink.idDrink}
         key={drink.idDrink}

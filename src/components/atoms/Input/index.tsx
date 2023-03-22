@@ -21,6 +21,7 @@ export const Input = styled.input`
   font-weight: 600;
   background-color: transparent;
   margin: 0.5em 0;
+  text-transform: capitalize;
 
   ::placeholder {
     color: ${(props) => props.theme.accentLighter};

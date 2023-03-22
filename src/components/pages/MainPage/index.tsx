@@ -72,7 +72,7 @@ function MainPage() {
     return (
       <CocktailCard
         id={cocktail.idDrink}
-        cocktailName={cocktail.strDrink.toUpperCase()}
+        cocktailName={cocktail.strDrink}
         picture={cocktail.strDrinkThumb}
         key={cocktail.idDrink}
       />

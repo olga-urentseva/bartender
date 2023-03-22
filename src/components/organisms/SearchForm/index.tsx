@@ -31,7 +31,7 @@ function SearchForm({ inputValue, setInputValue, title }: SearchFormProps) {
         placeholder="Lime"
         value={inputValue}
         onChange={(e) => {
-          setInputValue(e.target.value.toUpperCase());
+          setInputValue(e.target.value);
         }}
       />
     </Form>
