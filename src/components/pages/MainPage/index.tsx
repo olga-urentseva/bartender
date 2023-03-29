@@ -34,10 +34,8 @@ export async function MainPageLoader({ request }: { request: Request }) {
   const url = new URL(request.url);
   const searchParams = url.searchParams.get("ingredients")?.split(",");
   if (!searchParams) {
-    console.log("load default ingredients");
     return getCocktailsByIngredients(["lime"]);
   }
-  console.log("load ingredients from search params");
   return getCocktailsByIngredients(searchParams);
 }
 
@@ -49,7 +47,9 @@ function MainPage() {
   const fromURL = searchParams.get("ingredients")?.replaceAll(",", ", ") || "";
 
   function setIngredientsToURL(ingredients: string) {
-    setSearchParams(ingredients ? { ingredients: ingredients } : {});
+    setSearchParams(
+      ingredients ? { ingredients: ingredients.toLocaleLowerCase() } : {}
+    );
   }
 
   function onSubmit(inputValue: string) {
@@ -84,7 +84,7 @@ function MainPage() {
         <SearchForm
           title="What do you have in your bar?"
           onFormSubmit={onSubmit}
-          ingredients={fromURL}
+          items={fromURL}
         />
         <SearchIngredients
           ingredients={fromURL}
