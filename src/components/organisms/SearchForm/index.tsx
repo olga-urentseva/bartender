@@ -22,10 +22,10 @@ const SearchButton = styled.button``;
 type SearchFormProps = {
   title: string;
   onFormSubmit: (inputValue: string) => void;
-  ingredients: string;
+  items: string;
 };
 
-function SearchForm({ title, onFormSubmit, ingredients }: SearchFormProps) {
+function SearchForm({ title, onFormSubmit, items }: SearchFormProps) {
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -42,11 +42,11 @@ function SearchForm({ title, onFormSubmit, ingredients }: SearchFormProps) {
     <Form onSubmit={onSubmit}>
       <Label>{title}</Label>
       <Input
-        key={ingredients}
+        key={items}
         type="text"
         placeholder="Lime"
         name="search"
-        defaultValue={ingredients}
+        defaultValue={items}
       />
       <SearchButton type="submit">Search</SearchButton>
     </Form>

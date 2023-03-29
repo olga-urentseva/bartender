@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   useLoaderData,
   useNavigation,
@@ -7,7 +6,6 @@ import {
 import styled from "styled-components";
 
 import getCocktailByName from "../../../api/getCocktailByName";
-import useDebouncedValue from "../../../hooks/useDebouncedValue";
 import { CocktailByName } from "../../../types/CocktailByName";
 
 import CocktailCard from "../../atoms/CocktailCard";
@@ -41,21 +39,32 @@ export const CocktailsLibraryLoader = async ({
 };
 
 export default function CocktailsLibraryPage() {
-  const [searchInputValue, setSearchInputValue] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const fromURL = searchParams.get("name")?.replaceAll(",", ", ") || "";
 
-  const [, setSearchParams] = useSearchParams();
+  console.log(fromURL);
+
   const cocktailsData = useLoaderData() as CocktailByName;
   const { state } = useNavigation();
 
-  const debouncedInputValue = useDebouncedValue<string>(searchInputValue, 300);
+  function setNameToURL(name: string) {
+    setSearchParams(name ? { name: name.toLocaleLowerCase() } : {});
+  }
 
-  useEffect(() => {
-    if (searchInputValue) {
-      setSearchParams({ name: searchInputValue });
-    } else {
-      setSearchParams();
-    }
-  }, [debouncedInputValue]);
+  function onSubmit(inputValue: string) {
+    const handler = setTimeout(() => {
+      const name = inputValue
+        .split(",")
+        .map((i) => i.trim().replace(/\s+/, "_"))
+        .filter((i) => i.length > 0)
+        .join(",");
+
+      setNameToURL(name);
+    }, 300);
+    return () => {
+      clearTimeout(handler);
+    };
+  }
 
   const cocktails = cocktailsData?.drinks?.map((drink) => {
     return (
@@ -64,7 +73,7 @@ export default function CocktailsLibraryPage() {
         picture={drink.strDrinkThumb}
         id={drink.idDrink}
         key={drink.idDrink}
-        higlight={searchInputValue}
+        highlight={fromURL}
       />
     );
   });
@@ -73,9 +82,9 @@ export default function CocktailsLibraryPage() {
     <Layout>
       <FormWrapper>
         <SearchForm
-          inputValue={searchInputValue}
-          setInputValue={setSearchInputValue}
+          onFormSubmit={onSubmit}
           title="Cocktail name"
+          items={fromURL}
         />
       </FormWrapper>
       {state === "loading" ? (
