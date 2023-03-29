@@ -10,18 +10,25 @@ const Wrapper = styled.div`
 
 function SearchIngredients({
   ingredients,
-  setInputIngredients,
+  setIngredientsToURL,
 }: {
   ingredients: string;
-  setInputIngredients: (ingredients: string) => void;
+  setIngredientsToURL: (ingredients: string) => void;
 }) {
-  const ingredientList = ingredients === "" ? null : ingredients.split(",");
+  console.log(ingredients);
+  const ingredientList =
+    ingredients === "" ? null : ingredients.split(",").map((ing) => ing.trim());
+
   function removeIngredient({ ingredient }: { ingredient: string }) {
-    const index = ingredientList!.indexOf(ingredient);
+    if (!ingredientList) {
+      return;
+    }
+
+    const index = ingredientList.indexOf(ingredient);
     if (index > -1) {
       ingredientList?.splice(index, 1);
     }
-    setInputIngredients(ingredientList!.join(","));
+    setIngredientsToURL(ingredientList.join());
   }
 
   const ingredientItoms = ingredientList?.map((ingredient) => (

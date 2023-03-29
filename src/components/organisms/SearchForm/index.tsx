@@ -1,3 +1,4 @@
+import React, { FormEvent } from "react";
 import styled from "styled-components";
 
 import Input from "../../atoms/Input";
@@ -16,24 +17,38 @@ const Label = styled.label`
   font-weight: 500;
 `;
 
+const SearchButton = styled.button``;
+
 type SearchFormProps = {
-  inputValue: string;
-  setInputValue: (value: string) => void;
   title: string;
+  onFormSubmit: (inputValue: string) => void;
+  ingredients: string;
 };
 
-function SearchForm({ inputValue, setInputValue, title }: SearchFormProps) {
+function SearchForm({ title, onFormSubmit, ingredients }: SearchFormProps) {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const searchValue = formData.get("search");
+
+    if (typeof searchValue !== "string") {
+      return;
+    }
+
+    onFormSubmit(searchValue);
+  }
+
   return (
-    <Form onSubmit={(e) => e.preventDefault()}>
+    <Form onSubmit={onSubmit}>
       <Label>{title}</Label>
       <Input
+        key={ingredients}
         type="text"
         placeholder="Lime"
-        value={inputValue}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-        }}
+        name="search"
+        defaultValue={ingredients}
       />
+      <SearchButton type="submit">Search</SearchButton>
     </Form>
   );
 }
