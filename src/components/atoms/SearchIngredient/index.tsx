@@ -21,11 +21,12 @@ const DeleteButton = styled.button`
 const IngredientItom = styled.div`
   color: ${(props) => props.theme.textInversion};
   background-color: ${(props) => props.theme.accent};
-  padding: 0.25em 1em;
+  padding: 0.2em 1em;
   border-radius: 0.5em;
   position: relative;
   transition: background-color 0.2s;
   text-transform: capitalize;
+  box-shadow: 0 0.5em 0.5em -0.4em ${(props) => props.theme.accentLighter};
 
   &:hover,
   &:active,

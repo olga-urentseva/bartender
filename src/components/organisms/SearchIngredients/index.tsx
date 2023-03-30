@@ -15,7 +15,6 @@ function SearchIngredients({
   ingredients: string;
   setIngredientsToURL: (ingredients: string) => void;
 }) {
-  console.log(ingredients);
   const ingredientList =
     ingredients === "" ? null : ingredients.split(",").map((ing) => ing.trim());
 
