@@ -58,12 +58,13 @@ const CardLink = styled(Link)`
   }
 `;
 
-const CocktailTitle = styled.h2<{ higlight?: string }>`
+const CocktailTitle = styled.h2<{ highlight?: string }>`
   font-size: 1.2em;
   color: ${(props) => props.theme.text};
+  text-transform: capitalize;
 `;
 
-const HiglightSymbols = styled.span`
+const HighlightSymbols = styled.span`
   color: ${(props) => props.theme.textLighter};
 `;
 
@@ -71,14 +72,14 @@ type CocktailCardProps = {
   cocktailName: string;
   picture: string;
   id: string;
-  higlight?: string;
+  highlight?: string;
 };
 
 function CocktailCard({
   cocktailName,
   picture,
   id,
-  higlight,
+  highlight,
 }: CocktailCardProps) {
   const location = useLocation();
 
@@ -91,14 +92,17 @@ function CocktailCard({
       <Image picture={picture} />
       <CardLink to={cocktailLink} key={id}>
         <CocktailTitle>
-          {higlight
+          {highlight
             ? cocktailName
-                .split(higlight)
+                .toLocaleLowerCase()
+                .split(highlight.toLocaleLowerCase())
                 .flatMap((part, i) =>
                   i === 0
                     ? part
                     : [
-                        <HiglightSymbols key={i}>{higlight}</HiglightSymbols>,
+                        <HighlightSymbols key={i}>
+                          {highlight}
+                        </HighlightSymbols>,
                         part,
                       ]
                 )

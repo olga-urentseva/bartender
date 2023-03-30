@@ -25,6 +25,7 @@ const IngredientItom = styled.div`
   border-radius: 0.5em;
   position: relative;
   transition: background-color 0.2s;
+  text-transform: capitalize;
 
   &:hover,
   &:active,
