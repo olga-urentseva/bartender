@@ -11,7 +11,7 @@ import { CocktailByName } from "../../../types/CocktailByName";
 import CocktailCard from "../../atoms/CocktailCard";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Loader from "../../atoms/Loader";
-import SearchForm from "../../organisms/SearchForm";
+import SearchForm from "../../atoms/SearchIcon";
 import Layout from "../../templates/Layout";
 
 const FormWrapper = styled.div`

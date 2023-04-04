@@ -9,11 +9,10 @@ import { CocktailByIngredient } from "../../../types/CocktailByIngredient";
 import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
 import CocktailCard from "../../atoms/CocktailCard";
-import SearchForm from "../../organisms/SearchForm";
 import Layout from "../../templates/Layout";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Loader from "../../atoms/Loader";
-import SearchIngredients from "../../organisms/SearchIngredients";
+import IngredientsFilterForm from "./IngredientsFilterForm";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
@@ -32,39 +31,25 @@ const CocktailCardsWrapper = styled.div`
 
 export async function MainPageLoader({ request }: { request: Request }) {
   const url = new URL(request.url);
-  const searchParams = url.searchParams.get("ingredients")?.split(",");
-  if (!searchParams) {
+  const ingredients = url.searchParams
+    .getAll("ingredients[]")
+    .map((el) => el.toLowerCase().replace(/\s+/, "_"));
+  if (ingredients.length === 0) {
     return getCocktailsByIngredients(["lime"]);
   }
-  return getCocktailsByIngredients(searchParams);
+  return getCocktailsByIngredients(ingredients);
 }
 
 function MainPage() {
   const cocktailsData = useLoaderData() as CocktailByIngredient[];
   const { state } = useNavigation();
   const [searchParams, setSearchParams] = useSearchParams();
+  const ingredients = new Set(searchParams.getAll("ingredients[]"));
 
-  const fromURL = searchParams.get("ingredients")?.replaceAll(",", ", ") || "";
-
-  function setIngredientsToURL(ingredients: string) {
-    setSearchParams(
-      ingredients ? { ingredients: ingredients.toLocaleLowerCase() } : {}
-    );
-  }
-
-  function onSubmit(inputValue: string) {
-    const handler = setTimeout(() => {
-      const ingredients = inputValue
-        .split(",")
-        .map((i) => i.trim().replace(/\s+/, "_"))
-        .filter((i) => i.length > 0)
-        .join(",");
-
-      setIngredientsToURL(ingredients);
-    }, 300);
-    return () => {
-      clearTimeout(handler);
-    };
+  function setIngredients(newIngredients: Set<string>) {
+    setSearchParams({
+      "ingredients[]": [...newIngredients],
+    });
   }
 
   const cocktailCards = cocktailsData?.map((cocktail: CocktailByIngredient) => {
@@ -81,14 +66,9 @@ function MainPage() {
   return (
     <Layout>
       <FormWrapper>
-        <SearchForm
-          title="What do you have in your bar?"
-          onFormSubmit={onSubmit}
-          items={fromURL}
-        />
-        <SearchIngredients
-          ingredients={fromURL}
-          setIngredientsToURL={setIngredientsToURL}
+        <IngredientsFilterForm
+          ingredients={ingredients}
+          setIngredients={setIngredients}
         />
       </FormWrapper>
       {state === "loading" ? (
