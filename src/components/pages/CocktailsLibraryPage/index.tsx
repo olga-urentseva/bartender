@@ -11,12 +11,8 @@ import { CocktailByName } from "../../../types/CocktailByName";
 import CocktailCard from "../../atoms/CocktailCard";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Loader from "../../atoms/Loader";
-import SearchForm from "../../atoms/SearchIcon";
 import Layout from "../../templates/Layout";
-
-const FormWrapper = styled.div`
-  margin-bottom: 2em;
-`;
+import SearchCocktailsForm from "./SearchCocktailsForm";
 
 const CocktailCardsWrapper = styled.div`
   display: grid;
@@ -40,30 +36,13 @@ export const CocktailsLibraryLoader = async ({
 
 export default function CocktailsLibraryPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const fromURL = searchParams.get("name")?.replaceAll(",", ", ") || "";
-
-  console.log(fromURL);
+  const currentName = searchParams.get("name")?.replaceAll(",", ", ") || "";
 
   const cocktailsData = useLoaderData() as CocktailByName;
   const { state } = useNavigation();
 
-  function setNameToURL(name: string) {
+  function setCocktailName(name: string) {
     setSearchParams(name ? { name: name.toLocaleLowerCase() } : {});
-  }
-
-  function onSubmit(inputValue: string) {
-    const handler = setTimeout(() => {
-      const name = inputValue
-        .split(",")
-        .map((i) => i.trim().replace(/\s+/, "_"))
-        .filter((i) => i.length > 0)
-        .join(",");
-
-      setNameToURL(name);
-    }, 300);
-    return () => {
-      clearTimeout(handler);
-    };
   }
 
   const cocktails = cocktailsData?.drinks?.map((drink) => {
@@ -73,20 +52,14 @@ export default function CocktailsLibraryPage() {
         picture={drink.strDrinkThumb}
         id={drink.idDrink}
         key={drink.idDrink}
-        highlight={fromURL}
+        highlight={currentName}
       />
     );
   });
 
   return (
     <Layout>
-      <FormWrapper>
-        <SearchForm
-          onFormSubmit={onSubmit}
-          title="Cocktail name"
-          items={fromURL}
-        />
-      </FormWrapper>
+      <SearchCocktailsForm setCocktailName={setCocktailName} />
       {state === "loading" ? (
         <Loader />
       ) : cocktails?.length > 0 ? (

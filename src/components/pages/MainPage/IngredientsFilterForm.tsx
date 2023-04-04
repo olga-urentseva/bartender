@@ -2,9 +2,9 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 
 import Input from "../../atoms/Input";
-import SearchIcon from "../../atoms/SearchIcon";
 import Ingredient from "../../atoms/SearchIngredient";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
+import SearchButton from "../../atoms/SearchButton";
 
 const IngredientsWrapper = styled.div`
   display: flex;
@@ -37,25 +37,6 @@ const Label = styled.label`
   font-size: 1.5em;
   color: ${(props) => props.theme.accent};
   font-weight: 500;
-`;
-
-const SearchButton = styled.button`
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  right: 0;
-  top: 30%;
-  padding: 0 1em;
-
-  &:hover,
-  &:focus,
-  &:active {
-    cursor: pointer;
-
-    ${SearchIcon} {
-      stroke: ${({ theme }) => theme.accentLighter};
-    }
-  }
 `;
 
 interface IngredientsFilterFormProps {
@@ -118,9 +99,7 @@ function IngredientsFilterForm({
             onChange={handleChange}
             value={inputValue}
           />
-          <SearchButton type="submit" aria-label="Search">
-            <SearchIcon color={""} />
-          </SearchButton>
+          <SearchButton />
         </InputWrapper>
       </SearchBarWrapper>
       <IngredientsWrapper>
