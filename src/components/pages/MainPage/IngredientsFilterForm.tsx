@@ -39,6 +39,12 @@ const Label = styled.label`
   font-weight: 500;
 `;
 
+const ButtonWrapper = styled.div`
+  position: absolute;
+  top: 30%;
+  right: 1em;
+`;
+
 interface IngredientsFilterFormProps {
   ingredients: Set<string>;
   setIngredients: (ingredients: Set<string>) => void;
@@ -99,7 +105,9 @@ function IngredientsFilterForm({
             onChange={handleChange}
             value={inputValue}
           />
-          <SearchButton />
+          <ButtonWrapper>
+            <SearchButton />
+          </ButtonWrapper>
         </InputWrapper>
       </SearchBarWrapper>
       <IngredientsWrapper>

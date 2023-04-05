@@ -7,14 +7,26 @@ type SearchCocktailsFormProps = {
   setCocktailName: (input: string) => void;
 };
 
-const SearchForm = styled.form``;
+const SearchForm = styled.form`
+  margin-bottom: 2em;
+`;
 
-const InnerWrapper = styled.div``;
+const InnerWrapper = styled.div`
+  display: flex;
+  position: relative;
+  max-width: 40em;
+`;
 
 const Label = styled.label`
   font-size: 1.5em;
   color: ${(props) => props.theme.accent};
   font-weight: 500;
+`;
+
+const ButtonWrapper = styled.div`
+  position: absolute;
+  top: 30%;
+  right: 1em;
 `;
 
 export default function SearchCocktailsForm({
@@ -39,7 +51,9 @@ export default function SearchCocktailsForm({
       <Label>What cocktail are you looking for?</Label>
       <InnerWrapper>
         <Input type="text" placeholder="Lime" name="search" />
-        <SearchButton />
+        <ButtonWrapper>
+          <SearchButton />
+        </ButtonWrapper>
       </InnerWrapper>
     </SearchForm>
   );
