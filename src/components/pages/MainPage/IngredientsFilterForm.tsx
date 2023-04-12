@@ -8,25 +8,13 @@ import SearchButton from "../../atoms/SearchButton";
 
 const IngredientsWrapper = styled.div`
   display: flex;
-  gap: 1em;
+  gap: 0.6em;
   flex-wrap: wrap;
-  flex: 2 1 20em;
 `;
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-  gap: 2em;
-  flex: 3 1 auto;
-`;
-
-const SearchBarWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   max-width: 40em;
-  flex: 3 1 auto;
 `;
 
 const InputWrapper = styled.div`
@@ -95,21 +83,19 @@ function IngredientsFilterForm({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <SearchBarWrapper>
-        <Label>What do you have in your bar?</Label>
-        <InputWrapper>
-          <Input
-            type="text"
-            placeholder="Lime"
-            name="search"
-            onChange={handleChange}
-            value={inputValue}
-          />
-          <ButtonWrapper>
-            <SearchButton />
-          </ButtonWrapper>
-        </InputWrapper>
-      </SearchBarWrapper>
+      <Label>What do you have in your bar?</Label>
+      <InputWrapper>
+        <Input
+          type="text"
+          placeholder="Lime"
+          name="search"
+          onChange={handleChange}
+          value={inputValue}
+        />
+        <ButtonWrapper>
+          <SearchButton />
+        </ButtonWrapper>
+      </InputWrapper>
       <IngredientsWrapper>
         {[...ingredients].map((ingredient, i) => (
           <Ingredient
