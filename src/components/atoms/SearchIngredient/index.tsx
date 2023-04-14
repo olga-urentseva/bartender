@@ -14,7 +14,6 @@ const DeleteButton = styled.button`
   left: 100%;
   transform: translate(-50%, -50%);
   top: 0;
-
   clip-path: inset(50%);
 `;
 

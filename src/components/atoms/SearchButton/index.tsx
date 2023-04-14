@@ -4,7 +4,7 @@ import SearchIcon from "../SearchIcon";
 const Button = styled.button`
   background-color: transparent;
   border: none;
-  padding: 0 1em;
+  padding: 0;
 
   &:hover,
   &:focus,
