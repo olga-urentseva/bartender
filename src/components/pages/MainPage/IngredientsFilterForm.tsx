@@ -4,45 +4,43 @@ import styled from "styled-components";
 import Input from "../../atoms/Input";
 import Ingredient from "../../atoms/SearchIngredient";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
-import SearchButton from "../../atoms/SearchButton";
-
-const IngredientsWrapper = styled.div`
-  display: flex;
-  gap: 1em;
-  flex-wrap: wrap;
-  flex: 2 1 20em;
-`;
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-  gap: 2em;
-  flex: 3 1 auto;
+  width: 100%;
+  max-width: 40em;
 `;
 
-const SearchBarWrapper = styled.div`
+const TagsInputWrapper = styled.div`
+  border: 0.05em ${(props) => props.theme.accent} solid;
   display: flex;
-  flex-direction: column;
-  max-width: 40em;
-  flex: 3 1 auto;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0.5em 0.7em;
+  gap: 0.5em;
+  border-radius: 1em;
+  width: 100%;
+  max-width: 50em;
+  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
+  margin-top: 0.5em;
+`;
+
+const TransparentInput = styled(Input)`
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  outline: none;
+  padding: 0.5rem;
 `;
 
 const InputWrapper = styled.div`
   position: relative;
+  flex-grow: 1;
 `;
 
 const Label = styled.label`
   font-size: 1.5em;
   color: ${(props) => props.theme.accent};
   font-weight: 500;
-`;
-
-const ButtonWrapper = styled.div`
-  position: absolute;
-  top: 30%;
-  right: 1em;
 `;
 
 interface IngredientsFilterFormProps {
@@ -95,22 +93,8 @@ function IngredientsFilterForm({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <SearchBarWrapper>
-        <Label>What do you have in your bar?</Label>
-        <InputWrapper>
-          <Input
-            type="text"
-            placeholder="Lime"
-            name="search"
-            onChange={handleChange}
-            value={inputValue}
-          />
-          <ButtonWrapper>
-            <SearchButton />
-          </ButtonWrapper>
-        </InputWrapper>
-      </SearchBarWrapper>
-      <IngredientsWrapper>
+      <Label>What do you have in your bar?</Label>
+      <TagsInputWrapper>
         {[...ingredients].map((ingredient, i) => (
           <Ingredient
             key={ingredient}
@@ -118,7 +102,17 @@ function IngredientsFilterForm({
             removeIngredient={() => removeIngredient(i)}
           />
         ))}
-      </IngredientsWrapper>
+
+        <InputWrapper>
+          <TransparentInput
+            type="text"
+            placeholder="Lime"
+            name="search"
+            onChange={handleChange}
+            value={inputValue}
+          />
+        </InputWrapper>
+      </TagsInputWrapper>
     </Form>
   );
 }

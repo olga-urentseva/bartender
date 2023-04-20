@@ -1,17 +1,6 @@
-import styled, { DefaultTheme, keyframes } from "styled-components";
-
-const moveVertically = (theme: DefaultTheme) => keyframes`
-    0% {
-    border: 0.05em ${theme.accent} solid;
-  }
-  100% {
-    border: 0.05em ${theme.accentLighter} solid;
-  }
-`;
+import styled from "styled-components";
 
 export const Input = styled.input`
-  animation: ${(props) => moveVertically(props.theme)} 5s linear infinite
-    alternate both;
   border-radius: 1em;
   padding: 1em;
   width: 100%;
@@ -22,6 +11,7 @@ export const Input = styled.input`
   background-color: transparent;
   margin: 0.5em 0;
   text-transform: capitalize;
+  border: 0.05em ${(props) => props.theme.accent} solid;
 
   ::placeholder {
     color: ${(props) => props.theme.accentLighter};
