@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Input from "../../atoms/Input";
 import Ingredient from "../../atoms/SearchIngredient";
+import SearchButton from "../../atoms/SearchButton";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 
 const Form = styled.form`
@@ -35,6 +36,8 @@ const TransparentInput = styled(Input)`
 const InputWrapper = styled.div`
   position: relative;
   flex-grow: 1;
+  display: flex;
+  flex-wrap: nowrap;
 `;
 
 const Label = styled.label`
@@ -111,6 +114,7 @@ function IngredientsFilterForm({
             onChange={handleChange}
             value={inputValue}
           />
+          <SearchButton />
         </InputWrapper>
       </TagsInputWrapper>
     </Form>
