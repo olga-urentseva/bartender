@@ -2,8 +2,8 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import MainPage, { MainPageLoader } from "./components/pages/MainPage";
 import { theme } from "./assets/styles/theme";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import React from "react";
 import CocktailPage from "./components/pages/CocktailPage";
+import AboutPage from "./components/pages/AboutPage";
 import getCocktailById from "./api/getCocktailById";
 import ErrorPage from "./components/pages/ErrorPage";
 import CocktailsLibraryPage, {
@@ -64,6 +64,11 @@ const router = createBrowserRouter([
     path: "/cocktails",
     element: <CocktailsLibraryPage />,
     loader: ({ request }) => CocktailsLibraryLoader({ request: request }),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/about",
+    element: <AboutPage />,
     errorElement: <ErrorPage />,
   },
 ]);
