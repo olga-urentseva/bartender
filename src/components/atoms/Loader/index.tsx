@@ -25,7 +25,7 @@ const Loader = styled.div`
   box-shadow: 1.5em 0, -1.5em 0;
   animation: ${(props) => loading(props.theme)} 1s infinite linear alternate;
   // compensation margins
-  margin: 0 1.5em;
+  margin: 5em auto;
 `;
 
 export default Loader;
