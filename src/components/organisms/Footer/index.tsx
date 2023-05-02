@@ -14,15 +14,10 @@ const InnerContainer = styled.div`
 
 const StyledWave = styled(Wave)``;
 
-const LinksWrapper = styled.div`
-  display: flex;
-  gap: 1em;
-  flex-direction: column;
-`;
-
 const LinkInnerWrapper = styled.div`
   display: flex;
   align-items: center;
+  gap: 1rem;
 `;
 
 const FooterGithubIcon = styled(GithubIcon)`
@@ -37,31 +32,46 @@ const FooterLink = styled(Link)`
   color: ${(props) => props.theme.textInversion};
   font-weight: 600;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
 
-  &:hover,
-  &:active,
-  &:focus-within {
-    color: ${(props) => props.theme.accentExplicit};
-
-    ${FooterGithubIcon}, ${FooterAboutIcon} {
-      stroke: ${({ theme }) => theme.accentExplicit};
-    }
+  ::after {
+    margin-top: 0.3rem;
   }
 `;
 
 const HomePageLink = styled(Link)`
   color: ${(props) => props.theme.textInversion};
-  bottom: 1em;
   font-weight: 600;
-  font-size: 1.5em;
-  margin: 0;
+  font-size: 1.5rem;
   text-decoration: none;
   font-family: "Oleo Script Swash Caps", serif;
+`;
 
-  &:hover,
-  &:active,
-  &:focus-within {
-    color: ${(props) => props.theme.accentExplicit};
+const LinksWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+
+  ${HomePageLink}, ${FooterLink} {
+    ::after {
+      content: "";
+      display: block;
+      height: 0.15rem;
+      background: ${(props) => props.theme.textInversion};
+      transition: width 0.2s;
+      width: 0;
+      box-shadow: 0.01rem 0.1rem 1.5rem -0.1rem ${(props) => props.theme.textInversion};
+    }
+
+    &:hover,
+    &:active,
+    &:focus-within {
+      ::after {
+        width: 100%;
+      }
+    }
   }
 `;
 

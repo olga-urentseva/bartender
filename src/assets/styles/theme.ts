@@ -7,5 +7,4 @@ export const theme = {
   accentLighter: "#99A8DE",
   shadow: "#000000",
   error: "#ca5586",
-  accentExplicit: "#d9ff40",
 };
