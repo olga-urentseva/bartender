@@ -36,13 +36,13 @@ export default function index() {
   return (
     <Layout>
       <Text>
-        🍸 Bartender is a user-friendly web application that enables you to
-        craft amazing cocktails using the ingredients you have in your home bar.
-        With its extensive library of cocktail recipes, Bartender also allows
-        you to search for your favorite cocktails and discover new ones to try
-        out. Whether you are an experienced mixologist or a beginner, Bartender
-        is the perfect tool to elevate your cocktail game and impress your
-        guests.
+        🍸 <b>&quot;Bart-t-tender&quot;</b> is a user-friendly web application
+        that enables you to craft amazing cocktails using the ingredients you
+        have in your home bar. With its extensive library of cocktail recipes,
+        Bartender also allows you to search for your favorite cocktails and
+        discover new ones to try out. Whether you are an experienced mixologist
+        or a beginner, Bartender is the perfect tool to elevate your cocktail
+        game and impress your guests.
       </Text>
       <Text>
         💃 As a lover of cocktails, I was frustrated by the lack of a
