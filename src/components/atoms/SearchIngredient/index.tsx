@@ -7,7 +7,7 @@ const DeleteButton = styled.button`
   color: ${(props) => props.theme.accent};
   font-size: 1em;
   padding: 0.05em 0.35em;
-  box-shadow: 0.01em 0.1em 1.5em -0.1em #99a8de;
+  box-shadow: 0.01em 0.1em 1.5em -0.1em ${(props) => props.theme.accentLighter};
   cursor: pointer;
   display: block;
   position: absolute;
