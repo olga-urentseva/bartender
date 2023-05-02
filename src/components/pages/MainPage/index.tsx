@@ -71,7 +71,7 @@ function MainPage() {
           setIngredients={setIngredients}
         />
       </FormWrapper>
-      {state !== "loading" ? (
+      {state === "loading" ? (
         <Loader />
       ) : cocktailCards.length > 0 ? (
         <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
