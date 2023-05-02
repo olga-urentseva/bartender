@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { DefaultTheme, keyframes } from "styled-components";
 import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
@@ -33,8 +32,13 @@ const LogoLink = styled(Link)`
   display: inline-block;
 `;
 
+const LinksWrapper = styled.div`
+  display: flex;
+  gap: 2em;
+`;
+
 const Logo = styled.h2`
-  animation: ${(props) => moveVertically(props.theme)} 5s linear infinite
+  animation: ${(props) => moveVertically(props.theme)} 3s linear infinite
     alternate both;
   font-size: 2em;
   font-family: "Oleo Script Swash Caps", serif;
@@ -48,10 +52,23 @@ const MenuLink = styled(Link)`
   font-weight: 600;
   display: inline-block;
 
+  ::after {
+    content: "";
+    display: block;
+    height: 0.15rem;
+    background: ${(props) => props.theme.text};
+    transition: width 0.2s;
+    width: 0;
+    box-shadow: 0.01rem 0.1rem 1.5rem -0.1rem ${(props) => props.theme.textInversion};
+    margin-top: 0.2em;
+  }
+
   &:hover,
   &:active,
   &:focus-within {
-    color: ${(props) => props.theme.textLighter};
+    ::after {
+      width: 100%;
+    }
   }
 `;
 
@@ -61,10 +78,13 @@ export default function Header() {
       <HeaderWrapper>
         <Container>
           <InnerWrapper>
-            <LogoLink to={"/"}>
+            <LogoLink to="/">
               <Logo>Bart-t-tender</Logo>
             </LogoLink>
-            <MenuLink to={"/cocktails"}>Cocktail Library</MenuLink>
+            <LinksWrapper>
+              <MenuLink to="/cocktails">Cocktail Library</MenuLink>
+              <MenuLink to="/about">About</MenuLink>
+            </LinksWrapper>
           </InnerWrapper>
         </Container>
       </HeaderWrapper>
