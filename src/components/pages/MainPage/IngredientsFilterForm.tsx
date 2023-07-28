@@ -14,7 +14,7 @@ const Form = styled.form`
 const TagsInputWrapper = styled.div`
   border: 0.05em ${(props) => props.theme.accent} solid;
   display: flex;
-  align-items: end;
+  align-items: center;
   flex-wrap: wrap;
   padding: 0.5em 0.7em;
   gap: 0.5em;
