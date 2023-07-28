@@ -19,8 +19,8 @@ const loading = (theme: DefaultTheme) => keyframes`
 const Loader = styled.div`
   width: 1em;
   height: 1em;
-  background: ${(props) => props.theme.accentLighter};
-  color: ${(props) => props.theme.accentLighter};
+  background: ${(props) => props.theme.accentLight};
+  color: ${(props) => props.theme.accentLight};
   border-radius: 50%;
   box-shadow: 1.5em 0, -1.5em 0;
   animation: ${(props) => loading(props.theme)} 1s infinite linear alternate;

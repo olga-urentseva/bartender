@@ -7,7 +7,7 @@ const moveVertically = (theme: DefaultTheme) => keyframes`
     color: ${theme.accent};
   }
   100% {
-    color: ${theme.accentLighter};
+    color: ${theme.accentLight};
   }
 `;
 

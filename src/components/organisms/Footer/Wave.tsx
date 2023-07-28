@@ -3,11 +3,10 @@ import styled from "styled-components";
 
 const Svg = styled.svg`
   display: block;
-  //filter: drop-shadow(0 -0.1em 0.5em ${(props) => props.theme.accentLighter});
 `;
 
 const PathFirstWave = styled.path`
-  fill: ${(props) => props.theme.accentLighter};
+  fill: ${(props) => props.theme.accentLight};
 `;
 
 const PathSecondWave = styled.path`
