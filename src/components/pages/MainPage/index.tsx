@@ -13,11 +13,12 @@ import Layout from "../../templates/Layout";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Loader from "../../atoms/Loader";
 import IngredientsFilterForm from "./IngredientsFilterForm";
+import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
   display: flex;
-  align-items: center;
+  align-items: end;
   gap: 1em;
   flex-wrap: wrap;
 `;
@@ -70,6 +71,7 @@ function MainPage() {
           ingredients={ingredients}
           setIngredients={setIngredients}
         />
+        <AlcoholicOrNonFilter />
       </FormWrapper>
       {state === "loading" ? (
         <Loader />

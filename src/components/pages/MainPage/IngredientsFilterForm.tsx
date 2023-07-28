@@ -14,14 +14,14 @@ const Form = styled.form`
 const TagsInputWrapper = styled.div`
   border: 0.05em ${(props) => props.theme.accent} solid;
   display: flex;
-  align-items: center;
+  align-items: end;
   flex-wrap: wrap;
   padding: 0.5em 0.7em;
   gap: 0.5em;
   border-radius: 1em;
   width: 100%;
   max-width: 50em;
-  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
+  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
   margin-top: 0.5em;
 `;
 
