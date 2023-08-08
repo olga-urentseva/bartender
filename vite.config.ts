@@ -26,19 +26,19 @@ const config = defineConfig({
         start_url: "/",
         icons: [
           {
-            src: "./src/assets/b-logo--72.png",
+            src: "/b-logo--72.png",
             sizes: "72x72",
             type: "image/png",
             purpose: "any",
           },
           {
-            src: "./src/assets/b-logo--128.png",
+            src: "/b-logo--128.png",
             sizes: "128x128",
             type: "image/png",
             purpose: "any",
           },
           {
-            src: "./src/assets/b-logo--512.png",
+            src: "/b-logo--512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any",
@@ -52,6 +52,6 @@ const config = defineConfig({
     environment: "jsdom",
     setupFiles: "./src/vitest-setup.ts",
   },
-} as import("vite").UserConfigExport); // Type assertion here
+} as import("vite").UserConfigExport);
 
 export default config;

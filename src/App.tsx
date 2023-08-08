@@ -1,6 +1,6 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import MainPage, { MainPageLoader } from "./components/pages/MainPage";
-import { theme } from "./assets/styles/theme";
+import { theme } from "./public/styles/theme";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CocktailPage from "./components/pages/CocktailPage";
 import AboutPage from "./components/pages/AboutPage";
