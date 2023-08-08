@@ -20,7 +20,8 @@ const config = defineConfig({
         enabled: true,
       },
       manifest: {
-        name: "Bartender",
+        name: "Bart-t-tender",
+        short_name: "Bart-t-tender",
         description:
           "Application that helps you to make you a perfect cocktail",
         start_url: "/",
