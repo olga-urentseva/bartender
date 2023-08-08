@@ -23,6 +23,7 @@ const config = defineConfig({
         name: "Bartender",
         description:
           "Application that helps you to make you a perfect cocktail",
+        start_url: "/",
         icons: [
           {
             src: "./src/assets/b-logo--72.png",
