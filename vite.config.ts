@@ -38,8 +38,8 @@ const config = defineConfig({
             purpose: "any",
           },
           {
-            src: "./src/assets/b-logo--168.png",
-            sizes: "168x168",
+            src: "./src/assets/b-logo--512.png",
+            sizes: "512x512",
             type: "image/png",
             purpose: "any",
           },
