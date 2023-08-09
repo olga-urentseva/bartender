@@ -1,6 +1,10 @@
 import styled, { DefaultTheme, keyframes } from "styled-components";
 
-const loading = (theme: DefaultTheme) => keyframes`
+interface CustomTheme extends DefaultTheme {
+  accent: string;
+}
+
+const loading = (theme: CustomTheme) => keyframes`
   0% {
       box-shadow: 1.5em 0,-1.5em 0 ${theme.accent};
    }
