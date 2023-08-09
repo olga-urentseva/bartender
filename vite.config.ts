@@ -25,7 +25,7 @@ const config = defineConfig({
         description:
           "Application that helps you to make you a perfect cocktail",
         start_url: "/",
-        theme_color: "white",
+        theme_color: "#ffffff",
         icons: [
           {
             src: "/icon-72.png",
