@@ -2,7 +2,12 @@ import styled, { DefaultTheme, keyframes } from "styled-components";
 import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
 
-const moveVertically = (theme: DefaultTheme) => keyframes`
+interface CustomTheme extends DefaultTheme {
+  accent: string;
+  accentLighter: string;
+}
+
+const moveVertically = (theme: CustomTheme) => keyframes`
     0% {
     color: ${theme.accent};
   }
