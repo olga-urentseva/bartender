@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 interface CustomTheme extends DefaultTheme {
   accent: string;
-  accentLighter: string;
+  accentLight: string;
 }
 
 const moveVertically = (theme: CustomTheme) => keyframes`
