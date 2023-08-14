@@ -8,7 +8,7 @@ type CardProps = {
 };
 
 const Image = styled.div<CardProps>`
-  box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.accentLighter};
+  box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.accentLight};
   border-radius: 1em;
   background-image: url(${(props) => props.picture});
   background-position: center;
@@ -19,7 +19,7 @@ const Image = styled.div<CardProps>`
   position: relative;
 
   &::after {
-    background-color: ${(props) => props.theme.accentLighter};
+    background-color: ${(props) => props.theme.accentLight};
     border-radius: 1em;
     opacity: 20%;
     display: block;
@@ -39,7 +39,7 @@ const Card = styled.div`
   &:focus-within {
     ${Image} {
       background-size: 105%;
-      box-shadow: 0 1.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
+      box-shadow: 0 1.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
     }
   }
 `;
@@ -65,7 +65,7 @@ const CocktailTitle = styled.h2<{ highlight?: string }>`
 `;
 
 const HighlightSymbols = styled.span`
-  color: ${(props) => props.theme.textLighter};
+  color: ${(props) => props.theme.textLight};
 `;
 
 type CocktailCardProps = {

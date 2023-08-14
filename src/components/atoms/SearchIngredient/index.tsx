@@ -7,7 +7,7 @@ const DeleteButton = styled.button`
   color: ${(props) => props.theme.accent};
   font-size: 1em;
   padding: 0.05em 0.35em;
-  box-shadow: 0.01em 0.1em 1.5em -0.1em ${(props) => props.theme.accentLighter};
+  box-shadow: 0.01em 0.1em 1.5em -0.1em ${(props) => props.theme.accentLight};
   cursor: pointer;
   display: block;
   position: absolute;
@@ -25,12 +25,12 @@ const IngredientItom = styled.div`
   position: relative;
   transition: background-color 0.2s;
   text-transform: capitalize;
-  box-shadow: 0 0.5em 0.5em -0.4em ${(props) => props.theme.accentLighter};
+  box-shadow: 0 0.5em 0.5em -0.4em ${(props) => props.theme.accentLight};
 
   &:hover,
   &:active,
   &:focus-within {
-    background-color: ${(props) => props.theme.accentLighter};
+    background-color: ${(props) => props.theme.accentLight};
 
     ${DeleteButton} {
       clip-path: none;

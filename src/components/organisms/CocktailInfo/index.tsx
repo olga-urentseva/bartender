@@ -20,9 +20,9 @@ const RecipeWrapper = styled.div`
 const Image = styled.img`
   display: block;
   border-radius: 1em;
-  -webkit-box-shadow: 0 0.3em 1.5em 0 ${(props) => props.theme.accentLighter};
-  -moz-box-shadow: 0 0.3em 1.5em 0 ${(props) => props.theme.accentLighter};
-  box-shadow: 0 0.3em 1em 0 ${(props) => props.theme.accentLighter};
+  -webkit-box-shadow: 0 0.3em 1.5em 0 ${(props) => props.theme.accentLight};
+  -moz-box-shadow: 0 0.3em 1.5em 0 ${(props) => props.theme.accentLight};
+  box-shadow: 0 0.3em 1em 0 ${(props) => props.theme.accentLight};
   object-fit: cover;
   width: 100%;
   height: 100%;

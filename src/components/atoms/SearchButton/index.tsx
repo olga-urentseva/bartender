@@ -12,7 +12,7 @@ const Button = styled.button`
     cursor: pointer;
 
     ${SearchIcon} {
-      stroke: ${({ theme }) => theme.accentLighter};
+      stroke: ${({ theme }) => theme.accentLight};
     }
   }
 `;

@@ -21,7 +21,7 @@ const TagsInputWrapper = styled.div`
   border-radius: 1em;
   width: 100%;
   max-width: 50em;
-  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLighter};
+  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
   margin-top: 0.5em;
 `;
 
