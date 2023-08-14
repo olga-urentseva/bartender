@@ -71,7 +71,7 @@ function MainPage() {
           ingredients={ingredients}
           setIngredients={setIngredients}
         />
-        <AlcoholicOrNonFilter />
+        {/* <AlcoholicOrNonFilter /> */}
       </FormWrapper>
       {state === "loading" ? (
         <Loader />
