@@ -14,6 +14,7 @@ const FirstColumn = styled.div`
   gap: 1em;
   flex-wrap: wrap;
 `;
+
 const ImageWrapper = styled.div`
   flex: 1 1 10rem;
 `;
