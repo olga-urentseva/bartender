@@ -4,17 +4,22 @@ import { Cocktail } from "../../../types/Cocktail";
 
 const Wrapper = styled.div``;
 
+const CocktailTitle = styled.h2`
+  color: ${(props) => props.theme.text};
+  margin: 0 0 1em 0;
+`;
+
 const FirstColumn = styled.div`
   display: flex;
   gap: 1em;
   flex-wrap: wrap;
 `;
 const ImageWrapper = styled.div`
-  flex: 1 1 10em;
+  flex: 1 1 10rem;
 `;
 
 const RecipeWrapper = styled.div`
-  flex: 5 1 auto;
+  flex: 5 0 15rem;
 `;
 
 const Image = styled.img`
@@ -26,11 +31,6 @@ const Image = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
-`;
-
-const CocktailTitle = styled.h2`
-  color: ${(props) => props.theme.text};
-  margin: 0 0 1em 0;
 `;
 
 const SubTitle = styled.h3`
