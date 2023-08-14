@@ -48,9 +48,16 @@ export default function SearchCocktailsForm({
 
   return (
     <SearchForm onSubmit={handleSubmit}>
-      <Label>What cocktail are you looking for?</Label>
+      <Label htmlFor="cocktails-input">
+        What cocktail are you looking for?
+      </Label>
       <InnerWrapper>
-        <Input type="text" placeholder="Lime" name="search" />
+        <Input
+          id="cocktails-input"
+          type="text"
+          placeholder="Lime"
+          name="search"
+        />
         <ButtonWrapper>
           <SearchButton />
         </ButtonWrapper>

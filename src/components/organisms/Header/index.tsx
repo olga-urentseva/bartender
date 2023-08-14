@@ -28,27 +28,31 @@ const InnerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0 2em;
 `;
 
 const LogoLink = styled(Link)`
   text-decoration: none;
-  padding: 1em;
-  margin-left: -1em;
+  padding: 0.5rem 1rem;
+  margin-left: -1rem;
   display: inline-block;
 `;
 
 const LinksWrapper = styled.div`
   display: flex;
   gap: 2em;
+  padding-top: 0.6em; // pseudo-element compensation for centering
 `;
 
 const Logo = styled.h2`
   animation: ${(props) => moveVertically(props.theme)} 3s linear infinite
     alternate both;
-  font-size: 2em;
+  font-size: 2rem;
   font-family: "Oleo Script Swash Caps", serif;
   margin: 0;
   display: inline-block;
+  white-space: nowrap;
 `;
 
 const MenuLink = styled(Link)`
@@ -56,6 +60,7 @@ const MenuLink = styled(Link)`
   text-decoration: none;
   font-weight: 600;
   display: inline-block;
+  white-space: nowrap;
 
   ::after {
     content: "";
@@ -64,8 +69,7 @@ const MenuLink = styled(Link)`
     background: ${(props) => props.theme.text};
     transition: width 0.2s;
     width: 0;
-    box-shadow: 0.01rem 0.1rem 1.5rem -0.1rem ${(props) => props.theme.textInversion};
-    margin-top: 0.2em;
+    margin-top: 0.2rem;
   }
 
   &:hover,

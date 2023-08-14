@@ -96,8 +96,8 @@ function IngredientsFilterForm({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Label>What do you have in your bar?</Label>
-      <TagsInputWrapper>
+      <Label htmlFor="tags-input">What do you have in your bar?</Label>
+      <TagsInputWrapper id="tags-input">
         {[...ingredients].map((ingredient, i) => (
           <Ingredient
             key={ingredient}
