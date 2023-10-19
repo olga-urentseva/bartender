@@ -13,7 +13,7 @@ import Layout from "../../templates/Layout";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Loader from "../../atoms/Loader";
 import IngredientsFilterForm from "./IngredientsFilterForm";
-import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
+// import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;

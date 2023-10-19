@@ -50,45 +50,27 @@ const AdditionalInfoWrapper = styled.div`
 `;
 
 type Ingredient = {
+  measure: string;
+  id: string;
   name: string;
-  measure: string | null;
-  id: number;
 };
 const CocktailInfo = ({ data }: { data: Cocktail }) => {
-  const ingredients: Ingredient[] = [];
-
-  for (let i = 0; i < 15; i++) {
-    const ingredientNameKey = `strIngredient${i}` as keyof Cocktail;
-    const ingredientMeasureKey = `strMeasure${i}` as keyof Cocktail;
-    const ingredientName = data[ingredientNameKey];
-    const ingredientMeasure = data[ingredientMeasureKey];
-
-    if (!ingredientName) {
-      continue;
-    }
-
-    ingredients.push({
-      id: i,
-      name: ingredientName,
-      measure: ingredientMeasure,
-    });
-  }
-
-  const recipe = ingredients.map((ingredient) => {
-    const measure = ingredient.measure || "up to you";
+  const recipe = data.ingredients.map((ingredient: Ingredient) => {
+    const measure = ingredient.measure;
+    const ingredientName = `${ingredient.name
+      .charAt(0)
+      .toLocaleUpperCase()}${ingredient.name.slice(1)}`;
     return (
-      <InfoText
-        key={ingredient.id}
-      >{`${ingredient.name}: ${measure}`}</InfoText>
+      <InfoText key={ingredient.id}>{`${ingredientName}: ${measure}`}</InfoText>
     );
   });
 
   return (
     <Wrapper>
-      <CocktailTitle>{`${data.strDrink}`}</CocktailTitle>
+      <CocktailTitle>{`${data.cocktailName}`}</CocktailTitle>
       <FirstColumn>
         <ImageWrapper>
-          <Image src={data.strDrinkThumb} />
+          <Image src={data.pictureURL} />
         </ImageWrapper>
         <RecipeWrapper>
           <SubTitle>Ingredients:</SubTitle>
@@ -97,16 +79,14 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
       </FirstColumn>
       <AdditionalInfoWrapper>
         <InfoText>
-          <strong>How to prepare:</strong> {data.strInstructions}
+          <strong>How to prepare:</strong> {data.instruction}
         </InfoText>
         <InfoText>
-          <strong>Type:</strong> {data.strAlcoholic}
+          <strong>Alcoholic:</strong>{" "}
+          {data.isAlcoholic === "true" ? "Yes" : "No"}
         </InfoText>
         <InfoText>
-          <strong>Category:</strong> {data.strCategory}
-        </InfoText>
-        <InfoText>
-          <strong>Glass:</strong> {data.strGlass}
+          <strong>Glass:</strong> {data.glass}
         </InfoText>
       </AdditionalInfoWrapper>
     </Wrapper>
