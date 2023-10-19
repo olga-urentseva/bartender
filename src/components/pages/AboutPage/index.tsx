@@ -60,8 +60,8 @@ export default function index() {
       </Text>
       <Text>
         👩‍💻 This project <b>was not created for commercial purposes,</b> but
-        rather as a part of my portfolio. As a result, I would like to welcome
-        my dear future employer to take a look at my{" "}
+        rather as a part of my portfolio as a full-stack developer. As a result,
+        I would like to welcome my dear future employer to take a look at my{" "}
         <TextLink
           to="https://github.com/olga-urentseva/bartender"
           target="_blank"
