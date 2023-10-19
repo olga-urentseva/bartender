@@ -6,7 +6,7 @@ import {
 import styled from "styled-components";
 
 import getCocktailByName from "../../../api/getCocktailByName";
-import { CocktailByName } from "../../../types/CocktailByName";
+import { Cocktail } from "../../../types/Cocktail";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import ErrorMessage from "../../atoms/ErrorMessage";
@@ -38,20 +38,20 @@ export default function CocktailsLibraryPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentName = searchParams.get("name")?.replaceAll(",", ", ") || "";
 
-  const cocktailsData = useLoaderData() as CocktailByName;
+  const cocktailsData = useLoaderData() as Cocktail[];
   const { state } = useNavigation();
 
   function setCocktailName(name: string) {
     setSearchParams(name ? { name: name.toLocaleLowerCase() } : {});
   }
 
-  const cocktails = cocktailsData?.drinks?.map((drink) => {
+  const cocktails = cocktailsData?.map((drink) => {
     return (
       <CocktailCard
-        cocktailName={drink.strDrink}
-        picture={drink.strDrinkThumb}
-        id={drink.idDrink}
-        key={drink.idDrink}
+        cocktailName={drink.cocktailName}
+        picture={drink.pictureURL}
+        id={drink.id}
+        key={drink.id}
         highlight={currentName}
       />
     );

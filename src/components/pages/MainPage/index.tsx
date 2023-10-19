@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 
-import { CocktailByIngredient } from "../../../types/CocktailByIngredient";
+import { Cocktail } from "../../../types/Cocktail";
 import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
 import CocktailCard from "../../atoms/CocktailCard";
@@ -42,7 +42,7 @@ export async function MainPageLoader({ request }: { request: Request }) {
 }
 
 function MainPage() {
-  const cocktailsData = useLoaderData() as CocktailByIngredient[];
+  const cocktailsData = useLoaderData() as Cocktail[];
   const { state } = useNavigation();
   const [searchParams, setSearchParams] = useSearchParams();
   const ingredients = new Set(searchParams.getAll("ingredients[]"));
@@ -53,13 +53,13 @@ function MainPage() {
     });
   }
 
-  const cocktailCards = cocktailsData?.map((cocktail: CocktailByIngredient) => {
+  const cocktailCards = cocktailsData?.map((cocktail) => {
     return (
       <CocktailCard
-        id={cocktail.idDrink}
-        cocktailName={cocktail.strDrink}
-        picture={cocktail.strDrinkThumb}
-        key={cocktail.idDrink}
+        id={cocktail.id}
+        cocktailName={cocktail.cocktailName}
+        picture={cocktail.pictureURL}
+        key={cocktail.id}
       />
     );
   });

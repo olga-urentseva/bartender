@@ -65,14 +65,14 @@ function IngredientsFilterForm({
     }
 
     const newIngredients = new CaseInsensitiveSet(ingredients);
-    newIngredients.add(inputValue);
+    newIngredients.add(inputValue.trim());
 
     setIngredients(newIngredients);
     setInputValue("");
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const splitted = e.target.value.split(",").map((el) => el.trim());
+    const splitted = e.target.value.split(",").map((el) => el);
 
     if (splitted.length > 1) {
       const filtered = splitted.filter((el) => el !== "");

@@ -1,5 +1,5 @@
 import { get } from "../lib/http";
-import { CocktailByIngredient } from "../types/CocktailByIngredient";
+import { Cocktail } from "../types/Cocktail";
 
 export default async function getCocktailsByIngredients(
   ingredients: string[] | undefined
@@ -8,37 +8,11 @@ export default async function getCocktailsByIngredients(
     return [];
   }
 
-  const responses = (
-    await Promise.all(
-      ingredients.map((ing) =>
-        get<{ drinks: CocktailByIngredient[] }>(
-          `https://thecocktaildb.com/api/json/v1/1/filter.php?i=${ing}`
-        )
-      )
-    )
-  ).map((response) => response?.drinks || []);
+  const url = `http://64.226.70.159/cocktails?${ingredients
+    .map((ing) => `ingredients[]=${ing.trim()}`)
+    .join("&")}`;
 
-  let cocktailIdsFromPrevResponse!: string[];
-  let cocktailByIdFromPrevResponse: Record<string, CocktailByIngredient> = {};
+  const cocktails = await get<Cocktail[]>(url);
 
-  responses.forEach((response) => {
-    const tempIds: string[] = [];
-    const tempCocktailsById: Record<string, CocktailByIngredient> = {};
-
-    response.forEach((cocktail) => {
-      if (
-        !cocktailIdsFromPrevResponse ||
-        cocktailByIdFromPrevResponse[cocktail.idDrink]
-      ) {
-        tempIds.push(cocktail.idDrink);
-        tempCocktailsById[cocktail.idDrink] = cocktail;
-      }
-    });
-    cocktailIdsFromPrevResponse = tempIds;
-    cocktailByIdFromPrevResponse = tempCocktailsById;
-  });
-
-  return cocktailIdsFromPrevResponse.map(
-    (id) => cocktailByIdFromPrevResponse[id]
-  );
+  return cocktails;
 }
