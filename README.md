@@ -8,7 +8,7 @@ Stack:
 - Vite
 - Vitest and React Testing Library for unit-testing
 - deployed to Netlify
-- public API (https://www.thecocktaildb.com/api.php)
+- own API
 
 Approaches:
 - Object Oriented Programming
