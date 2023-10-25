@@ -8,7 +8,7 @@ export default async function getCocktailsByIngredients(
     return [];
   }
 
-  const url = `http://64.226.70.159/cocktails?${ingredients
+  const url = `https://bartender-api.mooo.com/cocktails?${ingredients
     .map((ing) => `ingredients[]=${ing.trim()}`)
     .join("&")}`;
 
