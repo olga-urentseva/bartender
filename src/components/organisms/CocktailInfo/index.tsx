@@ -61,7 +61,9 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
       .charAt(0)
       .toLocaleUpperCase()}${ingredient.name.slice(1)}`;
     return (
-      <InfoText key={ingredient.id}>{`${ingredientName}: ${measure}`}</InfoText>
+      <InfoText key={ingredient.id}>{`${ingredientName}: ${
+        measure || "up to you"
+      }`}</InfoText>
     );
   });
 
