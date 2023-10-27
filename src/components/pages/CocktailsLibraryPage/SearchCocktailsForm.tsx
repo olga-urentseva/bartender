@@ -1,10 +1,12 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import Input from "../../atoms/Input";
 import SearchButton from "../../atoms/SearchButton";
+import ResetButton from "../../atoms/ResetButton";
 
 type SearchCocktailsFormProps = {
   setCocktailName: (input: string) => void;
+  currentName: string;
 };
 
 const SearchForm = styled.form`
@@ -23,27 +25,37 @@ const Label = styled.label`
   font-weight: 500;
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonsWrapper = styled.div`
   position: absolute;
   top: 30%;
   right: 1em;
+  display: flex;
+  gap: 0.5em;
+`;
+
+const Devider = styled.div`
+  width: 1px;
+  background-color: ${(props) => props.theme.accentLight};
 `;
 
 export default function SearchCocktailsForm({
   setCocktailName,
+  currentName,
 }: SearchCocktailsFormProps) {
+  const [inputValue, setInputValue] = useState(currentName);
+
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-
-    const inputValue = formData.get("search") || null;
-
-    if (typeof inputValue !== "string") {
+    if (typeof inputValue !== "string" || inputValue.length === 0) {
       return;
     }
-
     setCocktailName(inputValue);
+  }
+
+  function handleReset(e: FormEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    setInputValue("");
+    setCocktailName("");
   }
 
   return (
@@ -55,12 +67,18 @@ export default function SearchCocktailsForm({
         <Input
           id="cocktails-input"
           type="text"
-          placeholder="Lime"
+          placeholder="Name"
           name="search"
+          value={inputValue}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+          }}
         />
-        <ButtonWrapper>
+        <ButtonsWrapper>
+          <ResetButton onClick={handleReset} isDisabled={!inputValue} />
+          <Devider />
           <SearchButton />
-        </ButtonWrapper>
+        </ButtonsWrapper>
       </InnerWrapper>
     </SearchForm>
   );

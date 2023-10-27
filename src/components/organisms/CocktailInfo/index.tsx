@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import { Cocktail } from "../../../types/Cocktail";
 
 const Wrapper = styled.div``;

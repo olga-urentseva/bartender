@@ -19,7 +19,7 @@ const Button = styled.button`
 
 export default function SearchButton() {
   return (
-    <Button type="submit" aria-label="Search">
+    <Button type="submit" aria-label="Search" title="Search">
       <SearchIcon />
     </Button>
   );
