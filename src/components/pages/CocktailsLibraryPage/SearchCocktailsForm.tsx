@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Input from "../../atoms/Input";
 import SearchButton from "../../atoms/SearchButton";
 import ResetButton from "../../atoms/ResetButton";
+import { useNavigation } from "react-router-dom";
 
 type SearchCocktailsFormProps = {
   setCocktailName: (input: string) => void;
@@ -43,6 +44,7 @@ export default function SearchCocktailsForm({
   currentName,
 }: SearchCocktailsFormProps) {
   const [inputValue, setInputValue] = useState(currentName);
+  const { state } = useNavigation();
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -73,6 +75,7 @@ export default function SearchCocktailsForm({
           onChange={(e) => {
             setInputValue(e.target.value);
           }}
+          disabled={state === "loading"}
         />
         <ButtonsWrapper>
           <ResetButton onClick={handleReset} isDisabled={!inputValue} />
