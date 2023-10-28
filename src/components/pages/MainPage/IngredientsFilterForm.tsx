@@ -6,6 +6,7 @@ import Ingredient from "../../atoms/SearchIngredient";
 import SearchButton from "../../atoms/SearchButton";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 import ResetButton from "../../atoms/ResetButton";
+import { useNavigation } from "react-router-dom";
 
 const Form = styled.form`
   width: 100%;
@@ -68,10 +69,13 @@ function IngredientsFilterForm({
   setIngredients,
 }: IngredientsFilterFormProps) {
   const [inputValue, setInputValue] = useState("");
+  const { state } = useNavigation();
 
   useEffect(() => {
-    setInputValue("");
-  }, [ingredients]);
+    if (state !== "loading") {
+      setInputValue("");
+    }
+  }, [ingredients, state]);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -96,7 +100,6 @@ function IngredientsFilterForm({
         ...filtered,
       ]);
       setIngredients(newIngredients);
-      setInputValue("");
       return;
     }
 
@@ -128,6 +131,7 @@ function IngredientsFilterForm({
             name="search"
             onChange={handleChange}
             value={inputValue}
+            disabled={state === "loading"}
           />
           <ButtonsWrapper>
             <ResetButton

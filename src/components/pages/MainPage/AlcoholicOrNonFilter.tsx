@@ -39,8 +39,6 @@ export default function AlcoholicOrNonFilter() {
     [AlcoholicOrNon.NonAlcoholic]: false,
   }));
 
-  console.log(selectedFilter);
-
   const handleOptionChange = (option: AlcoholicOrNon) => {
     setSelectedFilter((prevState) => ({
       ...prevState,
