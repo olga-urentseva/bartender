@@ -50,7 +50,7 @@ function Ingredient({
       {ingredient}
       <DeleteButton
         type="button"
-        title="Delete ingredient"
+        title="Remove"
         onClick={() => removeIngredient({ ingredient })}
       >
         ×

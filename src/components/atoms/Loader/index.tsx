@@ -1,22 +1,22 @@
 import styled, { DefaultTheme, keyframes } from "styled-components";
 
 interface CustomTheme extends DefaultTheme {
-  accent: string;
+  accentLight: string;
 }
 
 const loading = (theme: CustomTheme) => keyframes`
   0% {
-      box-shadow: 1.5em 0,-1.5em 0 ${theme.accent};
+      box-shadow: 1.5em 0,-1.5em 0 ${theme.accentLight};
    }
 
    33% {
-      box-shadow: 1.5em 0,-1.5em 0 ${theme.accent};
-      background: ${theme.accent}
+      box-shadow: 1.5em 0,-1.5em 0 ${theme.accentLight};
+      background: ${theme.accentLight}
    }
 
    66% {
-      box-shadow: 1.5em 0 ${theme.accent}, -1.5em 0;
-      background: ${theme.accent}
+      box-shadow: 1.5em 0 ${theme.accentLight}, -1.5em 0;
+      background: ${theme.accentLight}
    }
 `;
 

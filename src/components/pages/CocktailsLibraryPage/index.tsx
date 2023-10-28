@@ -29,7 +29,7 @@ export const CocktailsLibraryLoader = async ({
   const url = new URL(request.url);
   const searchParam = url.searchParams.get("name");
   if (!searchParam) {
-    return getCocktailByName("A");
+    return getCocktailByName("Amaretto");
   }
   return getCocktailByName(searchParam);
 };
@@ -59,7 +59,11 @@ export default function CocktailsLibraryPage() {
 
   return (
     <Layout>
-      <SearchCocktailsForm setCocktailName={setCocktailName} />
+      <SearchCocktailsForm
+        key={currentName}
+        setCocktailName={setCocktailName}
+        currentName={currentName}
+      />
       {state === "loading" ? (
         <Loader />
       ) : cocktails?.length > 0 ? (

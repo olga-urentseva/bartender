@@ -1,10 +1,12 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Input from "../../atoms/Input";
 import Ingredient from "../../atoms/SearchIngredient";
 import SearchButton from "../../atoms/SearchButton";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
+import ResetButton from "../../atoms/ResetButton";
+import { useNavigation } from "react-router-dom";
 
 const Form = styled.form`
   width: 100%;
@@ -46,6 +48,17 @@ const Label = styled.label`
   font-weight: 500;
 `;
 
+const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.2em;
+`;
+
+const Devider = styled.div`
+  width: 1px;
+  background-color: ${(props) => props.theme.accentLight};
+`;
+
 interface IngredientsFilterFormProps {
   ingredients: Set<string>;
   setIngredients: (ingredients: Set<string>) => void;
@@ -56,6 +69,13 @@ function IngredientsFilterForm({
   setIngredients,
 }: IngredientsFilterFormProps) {
   const [inputValue, setInputValue] = useState("");
+  const { state } = useNavigation();
+
+  useEffect(() => {
+    if (state !== "loading") {
+      setInputValue("");
+    }
+  }, [ingredients, state]);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -68,7 +88,6 @@ function IngredientsFilterForm({
     newIngredients.add(inputValue.trim());
 
     setIngredients(newIngredients);
-    setInputValue("");
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -81,7 +100,6 @@ function IngredientsFilterForm({
         ...filtered,
       ]);
       setIngredients(newIngredients);
-      setInputValue("");
       return;
     }
 
@@ -97,7 +115,7 @@ function IngredientsFilterForm({
   return (
     <Form onSubmit={handleSubmit}>
       <Label htmlFor="tags-input">What do you have in your bar?</Label>
-      <TagsInputWrapper id="tags-input">
+      <TagsInputWrapper>
         {[...ingredients].map((ingredient, i) => (
           <Ingredient
             key={ingredient}
@@ -108,13 +126,26 @@ function IngredientsFilterForm({
 
         <InputWrapper>
           <TransparentInput
+            id="tags-input"
             type="text"
             placeholder="Lime"
             name="search"
             onChange={handleChange}
             value={inputValue}
+            disabled={state === "loading"}
           />
-          <SearchButton />
+          <ButtonsWrapper>
+            <ResetButton
+              isDisabled={ingredients.size === 0 && inputValue === ""}
+              onClick={(e) => {
+                e.preventDefault();
+                setIngredients(new Set(null));
+                setInputValue("");
+              }}
+            />
+            <Devider />
+            <SearchButton />
+          </ButtonsWrapper>
         </InputWrapper>
       </TagsInputWrapper>
     </Form>
