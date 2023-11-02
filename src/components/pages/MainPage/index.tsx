@@ -1,4 +1,5 @@
 import {
+  createSearchParams,
   useLoaderData,
   useNavigation,
   useSearchParams,
@@ -35,16 +36,21 @@ export async function loadMainPageData({ request }: { request: Request }) {
   const ingredients = url.searchParams
     .getAll("ingredients[]")
     .map((el) => el.toLowerCase().replace(/\s+/, "_"));
-  if (ingredients.length === 0) {
-    return getCocktailsByIngredients(["lime"]);
-  }
-  return getCocktailsByIngredients(ingredients);
+
+  return getCocktailsByIngredients(
+    ingredients.length === 0 ? ["lime"] : ingredients
+  );
 }
 
 function MainPage() {
   const cocktailsData = useLoaderData() as Cocktail[];
-  const { state } = useNavigation();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { state, location } = useNavigation();
+  const [currentSearchParams, setSearchParams] = useSearchParams();
+
+  const searchParams =
+    state === "loading"
+      ? createSearchParams(location?.search)
+      : currentSearchParams;
   const ingredients = new Set(searchParams.getAll("ingredients[]"));
 
   function setIngredients(newIngredients: Set<string>) {

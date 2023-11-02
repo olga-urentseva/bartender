@@ -69,13 +69,6 @@ function IngredientsFilterForm({
   setIngredients,
 }: IngredientsFilterFormProps) {
   const [inputValue, setInputValue] = useState("");
-  const { state } = useNavigation();
-
-  useEffect(() => {
-    if (state !== "loading") {
-      setInputValue("");
-    }
-  }, [ingredients, state]);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -88,6 +81,7 @@ function IngredientsFilterForm({
     newIngredients.add(inputValue.trim());
 
     setIngredients(newIngredients);
+    setInputValue("");
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -100,6 +94,7 @@ function IngredientsFilterForm({
         ...filtered,
       ]);
       setIngredients(newIngredients);
+      setInputValue("");
       return;
     }
 
@@ -132,7 +127,6 @@ function IngredientsFilterForm({
             name="search"
             onChange={handleChange}
             value={inputValue}
-            disabled={state === "loading"}
           />
           <ButtonsWrapper>
             <ResetButton
