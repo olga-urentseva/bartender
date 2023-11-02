@@ -6,16 +6,17 @@ interface CustomTheme extends DefaultTheme {
 
 const loading = (theme: CustomTheme) => keyframes`
   0% {
-      box-shadow: 1.5em 0,-1.5em 0 ${theme.accentLight};
-   }
-
-   33% {
-      box-shadow: 1.5em 0,-1.5em 0 ${theme.accentLight};
+      box-shadow: 1.5em 0 ${theme.accent}, -1.5em 0 ${theme.accentLight};
       background: ${theme.accentLight}
    }
 
+   33% {
+      box-shadow: 1.5em 0  ${theme.accentLight},-1.5em 0 ${theme.accentLight};
+      background: ${theme.accent}
+   }
+
    66% {
-      box-shadow: 1.5em 0 ${theme.accentLight}, -1.5em 0;
+      box-shadow: 1.5em 0 ${theme.accentLight}, -1.5em 0 ${theme.accent};
       background: ${theme.accentLight}
    }
 `;
@@ -28,7 +29,6 @@ const Loader = styled.div`
   border-radius: 50%;
   box-shadow: 1.5em 0, -1.5em 0;
   animation: ${(props) => loading(props.theme)} 1s infinite linear alternate;
-  // compensation margins
   margin: 5em auto;
 `;
 
