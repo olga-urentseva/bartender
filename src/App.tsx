@@ -1,5 +1,5 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import MainPage, { loadMainPageData } from "./components/pages/MainPage";
+import SearchPage, { loadSearchPageData } from "./components/pages/SearchPage";
 import { theme } from "./styles/theme";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CocktailPage from "./components/pages/CocktailPage";
@@ -9,6 +9,7 @@ import ErrorPage from "./components/pages/ErrorPage";
 import CocktailsLibraryPage, {
   CocktailsLibraryLoader,
 } from "./components/pages/CocktailsLibraryPage";
+import MainPage from "./components/pages/MainPage";
 
 const GlobalStyles = createGlobalStyle`
   #root {
@@ -45,7 +46,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
-    loader: ({ request }) => loadMainPageData({ request: request }),
     errorElement: <ErrorPage />,
   },
   {
@@ -69,6 +69,12 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <AboutPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/search",
+    element: <SearchPage />,
+    loader: ({ request }) => loadSearchPageData({ request: request }),
     errorElement: <ErrorPage />,
   },
 ]);

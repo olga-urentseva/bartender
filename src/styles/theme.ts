@@ -5,6 +5,7 @@ export const theme = {
   textInversion: "oklch(100% 0 0)",
   accent: "oklch(58.61% 0.085 271.69)",
   accentLight: "oklch(70.61% 0.085 271.69)",
+  accentPastel: "oklch(95.34% 0.035 275.29)",
   shadow: "oklch(0% 0 0)",
   error: "oklch(61.27% 0.157 356.57)",
   secondary: "oklch(94.41% 0.012 263.65)",

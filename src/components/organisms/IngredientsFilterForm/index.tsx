@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 
 import Input from "../../atoms/Input";
@@ -6,7 +6,6 @@ import Ingredient from "../../atoms/SearchIngredient";
 import SearchButton from "../../atoms/SearchButton";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 import ResetButton from "../../atoms/ResetButton";
-import { useNavigation } from "react-router-dom";
 
 const Form = styled.form`
   width: 100%;
@@ -62,27 +61,19 @@ const Devider = styled.div`
 interface IngredientsFilterFormProps {
   ingredients: Set<string>;
   setIngredients: (ingredients: Set<string>) => void;
+  handleFormSubmit: (
+    e: FormEvent<HTMLFormElement>,
+    inputValue: string,
+    setInputValue: (value: string) => void
+  ) => void;
 }
 
 function IngredientsFilterForm({
   ingredients,
   setIngredients,
+  handleFormSubmit,
 }: IngredientsFilterFormProps) {
   const [inputValue, setInputValue] = useState("");
-
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    if (inputValue === "") {
-      return;
-    }
-
-    const newIngredients = new CaseInsensitiveSet(ingredients);
-    newIngredients.add(inputValue.trim());
-
-    setIngredients(newIngredients);
-    setInputValue("");
-  }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const splitted = e.target.value.split(",").map((el) => el);
@@ -107,8 +98,12 @@ function IngredientsFilterForm({
     setIngredients(new Set(newIngredients));
   }
 
+  const handleSubmitWrapper = (e: FormEvent<HTMLFormElement>) => {
+    handleFormSubmit(e, inputValue, setInputValue);
+  };
+
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmitWrapper}>
       <Label htmlFor="tags-input">What do you have in your bar?</Label>
       <TagsInputWrapper>
         {[...ingredients].map((ingredient, i) => (

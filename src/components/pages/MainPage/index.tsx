@@ -1,95 +1,70 @@
-import {
-  createSearchParams,
-  useLoaderData,
-  useNavigation,
-  useSearchParams,
-} from "react-router-dom";
 import styled from "styled-components";
-
-import { Cocktail } from "../../../types/Cocktail";
-import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
-
-import CocktailCard from "../../atoms/CocktailCard";
 import Layout from "../../templates/Layout";
-import ErrorMessage from "../../atoms/ErrorMessage";
+import { useNavigate, useNavigation } from "react-router-dom";
+import { FormEvent, useState } from "react";
+import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import Loader from "../../atoms/Loader";
-import IngredientsFilterForm from "./IngredientsFilterForm";
-// import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
+import Collections from "./Collections";
 
-const FormWrapper = styled.div`
-  margin-bottom: 2em;
+const InnerWrapper = styled.div`
   display: flex;
-  align-items: end;
-  gap: 1em;
+  flex-direction: row;
+  gap: em;
   flex-wrap: wrap;
+  margin-top: 4rem;
 `;
 
-const CocktailCardsWrapper = styled.div`
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
-  grid-auto-rows: max-content;
+const SearchHero = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
 `;
 
-export async function loadMainPageData({ request }: { request: Request }) {
-  const url = new URL(request.url);
-  const ingredients = url.searchParams
-    .getAll("ingredients[]")
-    .map((el) => el.toLowerCase().replace(/\s+/, "_"));
+const MainText = styled.h2`
+  font-size: 2.5rem;
+  margin: 0;
+  color: ${(props) => props.theme.text};
+`;
 
-  return getCocktailsByIngredients(
-    ingredients.length === 0 ? ["lime"] : ingredients
-  );
-}
+const MainPage = () => {
+  const [ingredients, setIngredients] = useState(new Set(""));
+  const navigate = useNavigate();
+  const { state } = useNavigation();
 
-function MainPage() {
-  const cocktailsData = useLoaderData() as Cocktail[];
-  const { state, location } = useNavigation();
-  const [currentSearchParams, setSearchParams] = useSearchParams();
-
-  const searchParams =
-    state === "loading"
-      ? createSearchParams(location?.search)
-      : currentSearchParams;
-  const ingredients = new Set(searchParams.getAll("ingredients[]"));
-
-  function setIngredients(newIngredients: Set<string>) {
-    setSearchParams({
-      "ingredients[]": [...newIngredients],
+  function handleFormSubmit(e: FormEvent<HTMLFormElement>, inputValue: string) {
+    e.preventDefault();
+    console.log(inputValue);
+    const newIngredients = ingredients;
+    if (inputValue) {
+      newIngredients.add(inputValue.trim().toLowerCase());
+    }
+    const newSearchParams = new URLSearchParams();
+    newIngredients.forEach((ingredient) => {
+      newSearchParams.append("ingredients[]", ingredient);
     });
+
+    navigate(`/search?${newSearchParams.toString()}`);
   }
 
-  const cocktailCards = cocktailsData?.map((cocktail) => {
-    return (
-      <CocktailCard
-        id={cocktail.id}
-        cocktailName={cocktail.cocktailName}
-        picture={cocktail.pictureURL}
-        key={cocktail.id}
-      />
-    );
-  });
-
   return (
-    <Layout>
-      <FormWrapper>
-        <IngredientsFilterForm
-          ingredients={ingredients}
-          setIngredients={setIngredients}
-        />
-        {/* <AlcoholicOrNonFilter /> */}
-      </FormWrapper>
+    <Layout type="accent">
       {state === "loading" ? (
         <Loader />
-      ) : cocktailCards.length > 0 ? (
-        <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
       ) : (
-        <ErrorMessage>
-          There are no cocktails with your ingredients &#128557;
-        </ErrorMessage>
+        <SearchHero>
+          <InnerWrapper>
+            <MainText>Bart-t-tender is your home bar companion.</MainText>
+            <IngredientsFilterForm
+              ingredients={ingredients}
+              setIngredients={setIngredients}
+              handleFormSubmit={handleFormSubmit}
+            />
+          </InnerWrapper>
+          <Collections />
+        </SearchHero>
       )}
     </Layout>
   );
-}
+};
 
 export default MainPage;

@@ -7,6 +7,10 @@ interface CustomTheme extends DefaultTheme {
   accentLight: string;
 }
 
+interface HeaderProps {
+  type: "default" | "accent";
+}
+
 const moveVertically = (theme: CustomTheme) => keyframes`
     0% {
     color: ${theme.accent};
@@ -16,8 +20,10 @@ const moveVertically = (theme: CustomTheme) => keyframes`
   }
 `;
 
-const HeaderComponent = styled.header`
+const HeaderComponent = styled.header<HeaderProps>`
   padding: 2em 0;
+  background-color: ${(props) =>
+    props.type === "default" ? "transparent" : props.theme.accentPastel};
 `;
 
 const HeaderWrapper = styled.div`
@@ -81,9 +87,9 @@ const MenuLink = styled(Link)`
   }
 `;
 
-export default function Header() {
+export default function Header({ type, ...otherProps }: HeaderProps) {
   return (
-    <HeaderComponent>
+    <HeaderComponent type={type} {...otherProps}>
       <HeaderWrapper>
         <Container>
           <InnerWrapper>
