@@ -58,7 +58,7 @@ export default function CocktailsLibraryPage() {
   });
 
   return (
-    <Layout state={state}>
+    <Layout>
       <SearchCocktailsForm
         key={currentName}
         setCocktailName={setCocktailName}
