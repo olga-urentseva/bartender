@@ -98,6 +98,7 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
             </LogoLink>
             <LinksWrapper>
               <MenuLink to="/cocktails">Cocktail Library</MenuLink>
+              <MenuLink to="/collections">Collections</MenuLink>
               <MenuLink to="/about">About</MenuLink>
             </LinksWrapper>
           </InnerWrapper>
