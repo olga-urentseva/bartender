@@ -16,7 +16,6 @@ import Loader from "../../atoms/Loader";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import { FormEvent } from "react";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
-// import SuggestionCards from "./SuggestionCards";
 // import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 
 const FormWrapper = styled.div`
@@ -37,10 +36,6 @@ const CocktailCardsWrapper = styled.div`
 const CocktailsSearch = styled.div`
   flex: 1 1 20em;
 `;
-
-// const Suggestions = styled(SuggestionCards)`
-//   flex: 1 1 10em;
-// `;
 
 const InnerWrapper = styled.div`
   display: flex;
@@ -109,8 +104,6 @@ function SearchPage() {
   return (
     <Layout>
       <InnerWrapper>
-        {/* <Suggestions /> */}
-
         <CocktailsSearch>
           <FormWrapper>
             <IngredientsFilterForm

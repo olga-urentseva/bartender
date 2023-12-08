@@ -10,6 +10,7 @@ import CocktailsLibraryPage, {
   CocktailsLibraryLoader,
 } from "./components/pages/CocktailsLibraryPage";
 import MainPage from "./components/pages/MainPage";
+import CollectionsPage from "./components/pages/CollectionsPage";
 
 const GlobalStyles = createGlobalStyle`
   #root {
@@ -75,6 +76,11 @@ const router = createBrowserRouter([
     path: "/search",
     element: <SearchPage />,
     loader: ({ request }) => loadSearchPageData({ request: request }),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/collections",
+    element: <CollectionsPage />,
     errorElement: <ErrorPage />,
   },
 ]);
