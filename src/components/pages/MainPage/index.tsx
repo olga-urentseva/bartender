@@ -20,6 +20,7 @@ const SearchHero = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3em;
+  margin-bottom: 4em;
 `;
 
 const MainText = styled.h2`

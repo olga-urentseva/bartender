@@ -81,19 +81,19 @@ export default function Collections({ ...otherProps }) {
   return (
     <Wrapper {...otherProps}>
       <CollectionItem
-        title="Top 20 Holiday cocktails"
+        title="Top 20 Holiday cocktails 🎄"
         imgUrl={christmasImagePath}
         to="#"
         description="Cheers to the holidays!"
       />
       <CollectionItem
-        title="Favourite classic cocktails"
+        title="Favourite classic cocktails 🍸"
         imgUrl={classicImagePath}
         to="#"
         description="Old classic never gets too old"
       />
       <CollectionItem
-        title="Top 10 Spicy cocktails"
+        title="Top 10 Spicy cocktails 🌶"
         imgUrl={spicyCocktails}
         to="#"
         description="Spicy cocktails for cold weather"
