@@ -1,7 +1,7 @@
 export const theme = {
   primary: "oklch(94.9% 0 89.876)",
   text: "oklch(43.61% 0.085 271.69)",
-  textLight: "oklch(43.61% 0.01 271.69)",
+  textLight: "oklch(54.97% 0.085 271.69)",
   textInversion: "oklch(100% 0 0)",
   accent: "oklch(58.61% 0.085 271.69)",
   accentLight: "oklch(70.61% 0.085 271.69)",

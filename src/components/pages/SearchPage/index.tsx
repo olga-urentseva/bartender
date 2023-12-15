@@ -44,6 +44,12 @@ const InnerWrapper = styled.div`
   gap: 2em;
 `;
 
+const CollectionName = styled.h2`
+  color: ${(props) => props.theme.text};
+  font-weight: 800;
+  font-size: 2rem;
+`;
+
 export async function loadSearchPageData({ request }: { request: Request }) {
   const url = new URL(request.url);
   const ingredients = url.searchParams
@@ -82,11 +88,8 @@ function SearchPage() {
     const currentParams = new URLSearchParams(currentSearchParams.toString());
 
     if (newIngredients.size === 0 && !currentParams.has("collection")) {
-      console.log("lalala");
       currentParams.set("ingredients[]", "lime");
     }
-
-    console.log(currentParams.getAll("ingredients[]"));
 
     currentParams.delete("ingredients[]");
     newIngredients.forEach((ing) => currentParams.append("ingredients[]", ing));
@@ -112,6 +115,8 @@ function SearchPage() {
     setInputValue("");
   }
 
+  const currentCollection = currentSearchParams.get("collection"); // to display name of the collection
+
   const cocktailCards = cocktailsData?.map((cocktail) => {
     return (
       <CocktailCard
@@ -127,6 +132,11 @@ function SearchPage() {
     <Layout>
       <InnerWrapper>
         <CocktailsSearch>
+          {currentCollection && (
+            <CollectionName>
+              {`${currentCollection.toLocaleUpperCase()} COCKTAILS`}
+            </CollectionName>
+          )}
           <FormWrapper>
             <IngredientsFilterForm
               ingredients={ingredients}
