@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { DefaultTheme } from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type CardProps = {
   theme: DefaultTheme;
@@ -81,11 +81,7 @@ function CocktailCard({
   id,
   highlight,
 }: CocktailCardProps) {
-  const location = useLocation();
-
-  const cocktailLink = location.pathname.includes("cocktails")
-    ? `${id}`
-    : `cocktails/${id}`;
+  const cocktailLink = `/cocktails/${id}`;
 
   return (
     <Card>
