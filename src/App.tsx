@@ -83,6 +83,12 @@ const router = createBrowserRouter([
     element: <CollectionsPage />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/search/:collectionName",
+    element: <SearchPage />,
+    loader: ({ request }) => loadSearchPageData({ request: request }),
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 function App() {

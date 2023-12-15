@@ -7,7 +7,6 @@ import {
 import styled from "styled-components";
 
 import { Cocktail } from "../../../types/Cocktail";
-import getCocktailsByIngredients from "../../../api/getCocktailsByIngredients";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import Layout from "../../templates/Layout";
@@ -16,6 +15,7 @@ import Loader from "../../atoms/Loader";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import { FormEvent } from "react";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
+import getCocktails, { GetCocktailsOptions } from "../../../api/getCocktails";
 // import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 
 const FormWrapper = styled.div`
@@ -50,9 +50,21 @@ export async function loadSearchPageData({ request }: { request: Request }) {
     .getAll("ingredients[]")
     .map((el) => el.toLowerCase().replace(/\s+/, "_"));
 
-  return getCocktailsByIngredients(
-    ingredients.length === 0 ? ["lime"] : ingredients
-  );
+  const collection = url.searchParams.get("collection");
+
+  const options = {} as GetCocktailsOptions;
+
+  if (ingredients.length > 0 || (ingredients.length === 0 && !collection)) {
+    options.ingredients = ingredients.length === 0 ? ["lime"] : ingredients;
+  }
+
+  if (collection) {
+    options.collection = collection;
+  }
+
+  const result = await getCocktails(options);
+
+  return result;
 }
 
 function SearchPage() {
@@ -67,9 +79,19 @@ function SearchPage() {
   const ingredients = new Set(searchParams.getAll("ingredients[]"));
 
   function setIngredients(newIngredients: Set<string>) {
-    setSearchParams({
-      "ingredients[]": [...newIngredients],
-    });
+    const currentParams = new URLSearchParams(currentSearchParams.toString());
+
+    if (newIngredients.size === 0 && !currentParams.has("collection")) {
+      console.log("lalala");
+      currentParams.set("ingredients[]", "lime");
+    }
+
+    console.log(currentParams.getAll("ingredients[]"));
+
+    currentParams.delete("ingredients[]");
+    newIngredients.forEach((ing) => currentParams.append("ingredients[]", ing));
+
+    setSearchParams(currentParams);
   }
 
   function handleFormSubmit(

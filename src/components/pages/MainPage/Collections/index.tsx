@@ -83,19 +83,19 @@ export default function Collections({ ...otherProps }) {
       <CollectionItem
         title="Top 20 Holiday cocktails 🎄"
         imgUrl={christmasImagePath}
-        to="#"
+        to="/search?collection=christmas"
         description="Cheers to the holidays!"
       />
       <CollectionItem
         title="Favourite classic cocktails 🍸"
         imgUrl={classicImagePath}
-        to="#"
+        to="/search?collection=classic"
         description="Old classic never gets too old"
       />
       <CollectionItem
         title="Top 10 Spicy cocktails 🌶"
         imgUrl={spicyCocktails}
-        to="#"
+        to="/search?collection=spicy"
         description="Spicy cocktails for cold weather"
       />
     </Wrapper>
