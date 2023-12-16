@@ -2,12 +2,12 @@ import React from "react";
 import styled, { DefaultTheme } from "styled-components";
 import { Link } from "react-router-dom";
 
-type CardProps = {
+type ImageProps = {
   theme: DefaultTheme;
   picture: string;
 };
 
-const Image = styled.div<CardProps>`
+const Image = styled.div<ImageProps>`
   box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.accentLight};
   border-radius: 1em;
   background-image: url(${(props) => props.picture});
