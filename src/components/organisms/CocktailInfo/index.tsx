@@ -89,6 +89,11 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
         <InfoText>
           <strong>Glass:</strong> {data.glass}
         </InfoText>
+        {data.credits && (
+          <InfoText>
+            <strong>Credits:</strong> {data.credits}
+          </InfoText>
+        )}
       </AdditionalInfoWrapper>
     </Wrapper>
   );

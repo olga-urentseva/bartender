@@ -10,4 +10,5 @@ export type Cocktail = {
     measure: string;
     name: string;
   }[];
+  credits?: string;
 };
