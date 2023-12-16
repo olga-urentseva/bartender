@@ -8,7 +8,8 @@ Stack:
 - Vite
 - Vitest and React Testing Library for unit-testing
 - deployed to Netlify
-- own API
+- own API (Node.JS, Fastify)
+- PWA
 
 Approaches:
 - Object Oriented Programming
