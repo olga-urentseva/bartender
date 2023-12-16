@@ -11,7 +11,7 @@ const SearchInnerWrapper = styled.div`
   flex-direction: row;
   gap: 1em;
   flex-wrap: wrap;
-  margin-top: 4rem;
+  margin-top: 5%;
 `;
 
 const CollectionsInnerWrapper = styled.div``;
@@ -20,7 +20,7 @@ const SearchHero = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3em;
-  margin-bottom: 5%;
+  margin-bottom: 4em;
 `;
 
 const MainText = styled.h2`
