@@ -183,7 +183,8 @@ function SearchPage() {
             <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
           ) : (
             <ErrorMessage>
-              There are no cocktails with your ingredients &#128557;
+              Unfortunately, we do not have cocktails according to your requests
+              &#128557;
             </ErrorMessage>
           )}
         </CocktailsSearch>
