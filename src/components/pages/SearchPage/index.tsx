@@ -16,7 +16,9 @@ import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import { FormEvent } from "react";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 import getCocktails, { GetCocktailsOptions } from "../../../api/getCocktails";
-// import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
+import AlcoholicOrNonFilter, {
+  AlcoholFilterValues,
+} from "./AlcoholicOrNonFilter";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
@@ -57,6 +59,7 @@ export async function loadSearchPageData({ request }: { request: Request }) {
     .map((el) => el.toLowerCase().replace(/\s+/, "_"));
 
   const collection = url.searchParams.get("collection");
+  const isAlcoholic = url.searchParams.get("isAlcoholic");
 
   const options = {} as GetCocktailsOptions;
 
@@ -66,6 +69,10 @@ export async function loadSearchPageData({ request }: { request: Request }) {
 
   if (collection) {
     options.collection = collection;
+  }
+
+  if (isAlcoholic) {
+    options.isAlcoholic = isAlcoholic;
   }
 
   const result = await getCocktails(options);
@@ -83,6 +90,13 @@ function SearchPage() {
       ? createSearchParams(location?.search)
       : currentSearchParams;
   const ingredients = new Set(searchParams.getAll("ingredients[]"));
+  const isAlcoholParams = searchParams.get("isAlcoholic");
+  const isAlcohol =
+    isAlcoholParams === "true"
+      ? true
+      : isAlcoholParams === "false"
+      ? false
+      : null;
 
   function setIngredients(newIngredients: Set<string>) {
     const currentParams = new URLSearchParams(currentSearchParams.toString());
@@ -93,6 +107,21 @@ function SearchPage() {
 
     currentParams.delete("ingredients[]");
     newIngredients.forEach((ing) => currentParams.append("ingredients[]", ing));
+
+    setSearchParams(currentParams);
+  }
+
+  function setAlcohol(value: AlcoholFilterValues) {
+    const currentParams = new URLSearchParams(currentSearchParams.toString());
+    if (value === "alcoholic") {
+      currentParams.set("isAlcoholic", "true");
+    }
+    if (value === "nonAlcoholic") {
+      currentParams.set("isAlcoholic", "false");
+    }
+    if (value === "default") {
+      currentParams.delete("isAlcoholic");
+    }
 
     setSearchParams(currentParams);
   }
@@ -143,7 +172,10 @@ function SearchPage() {
               setIngredients={setIngredients}
               handleFormSubmit={handleFormSubmit}
             />
-            {/* <AlcoholicOrNonFilter /> */}
+            <AlcoholicOrNonFilter
+              setValue={setAlcohol}
+              initialState={isAlcohol}
+            />
           </FormWrapper>
           {state === "loading" ? (
             <Loader />
@@ -151,7 +183,8 @@ function SearchPage() {
             <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
           ) : (
             <ErrorMessage>
-              There are no cocktails with your ingredients &#128557;
+              Unfortunately, we do not have cocktails according to your requests
+              &#128557;
             </ErrorMessage>
           )}
         </CocktailsSearch>
