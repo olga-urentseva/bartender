@@ -16,7 +16,9 @@ import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import { FormEvent } from "react";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 import getCocktails, { GetCocktailsOptions } from "../../../api/getCocktails";
-// import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
+import AlcoholicOrNonFilter, {
+  AlcoholFilterValues,
+} from "./AlcoholicOrNonFilter";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
@@ -83,6 +85,13 @@ function SearchPage() {
       ? createSearchParams(location?.search)
       : currentSearchParams;
   const ingredients = new Set(searchParams.getAll("ingredients[]"));
+  const isAlcoholParams = searchParams.get("isAlcoholic");
+  const isAlcohol =
+    isAlcoholParams === "true"
+      ? true
+      : isAlcoholParams === "false"
+      ? false
+      : null;
 
   function setIngredients(newIngredients: Set<string>) {
     const currentParams = new URLSearchParams(currentSearchParams.toString());
@@ -93,6 +102,21 @@ function SearchPage() {
 
     currentParams.delete("ingredients[]");
     newIngredients.forEach((ing) => currentParams.append("ingredients[]", ing));
+
+    setSearchParams(currentParams);
+  }
+
+  function setAlcohol(value: AlcoholFilterValues) {
+    const currentParams = new URLSearchParams(currentSearchParams.toString());
+    if (value === "alcoholic") {
+      currentParams.set("isAlcoholic", "true");
+    }
+    if (value === "nonAlcoholic") {
+      currentParams.set("isAlcoholic", "false");
+    }
+    if (value === "default") {
+      currentParams.delete("isAlcoholic");
+    }
 
     setSearchParams(currentParams);
   }
@@ -143,7 +167,10 @@ function SearchPage() {
               setIngredients={setIngredients}
               handleFormSubmit={handleFormSubmit}
             />
-            {/* <AlcoholicOrNonFilter /> */}
+            <AlcoholicOrNonFilter
+              setValue={setAlcohol}
+              initialState={isAlcohol}
+            />
           </FormWrapper>
           {state === "loading" ? (
             <Loader />

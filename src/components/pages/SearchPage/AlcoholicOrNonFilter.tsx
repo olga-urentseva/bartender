@@ -1,10 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-enum AlcoholicOrNon {
+export enum AlcoholicOrNon {
   Alcoholic = "alcoholic",
   NonAlcoholic = "non-alcoholic",
 }
+
+export type AlcoholFilterValues = "alcoholic" | "nonAlcoholic" | "default";
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,19 +33,40 @@ const Label = styled.label`
   font-weight: 600;
 `;
 
-export default function AlcoholicOrNonFilter() {
+export default function AlcoholicOrNonFilter(props: {
+  setValue: (value: AlcoholFilterValues) => void;
+  initialState: boolean | null;
+}) {
   const [selectedFilter, setSelectedFilter] = useState<{
     [key in AlcoholicOrNon]: boolean;
-  }>(() => ({
-    [AlcoholicOrNon.Alcoholic]: false,
-    [AlcoholicOrNon.NonAlcoholic]: false,
-  }));
+  }>(() => {
+    return {
+      [AlcoholicOrNon.Alcoholic]: props.initialState === true ?? false,
+      [AlcoholicOrNon.NonAlcoholic]: props.initialState === false ?? false,
+    };
+  });
 
   const handleOptionChange = (option: AlcoholicOrNon) => {
-    setSelectedFilter((prevState) => ({
-      ...prevState,
-      [option]: !prevState[option],
-    }));
+    setSelectedFilter((prevState) => {
+      const updatedState = {
+        ...prevState,
+        [option]: !prevState[option],
+      };
+      if (updatedState.alcoholic && !updatedState["non-alcoholic"]) {
+        props.setValue("alcoholic");
+      }
+      if (!updatedState.alcoholic && updatedState["non-alcoholic"]) {
+        props.setValue("nonAlcoholic");
+      }
+      if (
+        (!updatedState.alcoholic && !updatedState["non-alcoholic"]) ||
+        (updatedState.alcoholic && updatedState["non-alcoholic"])
+      ) {
+        props.setValue("default");
+      }
+
+      return updatedState;
+    });
   };
 
   return (
