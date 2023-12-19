@@ -59,6 +59,7 @@ export async function loadSearchPageData({ request }: { request: Request }) {
     .map((el) => el.toLowerCase().replace(/\s+/, "_"));
 
   const collection = url.searchParams.get("collection");
+  const isAlcoholic = url.searchParams.get("isAlcoholic");
 
   const options = {} as GetCocktailsOptions;
 
@@ -68,6 +69,10 @@ export async function loadSearchPageData({ request }: { request: Request }) {
 
   if (collection) {
     options.collection = collection;
+  }
+
+  if (isAlcoholic) {
+    options.isAlcoholic = isAlcoholic;
   }
 
   const result = await getCocktails(options);

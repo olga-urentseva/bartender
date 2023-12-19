@@ -4,10 +4,11 @@ import { Cocktail } from "../types/Cocktail";
 export interface GetCocktailsOptions {
   ingredients?: string[];
   collection?: string;
+  isAlcoholic?: string;
 }
 
 export default async function getCocktails(options: GetCocktailsOptions) {
-  const { ingredients, collection } = options;
+  const { ingredients, collection, isAlcoholic } = options;
 
   if ((!ingredients || ingredients.length === 0) && !collection) {
     return [];
@@ -16,7 +17,6 @@ export default async function getCocktails(options: GetCocktailsOptions) {
   let url = "https://bartender-api.mooo.com/cocktails?";
 
   if (ingredients && ingredients.length > 0) {
-    console.log(ingredients);
     url += ingredients
       .map((ing) => `ingredients[]=${ing.trim().replace("_", "%20")}`)
       .join("&");
@@ -26,7 +26,11 @@ export default async function getCocktails(options: GetCocktailsOptions) {
     url += `&collection=${collection}`;
   }
 
-  console.log(url.toString());
+  if (isAlcoholic) {
+    console.log(isAlcoholic);
+    url += `&isAlcoholic=${isAlcoholic}`;
+  }
+
   const cocktails = await get<Cocktail[]>(url);
 
   return cocktails;
