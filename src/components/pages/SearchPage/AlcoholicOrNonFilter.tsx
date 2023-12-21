@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export enum AlcoholicOrNon {
@@ -35,16 +35,26 @@ const Label = styled.label`
 
 export default function AlcoholicOrNonFilter(props: {
   setValue: (value: AlcoholFilterValues) => void;
-  initialState: boolean | null;
+  isAlcoholicFromURL: boolean | null;
 }) {
   const [selectedFilter, setSelectedFilter] = useState<{
     [key in AlcoholicOrNon]: boolean;
   }>(() => {
     return {
-      [AlcoholicOrNon.Alcoholic]: props.initialState === true ?? false,
-      [AlcoholicOrNon.NonAlcoholic]: props.initialState === false ?? false,
+      [AlcoholicOrNon.Alcoholic]: props.isAlcoholicFromURL === true ?? false,
+      [AlcoholicOrNon.NonAlcoholic]:
+        props.isAlcoholicFromURL === false ?? false,
     };
   });
+
+  useEffect(() => {
+    const newAlcoholState = {
+      [AlcoholicOrNon.Alcoholic]: props.isAlcoholicFromURL === true ?? false,
+      [AlcoholicOrNon.NonAlcoholic]:
+        props.isAlcoholicFromURL === false ?? false,
+    };
+    setSelectedFilter(newAlcoholState);
+  }, [props.isAlcoholicFromURL]);
 
   const handleOptionChange = (option: AlcoholicOrNon) => {
     setSelectedFilter((prevState) => {
@@ -68,11 +78,15 @@ export default function AlcoholicOrNonFilter(props: {
       return updatedState;
     });
   };
+  console.log(selectedFilter);
 
   return (
     <Wrapper>
       <Label htmlFor={AlcoholicOrNon.Alcoholic}>
         <CheckboxInput
+          autoComplete="off"
+          key={AlcoholicOrNon.Alcoholic}
+          name={AlcoholicOrNon.Alcoholic}
           type="checkbox"
           onChange={() => handleOptionChange(AlcoholicOrNon.Alcoholic)}
           id={AlcoholicOrNon.Alcoholic}
@@ -83,6 +97,9 @@ export default function AlcoholicOrNonFilter(props: {
 
       <Label htmlFor={AlcoholicOrNon.NonAlcoholic}>
         <CheckboxInput
+          autoComplete="off"
+          key={AlcoholicOrNon.NonAlcoholic}
+          name={AlcoholicOrNon.NonAlcoholic}
           type="checkbox"
           onChange={() => handleOptionChange(AlcoholicOrNon.NonAlcoholic)}
           id={AlcoholicOrNon.NonAlcoholic}

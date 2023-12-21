@@ -174,7 +174,7 @@ function SearchPage() {
             />
             <AlcoholicOrNonFilter
               setValue={setAlcohol}
-              initialState={isAlcohol}
+              isAlcoholicFromURL={isAlcohol}
             />
           </FormWrapper>
           {state === "loading" ? (
