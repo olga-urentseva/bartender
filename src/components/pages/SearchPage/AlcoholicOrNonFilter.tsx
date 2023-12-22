@@ -78,7 +78,6 @@ export default function AlcoholicOrNonFilter(props: {
       return updatedState;
     });
   };
-  console.log(selectedFilter);
 
   return (
     <Wrapper>
