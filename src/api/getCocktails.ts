@@ -27,7 +27,6 @@ export default async function getCocktails(options: GetCocktailsOptions) {
   }
 
   if (isAlcoholic) {
-    console.log(isAlcoholic);
     url += `&isAlcoholic=${isAlcoholic}`;
   }
 

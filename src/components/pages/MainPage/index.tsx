@@ -51,7 +51,6 @@ const MainPage = () => {
 
   function handleFormSubmit(e: FormEvent<HTMLFormElement>, inputValue: string) {
     e.preventDefault();
-    console.log(inputValue);
     const newIngredients = ingredients;
     if (inputValue) {
       newIngredients.add(inputValue.trim().toLowerCase());
