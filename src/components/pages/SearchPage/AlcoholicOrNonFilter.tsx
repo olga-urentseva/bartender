@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 export enum AlcoholicOrNon {
@@ -47,15 +47,6 @@ export default function AlcoholicOrNonFilter(props: {
     };
   });
 
-  useEffect(() => {
-    const newAlcoholState = {
-      [AlcoholicOrNon.Alcoholic]: props.isAlcoholicFromURL === true ?? false,
-      [AlcoholicOrNon.NonAlcoholic]:
-        props.isAlcoholicFromURL === false ?? false,
-    };
-    setSelectedFilter(newAlcoholState);
-  }, [props.isAlcoholicFromURL]);
-
   const handleOptionChange = (option: AlcoholicOrNon) => {
     setSelectedFilter((prevState) => {
       const updatedState = {
@@ -83,8 +74,6 @@ export default function AlcoholicOrNonFilter(props: {
     <Wrapper>
       <Label htmlFor={AlcoholicOrNon.Alcoholic}>
         <CheckboxInput
-          autoComplete="off"
-          key={AlcoholicOrNon.Alcoholic}
           name={AlcoholicOrNon.Alcoholic}
           type="checkbox"
           onChange={() => handleOptionChange(AlcoholicOrNon.Alcoholic)}
@@ -96,8 +85,6 @@ export default function AlcoholicOrNonFilter(props: {
 
       <Label htmlFor={AlcoholicOrNon.NonAlcoholic}>
         <CheckboxInput
-          autoComplete="off"
-          key={AlcoholicOrNon.NonAlcoholic}
           name={AlcoholicOrNon.NonAlcoholic}
           type="checkbox"
           onChange={() => handleOptionChange(AlcoholicOrNon.NonAlcoholic)}
