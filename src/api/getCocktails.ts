@@ -4,11 +4,11 @@ import { Cocktail } from "../types/Cocktail";
 export interface GetCocktailsOptions {
   ingredients?: string[];
   collection?: string;
-  isAlcoholic?: string;
+  alcoholic?: string;
 }
 
 export default async function getCocktails(options: GetCocktailsOptions) {
-  const { ingredients, collection, isAlcoholic } = options;
+  const { ingredients, collection, alcoholic } = options;
 
   if ((!ingredients || ingredients.length === 0) && !collection) {
     return [];
@@ -26,7 +26,9 @@ export default async function getCocktails(options: GetCocktailsOptions) {
     url += `&collection=${collection}`;
   }
 
-  if (isAlcoholic) {
+  if (alcoholic && alcoholic !== "all") {
+    const isAlcoholic = alcoholic === "alcoholic";
+    console.log(isAlcoholic);
     url += `&isAlcoholic=${isAlcoholic}`;
   }
 

@@ -1,12 +1,6 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-export enum AlcoholicOrNon {
-  Alcoholic = "alcoholic",
-  NonAlcoholic = "non-alcoholic",
-}
-
-export type AlcoholFilterValues = "alcoholic" | "nonAlcoholic" | "default";
+const POSSIBLE_VALUES = new Set(["alcoholic", "non-alcoholic", "all", null]);
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,7 +11,7 @@ const Wrapper = styled.div`
   box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
 `;
 
-const CheckboxInput = styled.input<{ checked: boolean }>`
+const CheckboxInput = styled.input<{ checked: boolean | null }>`
   color: ${(props) => props.theme.accent};
   padding: 0.5em 1em;
   border-radius: 0.5em;
@@ -33,63 +27,51 @@ const Label = styled.label`
   font-weight: 600;
 `;
 
+const ALCOHOLIC_FILTER_CONFIG = new Map([
+  [null, "alcoholic"],
+  ["alcoholic", undefined],
+  ["non-alcoholic", "all"],
+  ["all", "non-alcoholic"],
+]);
+
+const NON_ALCOHOLIC_FILTER_CONFIG = new Map([
+  [null, "non-alcoholic"],
+  ["non-alcoholic", undefined],
+  ["alcoholic", "all"],
+  ["all", "alcoholic"],
+]);
 export default function AlcoholicOrNonFilter(props: {
-  setValue: (value: AlcoholFilterValues) => void;
-  isAlcoholicFromURL: boolean | null;
+  setValue: (value: string | undefined) => void;
+  alcoholParams: string | null;
 }) {
-  const [selectedFilter, setSelectedFilter] = useState<{
-    [key in AlcoholicOrNon]: boolean;
-  }>(() => {
-    return {
-      [AlcoholicOrNon.Alcoholic]: props.isAlcoholicFromURL === true ?? false,
-      [AlcoholicOrNon.NonAlcoholic]:
-        props.isAlcoholicFromURL === false ?? false,
-    };
-  });
+  const value = POSSIBLE_VALUES.has(props.alcoholParams)
+    ? props.alcoholParams
+    : null;
 
-  const handleOptionChange = (option: AlcoholicOrNon) => {
-    setSelectedFilter((prevState) => {
-      const updatedState = {
-        ...prevState,
-        [option]: !prevState[option],
-      };
-      if (updatedState.alcoholic && !updatedState["non-alcoholic"]) {
-        props.setValue("alcoholic");
-      }
-      if (!updatedState.alcoholic && updatedState["non-alcoholic"]) {
-        props.setValue("nonAlcoholic");
-      }
-      if (
-        (!updatedState.alcoholic && !updatedState["non-alcoholic"]) ||
-        (updatedState.alcoholic && updatedState["non-alcoholic"])
-      ) {
-        props.setValue("default");
-      }
+  function handleAlcoholicOptionChange() {
+    props.setValue(ALCOHOLIC_FILTER_CONFIG.get(value));
+  }
 
-      return updatedState;
-    });
-  };
+  function handleNonAlcoholicOptionChange() {
+    props.setValue(NON_ALCOHOLIC_FILTER_CONFIG.get(value));
+  }
 
   return (
     <Wrapper>
-      <Label htmlFor={AlcoholicOrNon.Alcoholic}>
+      <Label>
         <CheckboxInput
-          name={AlcoholicOrNon.Alcoholic}
           type="checkbox"
-          onChange={() => handleOptionChange(AlcoholicOrNon.Alcoholic)}
-          id={AlcoholicOrNon.Alcoholic}
-          checked={selectedFilter[AlcoholicOrNon.Alcoholic]}
+          onChange={handleAlcoholicOptionChange}
+          checked={value === "alcoholic" || value === "all"}
         />
         Alcoholic
       </Label>
 
-      <Label htmlFor={AlcoholicOrNon.NonAlcoholic}>
+      <Label>
         <CheckboxInput
-          name={AlcoholicOrNon.NonAlcoholic}
           type="checkbox"
-          onChange={() => handleOptionChange(AlcoholicOrNon.NonAlcoholic)}
-          id={AlcoholicOrNon.NonAlcoholic}
-          checked={selectedFilter[AlcoholicOrNon.NonAlcoholic]}
+          onChange={handleNonAlcoholicOptionChange}
+          checked={value === "non-alcoholic" || value === "all"}
         />
         Non-alcoholic
       </Label>
