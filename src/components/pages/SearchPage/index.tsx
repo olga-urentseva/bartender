@@ -16,9 +16,7 @@ import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import { FormEvent } from "react";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 import getCocktails, { GetCocktailsOptions } from "../../../api/getCocktails";
-import AlcoholicOrNonFilter, {
-  AlcoholFilterValues,
-} from "./AlcoholicOrNonFilter";
+import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
@@ -59,7 +57,7 @@ export async function loadSearchPageData({ request }: { request: Request }) {
     .map((el) => el.toLowerCase().replace(/\s+/, "_"));
 
   const collection = url.searchParams.get("collection");
-  const isAlcoholic = url.searchParams.get("isAlcoholic");
+  const alcoholic = url.searchParams.get("alcoholic");
 
   const options = {} as GetCocktailsOptions;
 
@@ -71,8 +69,8 @@ export async function loadSearchPageData({ request }: { request: Request }) {
     options.collection = collection;
   }
 
-  if (isAlcoholic) {
-    options.isAlcoholic = isAlcoholic;
+  if (alcoholic) {
+    options.alcoholic = alcoholic;
   }
 
   const result = await getCocktails(options);
@@ -90,13 +88,7 @@ function SearchPage() {
       ? createSearchParams(location?.search)
       : currentSearchParams;
   const ingredients = new Set(searchParams.getAll("ingredients[]"));
-  const isAlcoholParams = searchParams.get("isAlcoholic");
-  const isAlcohol =
-    isAlcoholParams === "true"
-      ? true
-      : isAlcoholParams === "false"
-      ? false
-      : null;
+  const alcoholParams = searchParams.get("alcoholic");
 
   function setIngredients(newIngredients: Set<string>) {
     const currentParams = new URLSearchParams(currentSearchParams.toString());
@@ -111,21 +103,16 @@ function SearchPage() {
     setSearchParams(currentParams);
   }
 
-  function setAlcohol(value: AlcoholFilterValues) {
+  function setAlcohol(value: string | undefined) {
     const currentParams = new URLSearchParams(currentSearchParams.toString());
-    if (value === "alcoholic") {
-      currentParams.set("isAlcoholic", "true");
-    }
-    if (value === "nonAlcoholic") {
-      currentParams.set("isAlcoholic", "false");
-    }
-    if (value === "default") {
-      currentParams.delete("isAlcoholic");
+    if (value === undefined) {
+      currentParams.delete("alcoholic");
+    } else {
+      currentParams.set("alcoholic", value);
     }
 
     setSearchParams(currentParams);
   }
-
   function handleFormSubmit(
     e: FormEvent<HTMLFormElement>,
     inputValue: string,
@@ -174,7 +161,7 @@ function SearchPage() {
             />
             <AlcoholicOrNonFilter
               setValue={setAlcohol}
-              isAlcoholicFromURL={isAlcohol}
+              alcoholParams={alcoholParams}
             />
           </FormWrapper>
           {state === "loading" ? (
