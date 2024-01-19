@@ -91,6 +91,7 @@ function SearchPage() {
 
   const currentParams = new URLSearchParams(currentSearchParams.toString());
   const allCocktails = getCocktailsData.data;
+  const pageInfo = getCocktailsData.pageInfo;
 
   const searchParams =
     state === "loading"
@@ -122,8 +123,8 @@ function SearchPage() {
   }
 
   function nextPage() {
-    const currentPageNumber = getCocktailsData.pageInfo.currentPage;
-    const totalPages = getCocktailsData.pageInfo.totalPages;
+    const currentPageNumber = pageInfo.currentPage;
+    const totalPages = pageInfo.totalPages;
 
     if (currentPageNumber < totalPages) {
       currentParams.set("page", String(currentPageNumber + 1));
@@ -132,7 +133,7 @@ function SearchPage() {
   }
 
   function prevPage() {
-    const currentPageNumber = getCocktailsData.pageInfo.currentPage;
+    const currentPageNumber = pageInfo.currentPage;
 
     if (currentPageNumber > 1) {
       currentParams.set("page", String(currentPageNumber - 1));
@@ -208,8 +209,8 @@ function SearchPage() {
         nextPage={nextPage}
         prevPage={prevPage}
         isPageLoading={state === "loading"}
-        currentPageNumber={getCocktailsData.pageInfo.currentPage}
-        totalPagesNumber={getCocktailsData.pageInfo.totalPages}
+        currentPageNumber={pageInfo.currentPage}
+        totalPagesNumber={pageInfo.totalPages}
       />
     </Layout>
   );
