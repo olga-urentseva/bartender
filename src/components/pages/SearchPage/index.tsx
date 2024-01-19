@@ -6,8 +6,6 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 
-import { Cocktail } from "../../../types/Cocktail";
-
 import CocktailCard from "../../atoms/CocktailCard";
 import Layout from "../../templates/Layout";
 import ErrorMessage from "../../atoms/ErrorMessage";
@@ -15,8 +13,12 @@ import Loader from "../../atoms/Loader";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import { FormEvent } from "react";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
-import getCocktails, { GetCocktailsOptions } from "../../../api/getCocktails";
+import getCocktails, {
+  GetCocktailsOptions,
+  getCocktailsResult,
+} from "../../../api/getCocktails";
 import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
+import Pagination from "../../organisms/Pagination";
 
 const FormWrapper = styled.div`
   margin-bottom: 2em;
@@ -58,11 +60,12 @@ export async function loadSearchPageData({ request }: { request: Request }) {
 
   const collection = url.searchParams.get("collection");
   const alcoholic = url.searchParams.get("alcoholic");
+  const page = url.searchParams.get("page");
 
   const options = {} as GetCocktailsOptions;
 
-  if (ingredients.length > 0 || (ingredients.length === 0 && !collection)) {
-    options.ingredients = ingredients.length === 0 ? ["lime"] : ingredients;
+  if (ingredients.length > 0 || !collection) {
+    options.ingredients = ingredients;
   }
 
   if (collection) {
@@ -73,15 +76,22 @@ export async function loadSearchPageData({ request }: { request: Request }) {
     options.alcoholic = alcoholic;
   }
 
-  const result = await getCocktails(options);
+  if (page) {
+    options.page = page;
+  }
 
+  const result = await getCocktails(options);
   return result;
 }
 
 function SearchPage() {
-  const cocktailsData = useLoaderData() as Cocktail[];
+  const getCocktailsData = useLoaderData() as getCocktailsResult;
   const { state, location } = useNavigation();
   const [currentSearchParams, setSearchParams] = useSearchParams();
+
+  const currentParams = new URLSearchParams(currentSearchParams.toString());
+  const allCocktails = getCocktailsData.data;
+  const pageInfo = getCocktailsData.pageInfo;
 
   const searchParams =
     state === "loading"
@@ -91,28 +101,46 @@ function SearchPage() {
   const alcoholParams = searchParams.get("alcoholic");
 
   function setIngredients(newIngredients: Set<string>) {
-    const currentParams = new URLSearchParams(currentSearchParams.toString());
-
-    if (newIngredients.size === 0 && !currentParams.has("collection")) {
-      currentParams.set("ingredients[]", "lime");
-    }
-
     currentParams.delete("ingredients[]");
-    newIngredients.forEach((ing) => currentParams.append("ingredients[]", ing));
-
+    currentParams.delete("page");
+    if (newIngredients.size > 0) {
+      newIngredients.forEach((ing) =>
+        currentParams.append("ingredients[]", ing)
+      );
+    }
     setSearchParams(currentParams);
   }
 
   function setAlcohol(value: string | undefined) {
-    const currentParams = new URLSearchParams(currentSearchParams.toString());
     if (value === undefined) {
       currentParams.delete("alcoholic");
     } else {
       currentParams.set("alcoholic", value);
+      currentParams.delete("page"); // reset page when alcoholic filter applied
     }
 
     setSearchParams(currentParams);
   }
+
+  function nextPage() {
+    const currentPageNumber = pageInfo.currentPage;
+    const totalPages = pageInfo.totalPages;
+
+    if (currentPageNumber < totalPages) {
+      currentParams.set("page", String(currentPageNumber + 1));
+      setSearchParams(currentParams);
+    }
+  }
+
+  function prevPage() {
+    const currentPageNumber = pageInfo.currentPage;
+
+    if (currentPageNumber > 1) {
+      currentParams.set("page", String(currentPageNumber - 1));
+      setSearchParams(currentParams);
+    }
+  }
+
   function handleFormSubmit(
     e: FormEvent<HTMLFormElement>,
     inputValue: string,
@@ -133,7 +161,7 @@ function SearchPage() {
 
   const currentCollection = currentSearchParams.get("collection"); // to display name of the collection
 
-  const cocktailCards = cocktailsData?.map((cocktail) => {
+  const cocktailCards = allCocktails.map((cocktail) => {
     return (
       <CocktailCard
         id={cocktail.id}
@@ -164,6 +192,7 @@ function SearchPage() {
               alcoholParams={alcoholParams}
             />
           </FormWrapper>
+
           {state === "loading" ? (
             <Loader />
           ) : cocktailCards.length > 0 ? (
@@ -176,6 +205,13 @@ function SearchPage() {
           )}
         </CocktailsSearch>
       </InnerWrapper>
+      <Pagination
+        nextPage={nextPage}
+        prevPage={prevPage}
+        isPageLoading={state === "loading"}
+        currentPageNumber={pageInfo.currentPage}
+        totalPagesNumber={pageInfo.totalPages}
+      />
     </Layout>
   );
 }

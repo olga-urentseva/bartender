@@ -1,18 +1,25 @@
 import { get } from "../lib/http";
 import { Cocktail } from "../types/Cocktail";
 
-export interface GetCocktailsOptions {
+export type GetCocktailsOptions = {
   ingredients?: string[];
   collection?: string;
   alcoholic?: string;
-}
+  page?: string;
+};
+
+export type getCocktailsResult = {
+  data: Cocktail[];
+  pageInfo: {
+    totalItems: number;
+    currentPage: number;
+    totalPages: number;
+    itemsPerPage: number;
+  };
+};
 
 export default async function getCocktails(options: GetCocktailsOptions) {
-  const { ingredients, collection, alcoholic } = options;
-
-  if ((!ingredients || ingredients.length === 0) && !collection) {
-    return [];
-  }
+  const { ingredients, collection, alcoholic, page } = options;
 
   let url = "https://bartender-api.mooo.com/cocktails?";
 
@@ -28,11 +35,13 @@ export default async function getCocktails(options: GetCocktailsOptions) {
 
   if (alcoholic && alcoholic !== "all") {
     const isAlcoholic = alcoholic === "alcoholic";
-    console.log(isAlcoholic);
     url += `&isAlcoholic=${isAlcoholic}`;
   }
+  if (page) {
+    url += `&page=${page}`;
+  }
 
-  const cocktails = await get<Cocktail[]>(url);
+  const response = await get<getCocktailsResult>(url);
 
-  return cocktails;
+  return response;
 }

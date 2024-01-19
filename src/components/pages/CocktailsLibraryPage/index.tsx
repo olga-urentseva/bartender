@@ -5,14 +5,17 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 
-import getCocktailByName from "../../../api/getCocktailByName";
-import { Cocktail } from "../../../types/Cocktail";
+import {
+  getCocktailByName,
+  getCocktailByNameResult,
+} from "../../../api/getCocktailByName";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Loader from "../../atoms/Loader";
 import Layout from "../../templates/Layout";
 import SearchCocktailsForm from "./SearchCocktailsForm";
+import Pagination from "../../organisms/Pagination";
 
 const CocktailCardsWrapper = styled.div`
   display: grid;
@@ -35,14 +38,39 @@ export const CocktailsLibraryLoader = async ({
 };
 
 export default function CocktailsLibraryPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentName = searchParams.get("name")?.replaceAll(",", ", ") || "";
+  const [currentSearchParams, setSearchParams] = useSearchParams();
+  const currentName =
+    currentSearchParams.get("name")?.replaceAll(",", ", ") || "";
 
-  const cocktailsData = useLoaderData() as Cocktail[];
+  const libraryPageData = useLoaderData() as getCocktailByNameResult;
   const { state } = useNavigation();
+
+  const currentParams = new URLSearchParams(currentSearchParams.toString());
 
   function setCocktailName(name: string) {
     setSearchParams(name ? { name: name.toLocaleLowerCase() } : {});
+  }
+
+  const cocktailsData = libraryPageData.data;
+  const pageInfo = libraryPageData.pageInfo;
+
+  function nextPage() {
+    const currentPageNumber = pageInfo.currentPage;
+    const totalPages = pageInfo.totalPages;
+
+    if (currentPageNumber < totalPages) {
+      currentParams.set("page", String(currentPageNumber + 1));
+      setSearchParams(currentParams);
+    }
+  }
+
+  function prevPage() {
+    const currentPageNumber = pageInfo.currentPage;
+
+    if (currentPageNumber > 1) {
+      currentParams.set("page", String(currentPageNumber - 1));
+      setSearchParams(currentParams);
+    }
   }
 
   const cocktails = cocktailsData?.map((drink) => {
@@ -73,6 +101,13 @@ export default function CocktailsLibraryPage() {
           There are no cocktails with this name &#128557;
         </ErrorMessage>
       )}
+      <Pagination
+        nextPage={nextPage}
+        prevPage={prevPage}
+        currentPageNumber={pageInfo.currentPage}
+        totalPagesNumber={pageInfo.totalPages}
+        isPageLoading={state === "loading"}
+      ></Pagination>
     </Layout>
   );
 }

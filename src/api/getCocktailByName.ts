@@ -1,9 +1,11 @@
 import { get } from "../lib/http";
 
-import { Cocktail } from "../types/Cocktail";
+import { getCocktailsResult } from "./getCocktails";
 
-export default async function getCocktailByName(name: string) {
-  const response = await get<Cocktail[]>(
+export type getCocktailByNameResult = getCocktailsResult;
+
+export async function getCocktailByName(name: string) {
+  const response = await get<getCocktailByNameResult>(
     `https://bartender-api.mooo.com/cocktails?name=${name}`
   );
 
