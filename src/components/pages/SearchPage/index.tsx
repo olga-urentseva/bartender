@@ -100,10 +100,6 @@ function SearchPage() {
   const alcoholParams = searchParams.get("alcoholic");
 
   function setIngredients(newIngredients: Set<string>) {
-    // if (newIngredients.size === 0 && !currentParams.has("collection")) {
-    //   currentParams.set("ingredients[]", DEFAULT_INGREDIENT);
-    // }
-
     currentParams.delete("ingredients[]");
     currentParams.delete("page");
     if (newIngredients.size > 0) {

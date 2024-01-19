@@ -1,14 +1,14 @@
 import { get } from "../lib/http";
 import { Cocktail } from "../types/Cocktail";
 
-export interface GetCocktailsOptions {
+export type GetCocktailsOptions = {
   ingredients?: string[];
   collection?: string;
   alcoholic?: string;
   page?: string;
-}
+};
 
-export interface getCocktailsResult {
+export type getCocktailsResult = {
   data: Cocktail[];
   pageInfo: {
     totalItems: number;
@@ -16,7 +16,7 @@ export interface getCocktailsResult {
     totalPages: number;
     itemsPerPage: number;
   };
-}
+};
 
 export default async function getCocktails(options: GetCocktailsOptions) {
   const { ingredients, collection, alcoholic, page } = options;
