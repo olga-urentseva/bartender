@@ -6,8 +6,9 @@ import {
 import styled from "styled-components";
 
 import {
-  getCocktailByName,
-  getCocktailByNameResult,
+  GetCocktailsByNameOptions,
+  getCocktailsByName,
+  getCocktailsByNameResult,
 } from "../../../api/getCocktailByName";
 
 import CocktailCard from "../../atoms/CocktailCard";
@@ -30,11 +31,19 @@ export const CocktailsLibraryLoader = async ({
   request: Request;
 }) => {
   const url = new URL(request.url);
-  const searchParam = url.searchParams.get("name");
-  if (!searchParam) {
-    return getCocktailByName("Amaretto");
+  const name = url.searchParams.get("name");
+  const page = url.searchParams.get("page");
+
+  const options = {} as GetCocktailsByNameOptions;
+
+  if (name) {
+    options.name = name;
   }
-  return getCocktailByName(searchParam);
+  if (page) {
+    options.page = page;
+  }
+
+  return getCocktailsByName(options);
 };
 
 export default function CocktailsLibraryPage() {
@@ -42,7 +51,7 @@ export default function CocktailsLibraryPage() {
   const currentName =
     currentSearchParams.get("name")?.replaceAll(",", ", ") || "";
 
-  const libraryPageData = useLoaderData() as getCocktailByNameResult;
+  const libraryPageData = useLoaderData() as getCocktailsByNameResult;
   const { state } = useNavigation();
 
   const currentParams = new URLSearchParams(currentSearchParams.toString());
