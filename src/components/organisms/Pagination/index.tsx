@@ -5,7 +5,7 @@ type ViewMoreProps = {
   prevPage: () => void;
   currentPageNumber: number;
   totalPagesNumber: number;
-  isPageLoading: boolean;
+  isDisabled: boolean;
 };
 
 const PaginationWrapper = styled.div<{ disabled: boolean }>`
@@ -49,7 +49,7 @@ export default function ViewMore(props: ViewMoreProps) {
   const isPrevPageDisabled = props.currentPageNumber === 1;
 
   return (
-    <PaginationWrapper disabled={props.isPageLoading}>
+    <PaginationWrapper disabled={props.isDisabled}>
       <PaginationButton
         onClick={() => props.prevPage()}
         disabled={isPrevPageDisabled}

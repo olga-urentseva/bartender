@@ -82,7 +82,7 @@ export default function CocktailsLibraryPage() {
     }
   }
 
-  const cocktails = cocktailsData?.map((drink) => {
+  const cocktailCards = cocktailsData?.map((drink) => {
     return (
       <CocktailCard
         cocktailName={drink.cocktailName}
@@ -103,8 +103,8 @@ export default function CocktailsLibraryPage() {
       />
       {state === "loading" ? (
         <Loader />
-      ) : cocktails?.length > 0 ? (
-        <CocktailCardsWrapper>{cocktails}</CocktailCardsWrapper>
+      ) : cocktailCards?.length > 0 ? (
+        <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
       ) : (
         <ErrorMessage>
           There are no cocktails with this name &#128557;
@@ -115,7 +115,11 @@ export default function CocktailsLibraryPage() {
         prevPage={prevPage}
         currentPageNumber={pageInfo.currentPage}
         totalPagesNumber={pageInfo.totalPages}
-        isPageLoading={state === "loading"}
+        isDisabled={
+          state === "loading" ||
+          cocktailCards.length === 0 ||
+          pageInfo.totalPages === 1
+        }
       ></Pagination>
     </Layout>
   );
