@@ -208,7 +208,11 @@ function SearchPage() {
       <Pagination
         nextPage={nextPage}
         prevPage={prevPage}
-        isPageLoading={state === "loading"}
+        isDisabled={
+          state === "loading" ||
+          cocktailCards.length === 0 ||
+          pageInfo.totalPages === 1
+        }
         currentPageNumber={pageInfo.currentPage}
         totalPagesNumber={pageInfo.totalPages}
       />
