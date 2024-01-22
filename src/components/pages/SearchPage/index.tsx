@@ -141,6 +141,14 @@ function SearchPage() {
     }
   }
 
+  function setPage(pageNumber: number) {
+    const availablePagesNumber = pageInfo.totalPages;
+    if (pageNumber <= availablePagesNumber) {
+      currentParams.set("page", String(pageNumber));
+      setSearchParams(currentParams);
+    }
+  }
+
   function handleFormSubmit(
     e: FormEvent<HTMLFormElement>,
     inputValue: string,
@@ -208,6 +216,7 @@ function SearchPage() {
       <Pagination
         nextPage={nextPage}
         prevPage={prevPage}
+        setPageNumber={setPage}
         isDisabled={
           state === "loading" ||
           cocktailCards.length === 0 ||
