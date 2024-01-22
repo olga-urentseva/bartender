@@ -82,6 +82,14 @@ export default function CocktailsLibraryPage() {
     }
   }
 
+  function setPage(pageNumber: number) {
+    const availablePagesNumber = pageInfo.totalPages;
+    if (pageNumber <= availablePagesNumber) {
+      currentParams.set("page", String(pageNumber));
+      setSearchParams(currentParams);
+    }
+  }
+
   const cocktailCards = cocktailsData?.map((drink) => {
     return (
       <CocktailCard
@@ -113,6 +121,7 @@ export default function CocktailsLibraryPage() {
       <Pagination
         nextPage={nextPage}
         prevPage={prevPage}
+        setPageNumber={setPage}
         currentPageNumber={pageInfo.currentPage}
         totalPagesNumber={pageInfo.totalPages}
         isDisabled={
