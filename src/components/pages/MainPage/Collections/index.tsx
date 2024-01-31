@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import christmasImagePath from "./christmas-cocktails.jpg";
+// import christmasImagePath from "./christmas-cocktails.jpg";
 import classicImagePath from "./classic-cocktails.jpg";
-import spicyCocktails from "./spicy-cocktails.jpeg";
+import spicyCocktailsPath from "./spicy-cocktails.jpeg";
+import springCocktailsPath from "./spring-cocktails.jpeg";
+import valentineCocktailsPath from "./valentine-cocktails.jpeg";
 
 const Wrapper = styled.div`
   display: grid;
@@ -78,13 +80,20 @@ function CollectionItem({
 }
 
 export default function Collections({ ...otherProps }) {
+  // collection=[name]. Name should be exactly the same as the name of the collection in DB
   return (
     <Wrapper {...otherProps}>
       <CollectionItem
-        title="Top 20 Holiday cocktails 🎄"
-        imgUrl={christmasImagePath}
-        to="/search?collection=christmas"
-        description="Cheers to the holidays!"
+        title="Valentine's day cocktails ❤️"
+        imgUrl={valentineCocktailsPath}
+        to="/search?collection=valentine"
+        description="Love is in the air (and in the cocktail)"
+      />
+      <CollectionItem
+        title="Spring cocktails 🌸"
+        imgUrl={springCocktailsPath}
+        to="/search?collection=spring"
+        description="Spring fresh cocktails"
       />
       <CollectionItem
         title="Favourite classic cocktails 🍸"
@@ -94,7 +103,7 @@ export default function Collections({ ...otherProps }) {
       />
       <CollectionItem
         title="Top 10 Spicy cocktails 🌶"
-        imgUrl={spicyCocktails}
+        imgUrl={spicyCocktailsPath}
         to="/search?collection=spicy"
         description="Spicy cocktails for cold weather"
       />
