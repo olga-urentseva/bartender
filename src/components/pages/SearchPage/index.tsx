@@ -13,10 +13,7 @@ import Loader from "../../atoms/Loader";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import { FormEvent } from "react";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
-import getCocktails, {
-  GetCocktailsOptions,
-  getCocktailsResult,
-} from "../../../api/getCocktails";
+import getCocktails, { CocktailsOptions } from "../../../api/getCocktails";
 import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 import Pagination from "../../organisms/Pagination";
 
@@ -62,7 +59,7 @@ export async function loadSearchPageData({ request }: { request: Request }) {
   const alcoholic = url.searchParams.get("alcoholic");
   const page = url.searchParams.get("page");
 
-  const options = {} as GetCocktailsOptions;
+  const options: CocktailsOptions = {};
 
   if (ingredients.length > 0 || !collection) {
     options.ingredients = ingredients;
@@ -85,7 +82,9 @@ export async function loadSearchPageData({ request }: { request: Request }) {
 }
 
 function SearchPage() {
-  const getCocktailsData = useLoaderData() as getCocktailsResult;
+  const getCocktailsData = useLoaderData() as Awaited<
+    ReturnType<typeof getCocktails>
+  >;
   const { state, location } = useNavigation();
   const [currentSearchParams, setSearchParams] = useSearchParams();
 
@@ -120,33 +119,6 @@ function SearchPage() {
     }
 
     setSearchParams(currentParams);
-  }
-
-  function nextPage() {
-    const currentPageNumber = pageInfo.currentPage;
-    const totalPages = pageInfo.totalPages;
-
-    if (currentPageNumber < totalPages) {
-      currentParams.set("page", String(currentPageNumber + 1));
-      setSearchParams(currentParams);
-    }
-  }
-
-  function prevPage() {
-    const currentPageNumber = pageInfo.currentPage;
-
-    if (currentPageNumber > 1) {
-      currentParams.set("page", String(currentPageNumber - 1));
-      setSearchParams(currentParams);
-    }
-  }
-
-  function setPage(pageNumber: number) {
-    const availablePagesNumber = pageInfo.totalPages;
-    if (pageNumber <= availablePagesNumber) {
-      currentParams.set("page", String(pageNumber));
-      setSearchParams(currentParams);
-    }
   }
 
   function handleFormSubmit(
@@ -214,9 +186,6 @@ function SearchPage() {
         </CocktailsSearch>
       </InnerWrapper>
       <Pagination
-        nextPage={nextPage}
-        prevPage={prevPage}
-        setPageNumber={setPage}
         isDisabled={
           state === "loading" ||
           cocktailCards.length === 0 ||
