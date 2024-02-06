@@ -1,30 +1,33 @@
 import { get } from "../lib/http";
+import { Cocktail } from "../types/Cocktail";
 
-import { getCocktailsResult } from "./getCocktails";
-
-export type GetCocktailsByNameOptions = {
+export type CocktailsByNameOptions = {
   name?: string;
   page?: string;
 };
+type CocktailsByNameResult = {
+  data: Cocktail[];
+  pageInfo: {
+    totalItems: number;
+    currentPage: number;
+    totalPages: number;
+    itemsPerPage: number;
+  };
+};
 
-export type getCocktailsByNameResult = getCocktailsResult;
-
-export async function getCocktailsByName(options: GetCocktailsByNameOptions) {
-  let url = "https://bartender-api.mooo.com/cocktails?";
-
+export async function getCocktailsByName(options: CocktailsByNameOptions) {
   const { name, page } = options;
 
+  const url = new URL("https://bartender-api.mooo.com/cocktails");
+
   if (name) {
-    url += `&name=${name}`;
+    url.searchParams.set("name", name);
   }
   if (page) {
-    url += `&page=${page}`;
+    url.searchParams.set("page", String(page));
   }
 
-  const response = await get<getCocktailsByNameResult>(url);
+  const response = await get<CocktailsByNameResult>(url.toString());
 
-  if (!response) {
-    return null;
-  }
   return response;
 }

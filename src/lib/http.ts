@@ -14,10 +14,7 @@ async function request<T = unknown>(url: string, options: RequestInit) {
     throw new Error(`Server responded with ${response.status} code`);
   }
   const responseBody = await response.text();
-  if (responseBody) {
-    return JSON.parse(responseBody) as T;
-  }
-  return null;
+  return (responseBody && JSON.parse(responseBody)) as T;
 }
 
 export function get<T = unknown>(

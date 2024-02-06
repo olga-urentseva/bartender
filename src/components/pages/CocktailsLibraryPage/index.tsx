@@ -6,9 +6,8 @@ import {
 import styled from "styled-components";
 
 import {
-  GetCocktailsByNameOptions,
+  CocktailsByNameOptions,
   getCocktailsByName,
-  getCocktailsByNameResult,
 } from "../../../api/getCocktailByName";
 
 import CocktailCard from "../../atoms/CocktailCard";
@@ -34,7 +33,7 @@ export const CocktailsLibraryLoader = async ({
   const name = url.searchParams.get("name");
   const page = url.searchParams.get("page");
 
-  const options = {} as GetCocktailsByNameOptions;
+  const options: CocktailsByNameOptions = {};
 
   if (name) {
     options.name = name;
@@ -51,10 +50,10 @@ export default function CocktailsLibraryPage() {
   const currentName =
     currentSearchParams.get("name")?.replaceAll(",", ", ") || "";
 
-  const libraryPageData = useLoaderData() as getCocktailsByNameResult;
+  const libraryPageData = useLoaderData() as Awaited<
+    ReturnType<typeof getCocktailsByName>
+  >;
   const { state } = useNavigation();
-
-  const currentParams = new URLSearchParams(currentSearchParams.toString());
 
   function setCocktailName(name: string) {
     setSearchParams(name ? { name: name.toLocaleLowerCase() } : {});
@@ -62,33 +61,6 @@ export default function CocktailsLibraryPage() {
 
   const cocktailsData = libraryPageData.data;
   const pageInfo = libraryPageData.pageInfo;
-
-  function nextPage() {
-    const currentPageNumber = pageInfo.currentPage;
-    const totalPages = pageInfo.totalPages;
-
-    if (currentPageNumber < totalPages) {
-      currentParams.set("page", String(currentPageNumber + 1));
-      setSearchParams(currentParams);
-    }
-  }
-
-  function prevPage() {
-    const currentPageNumber = pageInfo.currentPage;
-
-    if (currentPageNumber > 1) {
-      currentParams.set("page", String(currentPageNumber - 1));
-      setSearchParams(currentParams);
-    }
-  }
-
-  function setPage(pageNumber: number) {
-    const availablePagesNumber = pageInfo.totalPages;
-    if (pageNumber <= availablePagesNumber) {
-      currentParams.set("page", String(pageNumber));
-      setSearchParams(currentParams);
-    }
-  }
 
   const cocktailCards = cocktailsData?.map((drink) => {
     return (
@@ -119,9 +91,6 @@ export default function CocktailsLibraryPage() {
         </ErrorMessage>
       )}
       <Pagination
-        nextPage={nextPage}
-        prevPage={prevPage}
-        setPageNumber={setPage}
         currentPageNumber={pageInfo.currentPage}
         totalPagesNumber={pageInfo.totalPages}
         isDisabled={
