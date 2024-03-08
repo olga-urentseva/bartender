@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 // import christmasImagePath from "./christmas-cocktails.jpg";
+//import valentineCocktailsPath from "./valentine-cocktails.jpeg";
+
 import classicImagePath from "./classic-cocktails.jpg";
 import spicyCocktailsPath from "./spicy-cocktails.jpeg";
 import springCocktailsPath from "./spring-cocktails.jpeg";
-import valentineCocktailsPath from "./valentine-cocktails.jpeg";
+import easyCocktailsPath from "./easy-cocktails.jpg";
 
 const Wrapper = styled.div`
   display: grid;
@@ -84,19 +86,19 @@ export default function Collections({ ...otherProps }) {
   return (
     <Wrapper {...otherProps}>
       <CollectionItem
-        title="Valentine's day cocktails ❤️"
-        imgUrl={valentineCocktailsPath}
-        to="/search?collection=valentine"
-        description="Love is in the air (and in the cocktail)"
-      />
-      <CollectionItem
         title="Spring cocktails 🌸"
         imgUrl={springCocktailsPath}
         to="/search?collection=spring"
         description="Spring fresh cocktails"
       />
       <CollectionItem
-        title="Favourite classic cocktails 🍸"
+        title="Easy cocktails 🍸"
+        imgUrl={easyCocktailsPath}
+        to="/search?collection=easy"
+        description="Easy cocktails"
+      />
+      <CollectionItem
+        title="Favourite classic cocktails 🍹"
         imgUrl={classicImagePath}
         to="/search?collection=classic"
         description="Old classic never gets too old"
