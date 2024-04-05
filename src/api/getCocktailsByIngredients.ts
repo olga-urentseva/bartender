@@ -8,7 +8,7 @@ export default async function getCocktailsByIngredients(
     return [];
   }
 
-  const url = `https://bartender-api.mooo.com/cocktails?${ingredients
+  const url = `https://cocktails-api.mooo.com/cocktails?${ingredients
     .map((ing) => `ingredients[]=${ing.trim()}`)
     .join("&")}`;
 

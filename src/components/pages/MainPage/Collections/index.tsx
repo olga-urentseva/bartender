@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 
-// import christmasImagePath from "./christmas-cocktails.jpg";
-import classicImagePath from "./classic-cocktails.jpg";
-import spicyCocktailsPath from "./spicy-cocktails.jpeg";
-import springCocktailsPath from "./spring-cocktails.jpeg";
-import valentineCocktailsPath from "./valentine-cocktails.jpeg";
+import { collectionIdsToShow } from "./collections-to-show";
+
+import getCollections from "../../../../api/getCollections";
 
 const Wrapper = styled.div`
   display: grid;
@@ -79,34 +77,31 @@ function CollectionItem({
   );
 }
 
+export async function loadCollectionPageData() {
+  const result = await getCollections(collectionIdsToShow);
+  return Promise.all(result);
+}
+
 export default function Collections({ ...otherProps }) {
-  // collection=[name]. Name should be exactly the same as the name of the collection in DB
+  const collectionsData = useLoaderData() as Awaited<
+    ReturnType<typeof getCollections>
+  >;
+
   return (
     <Wrapper {...otherProps}>
-      <CollectionItem
-        title="Valentine's day cocktails ❤️"
-        imgUrl={valentineCocktailsPath}
-        to="/search?collection=valentine"
-        description="Love is in the air (and in the cocktail)"
-      />
-      <CollectionItem
-        title="Spring cocktails 🌸"
-        imgUrl={springCocktailsPath}
-        to="/search?collection=spring"
-        description="Spring fresh cocktails"
-      />
-      <CollectionItem
-        title="Favourite classic cocktails 🍸"
-        imgUrl={classicImagePath}
-        to="/search?collection=classic"
-        description="Old classic never gets too old"
-      />
-      <CollectionItem
-        title="Top 10 Spicy cocktails 🌶"
-        imgUrl={spicyCocktailsPath}
-        to="/search?collection=spicy"
-        description="Spicy cocktails for cold weather"
-      />
+      {collectionsData.length === 0 ? (
+        <>nothing</>
+      ) : (
+        collectionsData.map((data) => (
+          <CollectionItem
+            key={data.id}
+            title={data.collectionName}
+            imgUrl={data.imageUrl}
+            to={`/collections/${data.id}`}
+            description={data.description}
+          />
+        ))
+      )}
     </Wrapper>
   );
 }

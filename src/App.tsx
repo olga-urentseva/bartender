@@ -11,6 +11,7 @@ import CocktailsLibraryPage, {
 } from "./components/pages/CocktailsLibraryPage";
 import MainPage from "./components/pages/MainPage";
 import CollectionsPage from "./components/pages/CollectionsPage";
+import { loadCollectionPageData } from "./components/pages/MainPage/Collections";
 
 const GlobalStyles = createGlobalStyle`
   #root {
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
   {
     path: "/collections",
     element: <CollectionsPage />,
+    loader: loadCollectionPageData,
     errorElement: <ErrorPage />,
   },
   {
