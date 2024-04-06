@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import Layout from "../../templates/Layout";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import { FormEvent, useState } from "react";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import Loader from "../../atoms/Loader";
-import Collections from "./Collections";
+import Collections from "../../organisms/Collections";
+import getCollections from "../../../api/getCollections";
 
 const SearchInnerWrapper = styled.div`
   display: flex;
@@ -44,10 +50,19 @@ const CollectionsLink = styled(Link)`
   }
 `;
 
+export async function mainPageLoader() {
+  const collections = await getCollections();
+  return { collectionsData: collections };
+}
+
 const MainPage = () => {
   const [ingredients, setIngredients] = useState(new Set(""));
   const navigate = useNavigate();
   const { state } = useNavigation();
+
+  const loaderData = useLoaderData() as Awaited<
+    ReturnType<typeof mainPageLoader>
+  >;
 
   function handleFormSubmit(e: FormEvent<HTMLFormElement>, inputValue: string) {
     e.preventDefault();
@@ -82,7 +97,7 @@ const MainPage = () => {
               Discover our collections for every taste, mood, and celebration!
               🥂
             </CollectionsLink>
-            <Collections />
+            <Collections data={loaderData.collectionsData} />
           </CollectionsInnerWrapper>
         </SearchHero>
       )}

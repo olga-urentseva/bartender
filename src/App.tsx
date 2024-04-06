@@ -9,9 +9,10 @@ import ErrorPage from "./components/pages/ErrorPage";
 import CocktailsLibraryPage, {
   CocktailsLibraryLoader,
 } from "./components/pages/CocktailsLibraryPage";
-import MainPage from "./components/pages/MainPage";
-import CollectionsPage from "./components/pages/CollectionsPage";
-import { loadCollectionPageData } from "./components/pages/MainPage/Collections";
+import MainPage, { mainPageLoader } from "./components/pages/MainPage";
+import CollectionsPage, {
+  CollectionsPageLoader,
+} from "./components/pages/CollectionsPage";
 
 const GlobalStyles = createGlobalStyle`
   #root {
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+    loader: () => mainPageLoader(),
     errorElement: <ErrorPage />,
   },
   {
@@ -82,7 +84,7 @@ const router = createBrowserRouter([
   {
     path: "/collections",
     element: <CollectionsPage />,
-    loader: loadCollectionPageData,
+    loader: CollectionsPageLoader,
     errorElement: <ErrorPage />,
   },
   {

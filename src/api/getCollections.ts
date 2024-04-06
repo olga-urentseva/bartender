@@ -5,21 +5,12 @@ type CollectionsResult = {
   collectionName: string;
   description: string;
   imageUrl: string;
-};
+}[];
 
-export default async function getCollections(ids: string[] | [] | undefined) {
-  if (!ids || ids.length === 0) {
-    return [];
-  }
+export default async function getCollections() {
+  const result = await get<CollectionsResult>(
+    "https://cocktails-api.mooo.com/collections"
+  );
 
-  const url = `https://cocktails-api.mooo.com/collections/`;
-
-  const promises = ids.map(async (id) => {
-    return get<CollectionsResult>(url + id);
-  });
-
-  const result = await Promise.all(promises);
-
-  console.log(result);
   return result;
 }

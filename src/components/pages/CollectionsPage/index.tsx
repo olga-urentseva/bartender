@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Layout from "../../templates/Layout";
-import Collections from "../MainPage/Collections";
+import Collections from "../../organisms/Collections";
+import getCollections from "../../../api/getCollections";
+import { useLoaderData } from "react-router-dom";
 
 const MainText = styled.h2`
   color: ${(props) => props.theme.text};
@@ -10,8 +12,16 @@ const Description = styled.p`
   color: ${(props) => props.theme.text};
   font-size: 1em;
 `;
+export async function CollectionsPageLoader() {
+  const collections = await getCollections();
+  return { collectionsData: collections };
+}
 
 export default function CollectionsPage() {
+  const loaderData = useLoaderData() as Awaited<
+    ReturnType<typeof CollectionsPageLoader>
+  >;
+
   return (
     <Layout>
       <MainText>
@@ -22,7 +32,7 @@ export default function CollectionsPage() {
         for a special mood or occasion, if you want to experience the classic
         taste of everyone&apos;s favorite drinks or just try something new.
       </Description>
-      <Collections />
+      <Collections data={loaderData.collectionsData} />
     </Layout>
   );
 }

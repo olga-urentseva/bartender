@@ -1,9 +1,7 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { collectionIdsToShow } from "./collections-to-show";
-
-import getCollections from "../../../../api/getCollections";
+import getCollections from "../../../api/getCollections";
 
 const Wrapper = styled.div`
   display: grid;
@@ -77,22 +75,17 @@ function CollectionItem({
   );
 }
 
-export async function loadCollectionPageData() {
-  const result = await getCollections(collectionIdsToShow);
-  return Promise.all(result);
-}
-
-export default function Collections({ ...otherProps }) {
-  const collectionsData = useLoaderData() as Awaited<
-    ReturnType<typeof getCollections>
-  >;
-
+export default function Collections({
+  data,
+}: {
+  data: Awaited<ReturnType<typeof getCollections>>;
+}) {
   return (
-    <Wrapper {...otherProps}>
-      {collectionsData.length === 0 ? (
+    <Wrapper>
+      {data.length === 0 ? (
         <>nothing</>
       ) : (
-        collectionsData.map((data) => (
+        data.map((data) => (
           <CollectionItem
             key={data.id}
             title={data.collectionName}
