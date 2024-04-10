@@ -42,7 +42,7 @@ const InputWrapper = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: ${(props) => props.theme.accent};
   font-weight: 500;
 `;

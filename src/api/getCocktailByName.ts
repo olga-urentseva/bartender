@@ -18,7 +18,7 @@ type CocktailsByNameResult = {
 export async function getCocktailsByName(options: CocktailsByNameOptions) {
   const { name, page } = options;
 
-  const url = new URL("https://bartender-api.mooo.com/cocktails");
+  const url = new URL("https://cocktails-api.mooo.com/cocktails");
 
   if (name) {
     url.searchParams.set("name", name);

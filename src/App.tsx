@@ -1,16 +1,21 @@
-import { createGlobalStyle, ThemeProvider } from "styled-components";
 import SearchPage, { loadSearchPageData } from "./components/pages/SearchPage";
-import { theme } from "./styles/theme";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CocktailPage from "./components/pages/CocktailPage";
+import CocktailPage, {
+  cocktailPageLoader,
+} from "./components/pages/CocktailPage";
 import AboutPage from "./components/pages/AboutPage";
-import getCocktailById from "./api/getCocktailById";
 import ErrorPage from "./components/pages/ErrorPage";
 import CocktailsLibraryPage, {
   CocktailsLibraryLoader,
 } from "./components/pages/CocktailsLibraryPage";
-import MainPage from "./components/pages/MainPage";
-import CollectionsPage from "./components/pages/CollectionsPage";
+import MainPage, { mainPageLoader } from "./components/pages/MainPage";
+import CollectionsPage, {
+  CollectionsPageLoader,
+} from "./components/pages/CollectionsPage";
+
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { theme } from "./styles/theme";
 
 const GlobalStyles = createGlobalStyle`
   #root {
@@ -47,18 +52,13 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+    loader: () => mainPageLoader(),
     errorElement: <ErrorPage />,
   },
   {
     path: "/cocktails/:cocktailId",
     element: <CocktailPage />,
-    loader: async ({ params }) => {
-      const response = await getCocktailById(params.cocktailId);
-      if (!response) {
-        throw new Response("Cocktail not found", { status: 404 });
-      }
-      return response;
-    },
+    loader: async ({ params }) => cocktailPageLoader({ params: params }),
     errorElement: <ErrorPage />,
   },
   {
@@ -75,18 +75,27 @@ const router = createBrowserRouter([
   {
     path: "/search",
     element: <SearchPage />,
-    loader: ({ request }) => loadSearchPageData({ request: request }),
+    loader: ({ request, params }) =>
+      loadSearchPageData({ request: request, params: params }),
     errorElement: <ErrorPage />,
   },
   {
     path: "/collections",
     element: <CollectionsPage />,
+    loader: CollectionsPageLoader,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/search/:collectionName",
+    path: "/collections/:collectionId",
     element: <SearchPage />,
-    loader: ({ request }) => loadSearchPageData({ request: request }),
+    loader: ({ request, params }) =>
+      loadSearchPageData({ request: request, params: params }),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/collections/cocktails/:collectionId",
+    element: <CocktailPage />,
+    loader: async ({ params }) => cocktailPageLoader({ params: params }),
     errorElement: <ErrorPage />,
   },
 ]);

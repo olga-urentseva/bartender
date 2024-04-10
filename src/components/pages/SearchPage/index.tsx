@@ -1,4 +1,5 @@
 import {
+  Params,
   createSearchParams,
   useLoaderData,
   useNavigation,
@@ -16,9 +17,10 @@ import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 import getCocktails, { CocktailsOptions } from "../../../api/getCocktails";
 import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 import Pagination from "../../organisms/Pagination";
+import getCollectionInfoById from "../../../api/getCollectionById";
 
 const FormWrapper = styled.div`
-  margin-bottom: 2em;
+  margin-bottom: 2rem;
   display: flex;
   align-items: end;
   gap: 1em;
@@ -28,45 +30,72 @@ const FormWrapper = styled.div`
 const CocktailCardsWrapper = styled.div`
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   grid-auto-rows: max-content;
 `;
 
 const CocktailsSearch = styled.div`
-  flex: 1 1 20em;
+  flex: 1 1 20rem;
 `;
 
 const InnerWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 2em;
+  gap: 2rem;
 `;
 
 const CollectionName = styled.h2`
   color: ${(props) => props.theme.text};
   font-weight: 800;
   font-size: 2rem;
+  margin: 0;
 `;
 
-export async function loadSearchPageData({ request }: { request: Request }) {
+const CollectionDescription = styled.h3`
+  color: ${(props) => props.theme.text};
+  font-size: 1rem;
+  margin: 0.5rem 0 2rem 0;
+  display: inline-block;
+`;
+
+export async function loadSearchPageData({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) {
   const url = new URL(request.url);
+
+  const collectionId = params.collectionId || undefined;
+  let collectionInfo:
+    | {
+        id: string;
+        collectionName: string;
+        description: string;
+        imageUrl: string;
+      }
+    | undefined;
+  if (collectionId) {
+    collectionInfo = await getCollectionInfoById(collectionId);
+    console.log(collectionInfo);
+  }
   const ingredients = url.searchParams
     .getAll("ingredients[]")
     .map((el) => el.toLowerCase().replace(/\s+/, "_"));
 
-  const collection = url.searchParams.get("collection");
   const alcoholic = url.searchParams.get("alcoholic");
   const page = url.searchParams.get("page");
 
   const options: CocktailsOptions = {};
 
-  if (ingredients.length > 0 || !collection) {
+  if (ingredients.length > 0 || !collectionId) {
     options.ingredients = ingredients;
   }
 
-  if (collection) {
-    options.collection = collection;
+  if (collectionId) {
+    options.collection = collectionId;
   }
 
   if (alcoholic) {
@@ -77,20 +106,24 @@ export async function loadSearchPageData({ request }: { request: Request }) {
     options.page = page;
   }
 
-  const result = await getCocktails(options);
-  return result;
+  const cocktailsResult = await getCocktails(options);
+  return { cocktailsData: cocktailsResult, collectionInfo: collectionInfo };
 }
 
 function SearchPage() {
-  const getCocktailsData = useLoaderData() as Awaited<
-    ReturnType<typeof getCocktails>
-  >;
+  const { cocktailsData, collectionInfo } = useLoaderData() as Awaited<{
+    cocktailsData: Awaited<ReturnType<typeof getCocktails>>;
+    collectionInfo: Awaited<
+      ReturnType<typeof getCollectionInfoById> | undefined
+    >;
+  }>;
   const { state, location } = useNavigation();
   const [currentSearchParams, setSearchParams] = useSearchParams();
 
   const currentParams = new URLSearchParams(currentSearchParams.toString());
-  const allCocktails = getCocktailsData.data;
-  const pageInfo = getCocktailsData.pageInfo;
+  const allCocktails = cocktailsData;
+
+  const pageInfo = allCocktails.pageInfo;
 
   const searchParams =
     state === "loading"
@@ -115,7 +148,7 @@ function SearchPage() {
       currentParams.delete("alcoholic");
     } else {
       currentParams.set("alcoholic", value);
-      currentParams.delete("page"); // reset page when alcoholic filter applied
+      currentParams.delete("page");
     }
 
     setSearchParams(currentParams);
@@ -139,9 +172,7 @@ function SearchPage() {
     setInputValue("");
   }
 
-  const currentCollection = currentSearchParams.get("collection"); // to display name of the collection
-
-  const cocktailCards = allCocktails.map((cocktail) => {
+  const cocktailCards = allCocktails.data.map((cocktail) => {
     return (
       <CocktailCard
         id={cocktail.id}
@@ -152,14 +183,19 @@ function SearchPage() {
     );
   });
 
+  const isItCollection = Boolean(collectionInfo);
+
   return (
     <Layout>
       <InnerWrapper>
         <CocktailsSearch>
-          {currentCollection && (
-            <CollectionName>
-              {`${currentCollection.toLocaleUpperCase()} COCKTAILS`}
-            </CollectionName>
+          {isItCollection && collectionInfo?.collectionName && (
+            <>
+              <CollectionName>{collectionInfo.collectionName}</CollectionName>
+              <CollectionDescription>
+                {collectionInfo.description}
+              </CollectionDescription>
+            </>
           )}
           <FormWrapper>
             <IngredientsFilterForm

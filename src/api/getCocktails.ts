@@ -21,7 +21,7 @@ type CocktailsResult = {
 export default async function getCocktails(options: CocktailsOptions) {
   const { ingredients, collection, alcoholic, page } = options;
 
-  const url = new URL("https://bartender-api.mooo.com/cocktails?");
+  const url = new URL("https://cocktails-api.mooo.com/cocktails?");
 
   if (ingredients && ingredients.length > 0) {
     ingredients.forEach((ing) => {
