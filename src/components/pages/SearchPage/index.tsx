@@ -79,6 +79,7 @@ export async function loadSearchPageData({
     | undefined;
   if (collectionId) {
     collectionInfo = await getCollectionInfoById(collectionId);
+    console.log(collectionInfo);
   }
   const ingredients = url.searchParams
     .getAll("ingredients[]")

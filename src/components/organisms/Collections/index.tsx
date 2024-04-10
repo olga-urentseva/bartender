@@ -26,30 +26,34 @@ const Description = styled.h4`
   transition: opacity 0.1s ease-in-out;
 `;
 
+const Title = styled.h3`
+  font-size: 2em;
+  margin: 0;
+  text-decoration: none;
+  color: ${(props) => props.theme.textInversion};
+  text-shadow: 2px 3px 10px ${(props) => props.theme.shadow};
+`;
+
 const Card = styled.div<{ imgUrl: string }>`
   background-image: url(${(props) => props.imgUrl});
   background-size: cover;
+  background-position: center;
   padding: 1rem;
   border-radius: 1em;
   transition: transform 0.3s ease-in-out;
-  height: 100%;
+  height: 13em;
   box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.accentLight};
 
   &:hover,
   &:focus {
     transform: scale(1.05);
 
-    ${Description} {
+    ${Description}, ${Title} {
       opacity: 100%;
       transition-delay: 0.1s;
+      text-shadow: 2px 3px 10px ${(props) => props.theme.shadow};
     }
   }
-`;
-const Title = styled.h3`
-  font-size: 2em;
-  margin: 0;
-  text-decoration: none;
-  color: ${(props) => props.theme.textInversion};
 `;
 
 function CollectionItem({
