@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   display: flex;
   gap: 1.3em;
   background-color: ${(props) => props.theme.secondary};
-  padding: 1em;
+  padding: 1em 1.5em;
   border-radius: 1em;
   box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
 `;
@@ -25,6 +25,14 @@ const CheckboxInput = styled.input<{ checked: boolean | null }>`
 const Label = styled.label`
   color: ${(props) => props.theme.text};
   font-weight: 600;
+  position: relative;
+`;
+
+const NumberOfcocktailsInfo = styled.span`
+  position: absolute;
+  top: -40%;
+  color: ${(props) => props.theme.textLight};
+  font-size: 0.7rem;
 `;
 
 const ALCOHOLIC_FILTER_CONFIG = new Map([
@@ -43,7 +51,9 @@ const NON_ALCOHOLIC_FILTER_CONFIG = new Map([
 export default function AlcoholicOrNonFilter(props: {
   setValue: (value: string | undefined) => void;
   alcoholParams: string | null;
+  numberOfCocktails: { alcoholic: number; nonAlcoholic: number };
 }) {
+  console.log(props.numberOfCocktails);
   const value = POSSIBLE_VALUES.has(props.alcoholParams)
     ? props.alcoholParams
     : null;
@@ -65,6 +75,9 @@ export default function AlcoholicOrNonFilter(props: {
           checked={value === "alcoholic" || value === "all"}
         />
         Alcoholic
+        <NumberOfcocktailsInfo>
+          {props.numberOfCocktails.alcoholic}
+        </NumberOfcocktailsInfo>
       </Label>
 
       <Label>
@@ -74,6 +87,9 @@ export default function AlcoholicOrNonFilter(props: {
           checked={value === "non-alcoholic" || value === "all"}
         />
         Non-alcoholic
+        <NumberOfcocktailsInfo>
+          {props.numberOfCocktails.nonAlcoholic}
+        </NumberOfcocktailsInfo>
       </Label>
     </Wrapper>
   );

@@ -16,6 +16,12 @@ type CocktailsResult = {
     totalPages: number;
     itemsPerPage: number;
   };
+  additionalData: {
+    numberOfCocktails: {
+      alcoholic: number;
+      nonAlcoholic: number;
+    };
+  };
 };
 
 export default async function getCocktails(options: CocktailsOptions) {

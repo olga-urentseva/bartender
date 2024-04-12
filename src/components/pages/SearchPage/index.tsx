@@ -79,7 +79,6 @@ export async function loadSearchPageData({
     | undefined;
   if (collectionId) {
     collectionInfo = await getCollectionInfoById(collectionId);
-    console.log(collectionInfo);
   }
   const ingredients = url.searchParams
     .getAll("ingredients[]")
@@ -124,6 +123,7 @@ function SearchPage() {
   const allCocktails = cocktailsData;
 
   const pageInfo = allCocktails.pageInfo;
+  const additionalData = allCocktails.additionalData;
 
   const searchParams =
     state === "loading"
@@ -206,6 +206,7 @@ function SearchPage() {
             <AlcoholicOrNonFilter
               setValue={setAlcohol}
               alcoholParams={alcoholParams}
+              numberOfCocktails={additionalData.numberOfCocktails}
             />
           </FormWrapper>
 
