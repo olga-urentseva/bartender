@@ -71,6 +71,12 @@ export default function index() {
         page for a more detailed look at the technical aspects of this project,
         as well as others that I have worked on.
       </Text>
+      <Text>
+        👀 P.S. Photos of cocktails are taken from an open API TheCocktailDB,
+        stock photos or photographed by the site creator. If you are the author
+        of any photo, please contact me through o.urentseva@gmail.com for
+        credits if none have already been claimed.
+      </Text>
     </Layout>
   );
 }
