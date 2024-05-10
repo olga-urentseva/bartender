@@ -22,7 +22,7 @@ import getCollectionInfoById from "../../../api/getCollectionById";
 const FormWrapper = styled.div`
   margin-bottom: 2rem;
   display: flex;
-  align-items: end;
+  align-items: start;
   gap: 1em;
   flex-wrap: wrap;
 `;
@@ -57,6 +57,12 @@ const CollectionDescription = styled.h3`
   font-size: 1rem;
   margin: 0.5rem 0 2rem 0;
   display: inline-block;
+`;
+
+const FormText = styled.h2`
+  font-size: 1.2em;
+  color: ${(props) => props.theme.accent};
+  font-weight: 500;
 `;
 
 export async function loadSearchPageData({
@@ -197,6 +203,7 @@ function SearchPage() {
               </CollectionDescription>
             </>
           )}
+          <FormText>What do you have in your bar?</FormText>
           <FormWrapper>
             <IngredientsFilterForm
               ingredients={ingredients}
