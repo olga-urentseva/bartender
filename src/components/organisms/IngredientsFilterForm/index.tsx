@@ -1,15 +1,21 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Input from "../../atoms/Input";
 import Ingredient from "../../atoms/SearchIngredient";
 import SearchButton from "../../atoms/SearchButton";
-import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 import ResetButton from "../../atoms/ResetButton";
+import Autocomplete from "../Autocomplete";
 
-const Form = styled.form`
+import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
+import { getIngredientsByName } from "../../../api/getIngredientsByName";
+
+const Form = styled.form<{
+  onBlur: (e: React.FocusEvent) => void;
+}>`
   width: 100%;
   max-width: 40em;
+  position: relative;
 `;
 
 const TagsInputWrapper = styled.div`
@@ -23,7 +29,7 @@ const TagsInputWrapper = styled.div`
   width: 100%;
   max-width: 50em;
   box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
-  margin-top: 0.5em;
+  margin-bottom: 0.5rem;
 `;
 
 const TransparentInput = styled(Input)`
@@ -41,12 +47,6 @@ const InputWrapper = styled.div`
   flex-wrap: nowrap;
 `;
 
-const Label = styled.label`
-  font-size: 1.2em;
-  color: ${(props) => props.theme.accent};
-  font-weight: 500;
-`;
-
 const ButtonsWrapper = styled.div`
   display: flex;
   gap: 0.5rem;
@@ -56,6 +56,11 @@ const ButtonsWrapper = styled.div`
 const Devider = styled.div`
   width: 1px;
   background-color: ${(props) => props.theme.accentLight};
+`;
+
+const StyledAutocomplete = styled(Autocomplete)`
+  position: absolute;
+  z-index: 1;
 `;
 
 interface IngredientsFilterFormProps {
@@ -74,6 +79,20 @@ function IngredientsFilterForm({
   handleFormSubmit,
 }: IngredientsFilterFormProps) {
   const [inputValue, setInputValue] = useState("");
+  const [autocompleteIngredients, setAutocompleteIngredients] = useState<
+    string[] | []
+  >([]);
+  const [
+    isAutocompleteIngredientsLoading,
+    setIsAutocompleteIngredientsLoading,
+  ] = useState(false);
+  const [isAutocompleteOpen, setIsAutocompleteOpen] = useState(false);
+
+  function toggleAutocomplete(e: React.FocusEvent) {
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+      setIsAutocompleteOpen(false);
+    }
+  }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const splitted = e.target.value.split(",").map((el) => el);
@@ -102,9 +121,38 @@ function IngredientsFilterForm({
     handleFormSubmit(e, inputValue, setInputValue);
   };
 
+  useEffect(() => {
+    setIsAutocompleteIngredientsLoading(true);
+    const abortController = new AbortController();
+    (async () => {
+      if (inputValue === "") {
+        setAutocompleteIngredients([]);
+        return;
+      }
+
+      try {
+        const autocompleteIngredients = await getIngredientsByName(
+          inputValue,
+          abortController.signal
+        );
+        const ingredientNames = autocompleteIngredients.map((ing) => ing.name);
+        setAutocompleteIngredients(ingredientNames);
+      } catch (err) {
+        if (!(err instanceof DOMException && err.name === "AbortError")) {
+          throw err;
+        }
+      }
+      setIsAutocompleteIngredientsLoading(false);
+      setIsAutocompleteOpen(true);
+    })();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [inputValue]);
+
   return (
-    <Form onSubmit={handleSubmitWrapper}>
-      <Label htmlFor="tags-input">What do you have in your bar?</Label>
+    <Form onSubmit={handleSubmitWrapper} onBlur={(e) => toggleAutocomplete(e)}>
       <TagsInputWrapper>
         {[...ingredients].map((ingredient, i) => (
           <Ingredient
@@ -137,6 +185,18 @@ function IngredientsFilterForm({
           </ButtonsWrapper>
         </InputWrapper>
       </TagsInputWrapper>
+      {isAutocompleteOpen && inputValue.trim().length > 0 && (
+        <StyledAutocomplete
+          isLoading={isAutocompleteIngredientsLoading}
+          items={autocompleteIngredients}
+          setItem={(item) => {
+            const newIngredients = [...ingredients, item];
+            setIngredients(new Set(newIngredients));
+            setInputValue("");
+            setIsAutocompleteOpen(false);
+          }}
+        />
+      )}
     </Form>
   );
 }
