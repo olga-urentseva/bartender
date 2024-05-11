@@ -14,7 +14,7 @@ export async function getIngredientsByName(
   const url = new URL("https://cocktails-api.mooo.com/ingredients");
 
   if (name) {
-    url.searchParams.set("prefix", name);
+    url.searchParams.set("prefix", name.toLocaleLowerCase());
   }
 
   const response = (await get<IngredientsByNameResult>(url.toString(), {
