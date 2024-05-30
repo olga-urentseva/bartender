@@ -25,11 +25,13 @@ const AutocompleteItem = styled.div<{ onClick: () => void }>`
   font-weight: 500;
   transition: color 0.1s;
   color: ${(props) => props.theme.text};
+  padding: 0.1rem 0.5rem;
+  transition: 0.2s;
 
   &:hover,
   &:active,
   &:focus-within {
-    color: ${(props) => props.theme.textLight};
+    color: ${(props) => props.theme.accentLight};
   }
 `;
 
