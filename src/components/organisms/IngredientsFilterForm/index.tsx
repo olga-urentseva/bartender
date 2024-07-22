@@ -166,7 +166,7 @@ function IngredientsFilterForm({
           <TransparentInput
             id="tags-input"
             type="text"
-            placeholder="Lime"
+            placeholder={[...ingredients].length > 0 ? "" : "Lime"}
             name="search"
             onChange={handleChange}
             value={inputValue}

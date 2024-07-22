@@ -15,9 +15,14 @@ const DeleteButton = styled.button`
   transform: translate(-50%, -50%);
   top: 0;
   clip-path: inset(50%);
+
+  @media (hover: none) {
+    display: block;
+    clip-path: none;
+  }
 `;
 
-const IngredientItom = styled.div`
+const IngredientItem = styled.div`
   color: ${(props) => props.theme.textInversion};
   background-color: ${(props) => props.theme.accent};
   padding: 0.2em 1em;
@@ -33,6 +38,7 @@ const IngredientItom = styled.div`
     background-color: ${(props) => props.theme.accentLight};
 
     ${DeleteButton} {
+      display: block;
       clip-path: none;
     }
   }
@@ -46,7 +52,7 @@ function Ingredient({
   removeIngredient: ({ ingredient }: { ingredient: string }) => void;
 }) {
   return (
-    <IngredientItom>
+    <IngredientItem>
       {ingredient}
       <DeleteButton
         type="button"
@@ -55,7 +61,7 @@ function Ingredient({
       >
         ×
       </DeleteButton>
-    </IngredientItom>
+    </IngredientItem>
   );
 }
 
