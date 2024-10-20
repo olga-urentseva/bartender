@@ -18,6 +18,7 @@ import getCocktails, { CocktailsOptions } from "../../../api/getCocktails";
 import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 import Pagination from "../../organisms/Pagination";
 import getCollectionInfoById from "../../../api/getCollectionById";
+import HalloweenSpider from "../../atoms/HalloweenSpider";
 
 const FormWrapper = styled.div`
   margin-bottom: 2rem;
@@ -193,6 +194,7 @@ function SearchPage() {
 
   return (
     <Layout>
+      <HalloweenSpider />
       <InnerWrapper>
         <CocktailsSearch>
           {isItCollection && collectionInfo?.collectionName && (
