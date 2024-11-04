@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 
 const lookAnimation = keyframes`
@@ -109,7 +109,7 @@ const Leg = styled.div<{ index: number; isLeft?: boolean; isPink: boolean }>`
   }}
 `;
 
-const HalloweenSpider: React.FC = () => {
+function HalloweenSpider() {
   const [isSpiderOnTheRight, setIsSpiderOnTheRight] = useState(true);
   console.log(isSpiderOnTheRight);
 
@@ -142,6 +142,6 @@ const HalloweenSpider: React.FC = () => {
       </LegsContainer>
     </SpiderWrapper>
   );
-};
+}
 
 export default HalloweenSpider;
