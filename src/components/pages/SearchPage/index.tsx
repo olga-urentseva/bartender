@@ -7,18 +7,33 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 
+import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
+
+import getCollectionInfoById from "../../../api/getCollectionById";
+import getCocktails, { CocktailsOptions } from "../../../api/getCocktails";
+
 import CocktailCard from "../../atoms/CocktailCard";
 import Layout from "../../templates/Layout";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Loader from "../../atoms/Loader";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import { FormEvent } from "react";
-import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
-import getCocktails, { CocktailsOptions } from "../../../api/getCocktails";
+
 import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 import Pagination from "../../organisms/Pagination";
-import getCollectionInfoById from "../../../api/getCollectionById";
+
 import HalloweenSpider from "../../atoms/HalloweenSpider";
+import Snowfall from "../../atoms/Snowfall";
+
+enum CollectionsWithAdElements {
+  Christmas = "christmas",
+  Halloween = "halloween",
+}
+
+const collectionComponents = {
+  [CollectionsWithAdElements.Christmas]: <Snowfall />,
+  [CollectionsWithAdElements.Halloween]: <HalloweenSpider />,
+};
 
 const FormWrapper = styled.div`
   margin-bottom: 2rem;
@@ -190,11 +205,19 @@ function SearchPage() {
     );
   });
 
-  const isItCollection = Boolean(collectionInfo);
+  const isItCollection = Boolean(collectionInfo?.collectionName);
+
+  const getCollectionComponent = () => {
+    if (!isItCollection || !collectionInfo?.id) return null;
+
+    const collectionId =
+      collectionInfo.id.toLowerCase() as CollectionsWithAdElements;
+    return collectionComponents[collectionId] || null;
+  };
 
   return (
     <Layout>
-      <HalloweenSpider />
+      {isItCollection && getCollectionComponent()}
       <InnerWrapper>
         <CocktailsSearch>
           {isItCollection && collectionInfo?.collectionName && (
