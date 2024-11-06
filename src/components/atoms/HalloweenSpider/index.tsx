@@ -23,8 +23,7 @@ const SpiderWrapper = styled.div<{ isSpiderOnTheRight: boolean }>`
   position: absolute;
   display: inline-block;
   top: 0;
-  left: ${({ isSpiderOnTheRight }) =>
-    isSpiderOnTheRight ? "85%" : "10%"}; // Correct usage
+  left: ${({ isSpiderOnTheRight }) => (isSpiderOnTheRight ? "85%" : "10%")};
   margin-right: 5em;
   animation: ${swingAnimation} 2s infinite;
   transform-origin: top;
@@ -111,7 +110,6 @@ const Leg = styled.div<{ index: number; isLeft?: boolean; isPink: boolean }>`
 
 function HalloweenSpider() {
   const [isSpiderOnTheRight, setIsSpiderOnTheRight] = useState(true);
-  console.log(isSpiderOnTheRight);
 
   function escape() {
     setIsSpiderOnTheRight(!isSpiderOnTheRight);
