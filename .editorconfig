@@ -1,0 +1,15 @@
+
+root = true
+
+# Default rules applied to all file types
+[*]
+
+# No trailing spaces, newline at EOF
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+end_of_line = lf
+
+# 2 space indentation
+indent_style = space
+indent_size = 2
