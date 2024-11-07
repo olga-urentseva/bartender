@@ -1,24 +1,13 @@
-import styled, { DefaultTheme, keyframes } from "styled-components";
+import styled from "styled-components";
 import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
 
-interface CustomTheme extends DefaultTheme {
-  accent: string;
-  accentLight: string;
-}
+import ChristmasLogo from "../../atoms/ChristmasLogo";
+import Logo from "../../atoms/Logo";
 
 interface HeaderProps {
   type: "default" | "accent";
 }
-
-const moveVertically = (theme: CustomTheme) => keyframes`
-    0% {
-    color: ${theme.accent};
-  }
-  100% {
-    color: ${theme.accentLight};
-  }
-`;
 
 const HeaderComponent = styled.header<HeaderProps>`
   padding: 2em 0;
@@ -49,16 +38,6 @@ const LinksWrapper = styled.div`
   display: flex;
   gap: 2em;
   padding-top: 0.6em; // pseudo-element compensation for centering
-`;
-
-const Logo = styled.h2`
-  animation: ${(props) => moveVertically(props.theme)} 3s linear infinite
-    alternate both;
-  font-size: 2rem;
-  font-family: "Oleo Script Swash Caps", serif;
-  margin: 0;
-  display: inline-block;
-  white-space: nowrap;
 `;
 
 const MenuLink = styled(Link)`
@@ -94,7 +73,7 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
         <Container>
           <InnerWrapper>
             <LogoLink to="/">
-              <Logo>Bart-t-tender</Logo>
+              <ChristmasLogo>Bart-t-tender</ChristmasLogo>
             </LogoLink>
             <LinksWrapper>
               <MenuLink to="/cocktails">Cocktail Library</MenuLink>
