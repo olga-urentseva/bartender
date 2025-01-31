@@ -15,6 +15,7 @@ const config = defineConfig({
     }),
     react(),
     VitePWA({
+      injectRegister: "auto",
       registerType: "autoUpdate",
       devOptions: {
         enabled: true,
