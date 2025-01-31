@@ -12,15 +12,13 @@ const Description = styled.p`
   color: ${(props) => props.theme.text};
   font-size: 1em;
 `;
-export async function CollectionsPageLoader() {
+export async function loader() {
   const collections = await getCollections();
   return { collectionsData: collections };
 }
 
 export default function CollectionsPage() {
-  const loaderData = useLoaderData() as Awaited<
-    ReturnType<typeof CollectionsPageLoader>
-  >;
+  const loaderData = useLoaderData() as Awaited<ReturnType<typeof loader>>;
 
   return (
     <Layout>

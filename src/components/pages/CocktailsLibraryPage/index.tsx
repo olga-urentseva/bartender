@@ -24,11 +24,7 @@ const CocktailCardsWrapper = styled.div`
   grid-auto-rows: max-content;
 `;
 
-export const CocktailsLibraryLoader = async ({
-  request,
-}: {
-  request: Request;
-}) => {
+export const loader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url);
   const name = url.searchParams.get("name");
   const page = url.searchParams.get("page");

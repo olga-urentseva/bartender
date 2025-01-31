@@ -81,7 +81,7 @@ const FormText = styled.h2`
   font-weight: 500;
 `;
 
-export async function loadSearchPageData({
+export async function loader({
   request,
   params,
 }: {
@@ -159,7 +159,7 @@ function SearchPage() {
     currentParams.delete("page");
     if (newIngredients.size > 0) {
       newIngredients.forEach((ing) =>
-        currentParams.append("ingredients[]", ing)
+        currentParams.append("ingredients[]", ing),
       );
     }
     setSearchParams(currentParams);
@@ -179,7 +179,7 @@ function SearchPage() {
   function handleFormSubmit(
     e: FormEvent<HTMLFormElement>,
     inputValue: string,
-    setInputValue: (value: string) => void
+    setInputValue: (value: string) => void,
   ) {
     e.preventDefault();
 

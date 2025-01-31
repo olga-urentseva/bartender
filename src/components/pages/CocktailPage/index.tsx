@@ -14,7 +14,7 @@ const LoaderWrapper = styled.div`
   justify-content: center;
 `;
 
-export async function cocktailPageLoader({ params }: { params: Params }) {
+export async function loader({ params }: { params: Params }) {
   const response = await getCocktailById(params.cocktailId);
 
   return response;

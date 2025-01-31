@@ -50,7 +50,7 @@ const CollectionsLink = styled(Link)`
   }
 `;
 
-export async function mainPageLoader() {
+export async function loader() {
   const collections = await getCollections();
   return { collectionsData: collections };
 }
@@ -60,9 +60,7 @@ const MainPage = () => {
   const navigate = useNavigate();
   const { state } = useNavigation();
 
-  const loaderData = useLoaderData() as Awaited<
-    ReturnType<typeof mainPageLoader>
-  >;
+  const loaderData = useLoaderData() as Awaited<ReturnType<typeof loader>>;
 
   function handleFormSubmit(e: FormEvent<HTMLFormElement>, inputValue: string) {
     e.preventDefault();
