@@ -9,19 +9,24 @@ type ErrorResponse = {
 
 const Wrapper = styled.div`
   background-color: ${(props) => props.theme.primary};
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  text-align: center;
 `;
 
 const ErrorTitle = styled.h1`
   color: ${(props) => props.theme.error};
+  font-size: 1.5rem;
 `;
 
 const ErrorText = styled.h2`
   color: ${(props) => props.theme.accent};
+  font-size: 1rem;
+  max-width: 80%;
 `;
 
 function ErrorPage() {
