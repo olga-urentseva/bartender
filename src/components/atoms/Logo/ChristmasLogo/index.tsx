@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import Logo from "../Logo";
+import Logo from "../index";
 import GarlandWire from "./GarlandWire";
 import { PropsWithChildren } from "react";
 
