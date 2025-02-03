@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
 
-import ChristmasLogo from "../../atoms/ChristmasLogo";
 import Logo from "../../atoms/Logo";
 
 interface HeaderProps {
@@ -73,7 +72,7 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
         <Container>
           <InnerWrapper>
             <LogoLink to="/">
-              <ChristmasLogo>Bart-t-tender</ChristmasLogo>
+              <Logo />
             </LogoLink>
             <LinksWrapper>
               <MenuLink to="/cocktails">Cocktail Library</MenuLink>
