@@ -5,11 +5,11 @@ type FlowerSize = "0.85rem" | "1rem" | "1.15rem" | "1.25rem";
 
 const flowerColors: Record<Colors, { petal: string; miolo: string }> = {
   pink: {
-    petal: "#ffd3f7",
+    petal: "#f6b4e0",
     miolo: "#ffffff",
   },
   blue: {
-    petal: "#cee5ff",
+    petal: "#9fbfe4",
     miolo: "#ffffff",
   },
   white: {
