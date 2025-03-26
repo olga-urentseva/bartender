@@ -10,7 +10,7 @@ const InnerWrapper = styled.div`
 const Flower1 = styled(Flower)`
   position: absolute;
   top: 1.2em;
-  left: -1em;
+  left: -0.6em;
 `;
 
 const Flower2 = styled(Flower)`
