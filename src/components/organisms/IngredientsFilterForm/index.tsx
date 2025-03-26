@@ -28,7 +28,6 @@ const TagsInputWrapper = styled.div`
   border-radius: 1em;
   width: 100%;
   max-width: 50em;
-  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
   margin-bottom: 0.5rem;
 `;
 
@@ -37,14 +36,21 @@ const TransparentInput = styled(Input)`
   box-shadow: none;
   margin: 0;
   outline: none;
-  padding: 0.5rem;
+  padding: 0.6rem;
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<{ areIngredientsDisplayed: boolean }>`
+  border-radius: 1em;
   position: relative;
   flex-grow: 1;
   display: flex;
   flex-wrap: nowrap;
+  ${(props) => {
+    const { areIngredientsDisplayed, theme } = props;
+    return areIngredientsDisplayed
+      ? `box-shadow: -0.4em 0 0.8em ${theme.secondary};`
+      : "box-shadow: none;";
+  }}
 `;
 
 const ButtonsWrapper = styled.div`
@@ -69,7 +75,7 @@ interface IngredientsFilterFormProps {
   handleFormSubmit: (
     e: FormEvent<HTMLFormElement>,
     inputValue: string,
-    setInputValue: (value: string) => void
+    setInputValue: (value: string) => void,
   ) => void;
 }
 
@@ -133,7 +139,7 @@ function IngredientsFilterForm({
       try {
         const autocompleteIngredients = await getIngredientsByName(
           inputValue,
-          abortController.signal
+          abortController.signal,
         );
         const ingredientNames = autocompleteIngredients.map((ing) => ing.name);
         setAutocompleteIngredients(ingredientNames);
@@ -151,6 +157,8 @@ function IngredientsFilterForm({
     };
   }, [inputValue]);
 
+  const AreIngredientsDisplayed = ingredients.size > 0;
+
   return (
     <Form onSubmit={handleSubmitWrapper} onBlur={(e) => toggleAutocomplete(e)}>
       <TagsInputWrapper>
@@ -162,7 +170,7 @@ function IngredientsFilterForm({
           />
         ))}
 
-        <InputWrapper>
+        <InputWrapper areIngredientsDisplayed={AreIngredientsDisplayed}>
           <TransparentInput
             id="tags-input"
             type="text"
