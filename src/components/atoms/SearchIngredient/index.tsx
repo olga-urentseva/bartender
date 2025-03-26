@@ -6,7 +6,7 @@ const DeleteButton = styled.button`
   border-radius: 50%;
   color: ${(props) => props.theme.accent};
   font-size: 1em;
-  padding: 0.05em 0.35em;
+  padding: 0em 0.35em;
   box-shadow: 0.01em 0.1em 1.5em -0.1em ${(props) => props.theme.accentLight};
   cursor: pointer;
   display: block;
@@ -25,8 +25,8 @@ const DeleteButton = styled.button`
 const IngredientItem = styled.div`
   color: ${(props) => props.theme.textInversion};
   background-color: ${(props) => props.theme.accent};
-  padding: 0.2em 1em;
-  border-radius: 0.5em;
+  padding: 0.3em 1em;
+  border-radius: 0.7em;
   position: relative;
   transition: background-color 0.2s;
   text-transform: capitalize;
