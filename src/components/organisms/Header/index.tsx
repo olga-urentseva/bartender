@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
 
-import Logo from "../../atoms/Logo";
+import SpringLogo from "../../atoms/Logo/SpringLogo.tsx";
 
 interface HeaderProps {
   type: "default" | "accent";
@@ -72,7 +72,7 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
         <Container>
           <InnerWrapper>
             <LogoLink to="/">
-              <Logo />
+              <SpringLogo />
             </LogoLink>
             <LinksWrapper>
               <MenuLink to="/cocktails">Cocktail Library</MenuLink>
