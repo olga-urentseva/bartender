@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import Input from "../../atoms/Input";
@@ -18,17 +18,31 @@ const Form = styled.form<{
   position: relative;
 `;
 
-const TagsInputWrapper = styled.div`
-  border: 0.05em ${(props) => props.theme.accent} solid;
+const FormContentWrapper = styled.div`
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 0.5em 0.7em;
   gap: 0.5em;
-  border-radius: 1em;
   width: 100%;
-  max-width: 50em;
+  position: relative;
   margin-bottom: 0.5rem;
+`;
+
+const Combobox = styled.div`
+  display: flex;
+  align-items: stretch;
+  border: 0.05em ${(props) => props.theme.accent} solid;
+  border-radius: 1rem;
+  padding: 0.5em 0.7em;
+  flex: 99 1 auto;
+  justify-content: space-between;
+  cursor: text;
+`;
+
+const TagsInputWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  align-items: center;
+  width: 100%;
 `;
 
 const TransparentInput = styled(Input)`
@@ -37,24 +51,12 @@ const TransparentInput = styled(Input)`
   margin: 0;
   outline: none;
   padding: 0.6rem;
-`;
-
-const InputWrapper = styled.div<{ areIngredientsDisplayed: boolean }>`
-  border-radius: 1em;
-  position: relative;
+  flex-basis: 3em;
   flex-grow: 1;
-  display: flex;
-  flex-wrap: nowrap;
-  ${(props) => {
-    const { areIngredientsDisplayed, theme } = props;
-    return areIngredientsDisplayed
-      ? `box-shadow: -0.4em 0 0.8em ${theme.secondary};`
-      : "box-shadow: none;";
-  }}
 `;
 
-const ButtonsWrapper = styled.div`
-  display: flex;
+const ButtonsWrapper = styled.div<{ isDisabled: boolean }>`
+  display: ${(props) => (props.isDisabled ? "none" : "flex")};
   gap: 0.5rem;
   padding: 0.2em;
 `;
@@ -67,6 +69,30 @@ const Devider = styled.div`
 const StyledAutocomplete = styled(Autocomplete)`
   position: absolute;
   z-index: 1;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 4.5em);
+`;
+
+const SubmitButtonWrapper = styled.div`
+  display: flex;
+
+  flex: none;
+`;
+
+const FormSubmitButton = styled(SearchButton)`
+  background-color: ${(props) => props.theme.accentLight};
+  width: 100%;
+  border-radius: 1em;
+  padding: 0.8em 1.2em;
+  font-weight: bold;
+  align-self: stretch;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: ${(props) => props.theme.accent};
+    box-shadow: 0 0.2em 0.5em -0.4em ${(props) => props.theme.accentLight};
+  }
 `;
 
 interface IngredientsFilterFormProps {
@@ -93,6 +119,7 @@ function IngredientsFilterForm({
     setIsAutocompleteIngredientsLoading,
   ] = useState(false);
   const [isAutocompleteOpen, setIsAutocompleteOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function toggleAutocomplete(e: React.FocusEvent) {
     if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
@@ -157,42 +184,48 @@ function IngredientsFilterForm({
     };
   }, [inputValue]);
 
-  const AreIngredientsDisplayed = ingredients.size > 0;
-
   return (
     <Form onSubmit={handleSubmitWrapper} onBlur={(e) => toggleAutocomplete(e)}>
-      <TagsInputWrapper>
-        {[...ingredients].map((ingredient, i) => (
-          <Ingredient
-            key={ingredient}
-            ingredient={ingredient}
-            removeIngredient={() => removeIngredient(i)}
-          />
-        ))}
+      <FormContentWrapper>
+        <Combobox onClick={() => inputRef.current?.focus()}>
+          <TagsInputWrapper>
+            {[...ingredients].map((ingredient, i) => (
+              <Ingredient
+                key={ingredient}
+                ingredient={ingredient}
+                removeIngredient={() => removeIngredient(i)}
+              />
+            ))}
 
-        <InputWrapper areIngredientsDisplayed={AreIngredientsDisplayed}>
-          <TransparentInput
-            id="tags-input"
-            type="text"
-            placeholder={[...ingredients].length > 0 ? "" : "Lime"}
-            name="search"
-            onChange={handleChange}
-            value={inputValue}
-          />
-          <ButtonsWrapper>
+            <TransparentInput
+              id="tags-input"
+              type="text"
+              placeholder={[...ingredients].length > 0 ? "" : "Lime"}
+              name="search"
+              onChange={handleChange}
+              value={inputValue}
+              ref={inputRef}
+            />
+          </TagsInputWrapper>
+          <ButtonsWrapper
+            isDisabled={ingredients.size === 0 && inputValue === ""}
+          >
+            <Devider />
             <ResetButton
-              isDisabled={ingredients.size === 0 && inputValue === ""}
               onClick={(e) => {
                 e.preventDefault();
                 setIngredients(new Set(null));
                 setInputValue("");
               }}
             />
-            <Devider />
-            <SearchButton />
           </ButtonsWrapper>
-        </InputWrapper>
-      </TagsInputWrapper>
+        </Combobox>
+
+        <SubmitButtonWrapper>
+          <FormSubmitButton />
+        </SubmitButtonWrapper>
+      </FormContentWrapper>
+
       {isAutocompleteOpen && inputValue.trim().length > 0 && (
         <StyledAutocomplete
           isLoading={isAutocompleteIngredientsLoading}
