@@ -12,14 +12,14 @@ const Button = styled.button`
     cursor: pointer;
 
     ${SearchIcon} {
-      stroke: ${({ theme }) => theme.accentLight};
+      stroke: ${({ theme }) => theme.accentPastel};
     }
   }
 `;
 
-export default function SearchButton() {
+export default function SearchButton({ ...props }) {
   return (
-    <Button type="submit" aria-label="Search" title="Search">
+    <Button type="submit" aria-label="Search" title="Search" {...props}>
       <SearchIcon />
     </Button>
   );

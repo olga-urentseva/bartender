@@ -5,7 +5,7 @@ const ResetIcon = styled.svg`
   fill: ${({ theme }) => theme.accent};
 `;
 
-const Button = styled.button<{ isDisabled: boolean }>`
+const Button = styled.button<{ isDisabled?: boolean }>`
   background-color: transparent;
   border: none;
   padding: 0;
@@ -27,7 +27,7 @@ export default function ResetButton({
   isDisabled,
 }: {
   onClick: (e: FormEvent<HTMLButtonElement>) => void;
-  isDisabled: boolean;
+  isDisabled?: boolean;
 }) {
   return (
     <Button
