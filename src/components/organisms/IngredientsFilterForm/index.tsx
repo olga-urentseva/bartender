@@ -205,6 +205,7 @@ function IngredientsFilterForm({
               onChange={handleChange}
               value={inputValue}
               ref={inputRef}
+              autoComplete="off"
             />
           </TagsInputWrapper>
           <ButtonsWrapper
@@ -235,6 +236,7 @@ function IngredientsFilterForm({
             setIngredients(new Set(newIngredients));
             setInputValue("");
             setIsAutocompleteOpen(false);
+            inputRef.current?.focus();
           }}
         />
       )}
