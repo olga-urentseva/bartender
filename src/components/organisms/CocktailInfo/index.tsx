@@ -68,10 +68,10 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
 
   return (
     <Wrapper>
-      <CocktailTitle>{`${data.name}`}</CocktailTitle>
+      <CocktailTitle>{`${data.cocktail.name}`}</CocktailTitle>
       <FirstColumn>
         <ImageWrapper>
-          <Image src={data.pictureURL} />
+          <Image src={data.cocktail.pictureURL} />
         </ImageWrapper>
         <RecipeWrapper>
           <SubTitle>Ingredients:</SubTitle>
@@ -80,18 +80,18 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
       </FirstColumn>
       <AdditionalInfoWrapper>
         <InfoText>
-          <strong>How to prepare:</strong> {data.instruction}
+          <strong>How to prepare:</strong> {data.cocktail.instruction}
         </InfoText>
         <InfoText>
           <strong>Alcoholic:</strong>{" "}
-          {data.isAlcoholic === "true" ? "Yes" : "No"}
+          {data.cocktail.isAlcoholic === "true" ? "Yes" : "No"}
         </InfoText>
         <InfoText>
-          <strong>Glass:</strong> {data.glass}
+          <strong>Glass:</strong> {data.cocktail.glass}
         </InfoText>
-        {data.credits && (
+        {data.cocktail.credits && (
           <InfoText>
-            <strong>Credits:</strong> {data.credits}
+            <strong>Credits:</strong> {data.cocktail.credits}
           </InfoText>
         )}
       </AdditionalInfoWrapper>

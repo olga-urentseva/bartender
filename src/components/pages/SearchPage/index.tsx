@@ -194,7 +194,7 @@ function SearchPage() {
     setInputValue("");
   }
 
-  const cocktailCards = apiAata.cocktails.map((cocktail) => {
+  const cocktailCards = apiAata.cocktails.map(({ cocktail }) => {
     return (
       <CocktailCard
         id={cocktail.id}
