@@ -68,7 +68,7 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
 
   return (
     <Wrapper>
-      <CocktailTitle>{`${data.cocktailName}`}</CocktailTitle>
+      <CocktailTitle>{`${data.name}`}</CocktailTitle>
       <FirstColumn>
         <ImageWrapper>
           <Image src={data.pictureURL} />

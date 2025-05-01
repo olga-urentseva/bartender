@@ -5,10 +5,7 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 
-import {
-  CocktailsByNameOptions,
-  getCocktailsByName,
-} from "../../../api/getCocktailByName";
+import { CocktailsOptions, getCocktails } from "../../../api/getCocktails";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import ErrorMessage from "../../atoms/ErrorMessage";
@@ -29,7 +26,7 @@ export const loader = async ({ request }: { request: Request }) => {
   const name = url.searchParams.get("name");
   const page = url.searchParams.get("page");
 
-  const options: CocktailsByNameOptions = {};
+  const options: CocktailsOptions = {};
 
   if (name) {
     options.name = name;
@@ -38,7 +35,7 @@ export const loader = async ({ request }: { request: Request }) => {
     options.page = page;
   }
 
-  return getCocktailsByName(options);
+  return getCocktails(options);
 };
 
 export default function CocktailsLibraryPage() {
@@ -46,25 +43,23 @@ export default function CocktailsLibraryPage() {
   const currentName =
     currentSearchParams.get("name")?.replaceAll(",", ", ") || "";
 
-  const libraryPageData = useLoaderData() as Awaited<
-    ReturnType<typeof getCocktailsByName>
-  >;
+  const apiData = useLoaderData() as Awaited<ReturnType<typeof getCocktails>>;
   const { state } = useNavigation();
 
   function setCocktailName(name: string) {
     setSearchParams(name ? { name: name.toLocaleLowerCase() } : {});
   }
 
-  const cocktailsData = libraryPageData.data;
-  const pageInfo = libraryPageData.pageInfo;
+  const cocktailsData = apiData.cocktails;
+  const pageInfo = apiData.pagination;
 
-  const cocktailCards = cocktailsData?.map((drink) => {
+  const cocktailCards = cocktailsData?.map(({ id, pictureURL, name }) => {
     return (
       <CocktailCard
-        cocktailName={drink.cocktailName}
-        picture={drink.pictureURL}
-        id={drink.id}
-        key={drink.id}
+        cocktailName={name}
+        picture={pictureURL}
+        id={id}
+        key={id}
         highlight={currentName}
       />
     );

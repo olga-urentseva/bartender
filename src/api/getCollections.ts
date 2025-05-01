@@ -2,14 +2,14 @@ import { get } from "../lib/http";
 
 type CollectionsResult = {
   id: string;
-  collectionName: string;
+  name: string;
   description: string;
-  imageUrl: string;
+  pictureURL: string;
 }[];
 
 export default async function getCollections() {
   const result = await get<CollectionsResult>(
-    "https://cocktails-api.mooo.com/collections"
+    "https://bartender-api.mooo.com/collections",
   );
 
   return result;

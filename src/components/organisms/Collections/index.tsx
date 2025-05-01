@@ -92,8 +92,8 @@ export default function Collections({
         data.map((data) => (
           <CollectionItem
             key={data.id}
-            title={data.collectionName}
-            imgUrl={data.imageUrl}
+            title={data.name}
+            imgUrl={data.pictureURL}
             to={`/collections/${data.id}`}
             description={data.description}
           />

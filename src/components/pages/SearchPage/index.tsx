@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 
 import getCollectionInfoById from "../../../api/getCollectionById";
-import getCocktails, { CocktailsOptions } from "../../../api/getCocktails";
+import { getCocktails, CocktailsOptions } from "../../../api/getCocktails";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import Layout from "../../templates/Layout";
@@ -94,9 +94,9 @@ export async function loader({
   let collectionInfo:
     | {
         id: string;
-        collectionName: string;
+        name: string;
         description: string;
-        imageUrl: string;
+        imageURL: string;
       }
     | undefined;
   if (collectionId) {
@@ -142,10 +142,10 @@ function SearchPage() {
   const [currentSearchParams, setSearchParams] = useSearchParams();
 
   const currentParams = new URLSearchParams(currentSearchParams.toString());
-  const allCocktails = cocktailsData;
+  const apiAata = cocktailsData;
 
-  const pageInfo = allCocktails.pageInfo;
-  const additionalData = allCocktails.additionalData;
+  const pageInfo = apiAata.pagination;
+  const additionalData = apiAata.additionalData;
 
   const searchParams =
     state === "loading"
@@ -194,18 +194,18 @@ function SearchPage() {
     setInputValue("");
   }
 
-  const cocktailCards = allCocktails.data.map((cocktail) => {
+  const cocktailCards = apiAata.cocktails.map((cocktail) => {
     return (
       <CocktailCard
         id={cocktail.id}
-        cocktailName={cocktail.cocktailName}
+        cocktailName={cocktail.name}
         picture={cocktail.pictureURL}
         key={cocktail.id}
       />
     );
   });
 
-  const isItCollection = Boolean(collectionInfo?.collectionName);
+  const isItCollection = Boolean(collectionInfo?.name);
 
   const getCollectionComponent = () => {
     if (!isItCollection || !collectionInfo?.id) return null;
@@ -220,9 +220,9 @@ function SearchPage() {
       {isItCollection && getCollectionComponent()}
       <InnerWrapper>
         <CocktailsSearch>
-          {isItCollection && collectionInfo?.collectionName && (
+          {isItCollection && collectionInfo?.name && (
             <>
-              <CollectionName>{collectionInfo.collectionName}</CollectionName>
+              <CollectionName>{collectionInfo.name}</CollectionName>
               <CollectionDescription>
                 {collectionInfo.description}
               </CollectionDescription>

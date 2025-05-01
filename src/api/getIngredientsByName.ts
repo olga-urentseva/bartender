@@ -9,9 +9,9 @@ type IngredientsByNameResult = Ingredient[];
 
 export async function getIngredientsByName(
   name: string,
-  abortSignal: AbortSignal
+  abortSignal: AbortSignal,
 ) {
-  const url = new URL("https://cocktails-api.mooo.com/ingredients");
+  const url = new URL("https://bartender-api.mooo.com/ingredients");
 
   if (name) {
     url.searchParams.set("prefix", name.toLocaleLowerCase());
