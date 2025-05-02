@@ -53,7 +53,6 @@ export default function AlcoholicOrNonFilter(props: {
   alcoholParams: string | null;
   numberOfCocktails: { alcoholic: number; nonAlcoholic: number };
 }) {
-  console.log(props.numberOfCocktails);
   const value = POSSIBLE_VALUES.has(props.alcoholParams)
     ? props.alcoholParams
     : null;

@@ -1,6 +1,8 @@
 import { get } from "../lib/http";
 import { Cocktail } from "../types/Cocktail";
 
+type SearchedCocktail = Cocktail["cocktail"] & { totalItems: number };
+
 export type CocktailsOptions = {
   ingredients?: string[];
   collection?: string;
@@ -10,7 +12,7 @@ export type CocktailsOptions = {
 };
 
 type CocktailsResult = {
-  cocktails: Cocktail[];
+  cocktails: SearchedCocktail[];
   pagination: {
     totalItems: number;
     currentPage: number;

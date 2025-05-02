@@ -53,7 +53,7 @@ export default function CocktailsLibraryPage() {
   const cocktailsData = apiData.cocktails;
   const pageInfo = apiData.pagination;
 
-  const cocktailCards = cocktailsData?.map(({ cocktail }) => {
+  const cocktailCards = cocktailsData?.map((cocktail) => {
     return (
       <CocktailCard
         cocktailName={cocktail.name}

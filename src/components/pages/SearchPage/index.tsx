@@ -138,14 +138,15 @@ function SearchPage() {
       ReturnType<typeof getCollectionInfoById> | undefined
     >;
   }>;
+
   const { state, location } = useNavigation();
   const [currentSearchParams, setSearchParams] = useSearchParams();
 
   const currentParams = new URLSearchParams(currentSearchParams.toString());
-  const apiAata = cocktailsData;
+  const allCocktails = cocktailsData;
 
-  const pageInfo = apiAata.pagination;
-  const additionalData = apiAata.additionalData;
+  const pageInfo = allCocktails.pagination;
+  const additionalData = allCocktails.additionalData;
 
   const searchParams =
     state === "loading"
@@ -194,7 +195,7 @@ function SearchPage() {
     setInputValue("");
   }
 
-  const cocktailCards = apiAata.cocktails.map(({ cocktail }) => {
+  const cocktailCards = allCocktails.cocktails.map((cocktail) => {
     return (
       <CocktailCard
         id={cocktail.id}
