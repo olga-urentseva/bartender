@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import Input from "../../atoms/Input";
 import Ingredient from "../../atoms/SearchIngredient";
-import SearchButton from "../../atoms/SearchButton";
+import { SearchButtonAccent } from "../../atoms/SearchButton";
 import ResetButton from "../../atoms/ResetButton";
 import Autocomplete from "../Autocomplete";
 
@@ -76,23 +76,7 @@ const StyledAutocomplete = styled(Autocomplete)`
 
 const SubmitButtonWrapper = styled.div`
   display: flex;
-
   flex: none;
-`;
-
-const FormSubmitButton = styled(SearchButton)`
-  background-color: ${(props) => props.theme.accentLight};
-  width: 100%;
-  border-radius: 1em;
-  padding: 0.8em 1.2em;
-  font-weight: bold;
-  align-self: stretch;
-  white-space: nowrap;
-
-  &:hover {
-    background-color: ${(props) => props.theme.accent};
-    box-shadow: 0 0.2em 0.5em -0.4em ${(props) => props.theme.accentLight};
-  }
 `;
 
 interface IngredientsFilterFormProps {
@@ -223,7 +207,7 @@ function IngredientsFilterForm({
         </Combobox>
 
         <SubmitButtonWrapper>
-          <FormSubmitButton />
+          <SearchButtonAccent />
         </SubmitButtonWrapper>
       </FormContentWrapper>
 

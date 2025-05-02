@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import Input from "../../atoms/Input";
-import SearchButton from "../../atoms/SearchButton";
+import { SearchButton } from "../../atoms/SearchButton";
 import ResetButton from "../../atoms/ResetButton";
 import { useNavigation } from "react-router-dom";
 
