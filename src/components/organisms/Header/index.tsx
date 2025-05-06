@@ -11,7 +11,9 @@ interface HeaderProps {
 const HeaderComponent = styled.header<HeaderProps>`
   padding: 2em 0;
   background-color: ${(props) =>
-    props.type === "default" ? "transparent" : props.theme.accentPastel};
+    props.type === "default"
+      ? props.theme.background
+      : props.theme.backgroundMuted};
 `;
 
 const HeaderWrapper = styled.div`

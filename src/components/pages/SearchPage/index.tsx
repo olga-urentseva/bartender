@@ -77,7 +77,7 @@ const CollectionDescription = styled.h3`
 
 const FormText = styled.h2`
   font-size: 1.2em;
-  color: ${(props) => props.theme.accent};
+  color: ${(props) => props.theme.primary};
   font-weight: 500;
 `;
 
@@ -104,7 +104,7 @@ export async function loader({
   }
   const ingredients = url.searchParams
     .getAll("ingredients[]")
-    .map((el) => el.toLowerCase().replace(/\s+/, "_"));
+    .map((el) => el.toLowerCase().trim());
 
   const alcoholic = url.searchParams.get("alcoholic");
   const page = url.searchParams.get("page");

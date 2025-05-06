@@ -20,18 +20,20 @@ const StyledLink = styled(Link)`
 `;
 
 const Description = styled.h4`
-  color: ${(props) => props.theme.textInversion};
+  color: ${(props) => props.theme.textPhoto};
   margin: 0;
   opacity: 0;
   transition: opacity 0.1s ease-in-out;
+  position: relative;
 `;
 
 const Title = styled.h3`
   font-size: 2em;
   margin: 0;
   text-decoration: none;
-  color: ${(props) => props.theme.textInversion};
-  text-shadow: 2px 3px 10px ${(props) => props.theme.shadow};
+  color: ${(props) => props.theme.textPhoto};
+
+  position: relative;
 `;
 
 const Card = styled.div<{ imgUrl: string }>`
@@ -42,16 +44,36 @@ const Card = styled.div<{ imgUrl: string }>`
   border-radius: 1em;
   transition: transform 0.3s ease-in-out;
   height: 13em;
-  box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.accentLight};
+  box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.primaryMuted};
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1em;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 0;
+  }
 
   &:hover,
   &:focus {
     transform: scale(1.05);
 
+    &::before {
+      background-color: ${(props) => props.theme.primaryMuted};
+    }
+
     ${Description}, ${Title} {
       opacity: 100%;
       transition-delay: 0.1s;
-      text-shadow: 2px 3px 10px ${(props) => props.theme.shadow};
+      box-shadow: none;
     }
   }
 `;

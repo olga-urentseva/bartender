@@ -21,5 +21,5 @@ const SearchIcon = (props: SVGProps<SVGSVGElement>) => {
 };
 
 export default styled(SearchIcon)`
-  stroke: ${({ theme }) => theme.accent};
+  stroke: ${({ theme }) => theme.primary};
 `;

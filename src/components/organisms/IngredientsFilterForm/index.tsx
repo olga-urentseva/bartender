@@ -29,7 +29,7 @@ const FormContentWrapper = styled.div`
 const Combobox = styled.div`
   display: flex;
   align-items: stretch;
-  border: 0.05em ${(props) => props.theme.accent} solid;
+  border: 0.05em ${(props) => props.theme.primary} solid;
   border-radius: 1rem;
   padding: 0.5em 0.7em;
   flex: 99 1 auto;
@@ -63,7 +63,7 @@ const ButtonsWrapper = styled.div<{ isDisabled: boolean }>`
 
 const Devider = styled.div`
   width: 1px;
-  background-color: ${(props) => props.theme.accentLight};
+  background-color: ${(props) => props.theme.primary};
 `;
 
 const StyledAutocomplete = styled(Autocomplete)`

@@ -36,8 +36,9 @@ export async function getCocktails(options: CocktailsOptions) {
   const url = new URL("https://bartender-api.mooo.com/cocktails?");
 
   if (ingredients && ingredients.length > 0) {
+    console.log("ingredients", ingredients);
     ingredients.forEach((ing) => {
-      url.searchParams.append("ingredients[]", ing.trim().replace("_", "%20"));
+      url.searchParams.append("ingredients[]", ing.trim());
     });
   }
 
