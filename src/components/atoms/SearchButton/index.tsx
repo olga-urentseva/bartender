@@ -7,7 +7,7 @@ const Button = styled.button`
   padding: 0;
 
   ${SearchIcon} {
-    stroke: ${({ theme }) => theme.accent};
+    stroke: ${({ theme }) => theme.primary};
   }
 
   &:hover,
@@ -16,13 +16,13 @@ const Button = styled.button`
     cursor: pointer;
 
     ${SearchIcon} {
-      stroke: ${({ theme }) => theme.accentLight};
+      stroke: ${({ theme }) => theme.primaryMuted};
     }
   }
 `;
 
 const ButtonAccent = styled(Button)`
-  background-color: ${({ theme }) => theme.accentLight};
+  background-color: ${({ theme }) => theme.primary};
   width: 100%;
   border-radius: 1em;
   padding: 0.8em 1.2em;
@@ -31,8 +31,8 @@ const ButtonAccent = styled(Button)`
   white-space: nowrap;
 
   &:hover {
-    background-color: ${(props) => props.theme.accent};
-    box-shadow: 0 0.2em 0.5em -0.4em ${(props) => props.theme.accentLight};
+    background-color: ${(props) => props.theme.primary};
+    box-shadow: 0 0.2em 0.5em -0.4em ${(props) => props.theme.primaryMuted};
   }
 
   &:hover,
@@ -41,12 +41,12 @@ const ButtonAccent = styled(Button)`
     cursor: pointer;
 
     ${SearchIcon} {
-      stroke: ${({ theme }) => theme.accentPastel};
+      stroke: ${({ theme }) => theme.primaryInversion};
     }
   }
 
   ${SearchIcon} {
-    stroke: ${({ theme }) => theme.accentPastel};
+    stroke: ${({ theme }) => theme.primaryInversion};
   }
 `;
 

@@ -8,7 +8,7 @@ type ErrorResponse = {
 };
 
 const Wrapper = styled.div`
-  background-color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.theme.surface};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +24,7 @@ const ErrorTitle = styled.h1`
 `;
 
 const ErrorText = styled.h2`
-  color: ${(props) => props.theme.accent};
+  color: ${(props) => props.theme.primary};
   font-size: 1rem;
   max-width: 80%;
 `;

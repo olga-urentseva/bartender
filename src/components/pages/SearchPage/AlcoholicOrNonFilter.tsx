@@ -5,21 +5,21 @@ const POSSIBLE_VALUES = new Set(["alcoholic", "non-alcoholic", "all", null]);
 const Wrapper = styled.div`
   display: flex;
   gap: 1.3em;
-  background-color: ${(props) => props.theme.secondary};
+  background-color: ${(props) => props.theme.surface};
   padding: 1em 1.5em;
   border-radius: 1em;
-  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
+  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.primaryMuted};
 `;
 
 const CheckboxInput = styled.input<{ checked: boolean | null }>`
-  color: ${(props) => props.theme.accent};
+  color: ${(props) => props.theme.primary};
   padding: 0.5em 1em;
   border-radius: 0.5em;
-  border: 1px solid ${(props) => props.theme.accent};
+  border: 1px solid ${(props) => props.theme.primary};
   border-radius: 50%;
   font-weight: 600;
   margin-right: 0.5em;
-  accent-color: ${(props) => props.theme.accent};
+  accent-color: ${(props) => props.theme.primary};
 `;
 
 const Label = styled.label`
@@ -31,7 +31,7 @@ const Label = styled.label`
 const NumberOfcocktailsInfo = styled.span`
   position: absolute;
   top: -40%;
-  color: ${(props) => props.theme.textLight};
+  color: ${(props) => props.theme.textMuted};
   font-size: 0.7rem;
 `;
 
