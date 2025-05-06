@@ -2,6 +2,7 @@ import styled, { DefaultTheme, keyframes } from "styled-components";
 
 interface CustomTheme extends DefaultTheme {
   primaryMuted: string;
+  primary: string;
 }
 
 const loading = (theme: CustomTheme) => keyframes`
