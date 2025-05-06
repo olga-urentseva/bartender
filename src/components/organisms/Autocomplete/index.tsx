@@ -8,7 +8,7 @@ type AutocompleteProps = {
 };
 
 const InnerWrapper = styled.div`
-  background-color: ${(props) => props.theme.accentPastel};
+  background-color: ${(props) => props.theme.surface};
   gap: 0.5em 0;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@ const InnerWrapper = styled.div`
   border-radius: 1em;
   max-height: 15em;
   overflow: scroll;
-  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
+  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.primaryMuted};
 `;
 
 const AutocompleteItem = styled.div<{ onClick: () => void }>`
@@ -31,7 +31,7 @@ const AutocompleteItem = styled.div<{ onClick: () => void }>`
   &:hover,
   &:active,
   &:focus-within {
-    color: ${(props) => props.theme.accentLight};
+    color: ${(props) => props.theme.primaryMuted};
   }
 `;
 

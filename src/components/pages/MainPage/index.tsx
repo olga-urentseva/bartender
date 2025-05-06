@@ -36,7 +36,7 @@ const MainText = styled.h2`
 `;
 
 const CollectionsLink = styled(Link)`
-  color: ${(props) => props.theme.accent};
+  color: ${(props) => props.theme.textMuted};
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: 500;
@@ -46,7 +46,7 @@ const CollectionsLink = styled(Link)`
   &:hover,
   &:focus,
   &:active {
-    color: ${(props) => props.theme.accentLight};
+    color: ${(props) => props.theme.text};
   }
 `;
 
