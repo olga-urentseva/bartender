@@ -3,6 +3,7 @@ import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
 
 import SpringLogo from "../../atoms/Logo/SpringLogo.tsx";
+import { keyframes } from "styled-components";
 
 interface HeaderProps {
   type: "default" | "accent";
@@ -51,7 +52,7 @@ const MenuLink = styled(Link)`
   ::after {
     content: "";
     display: block;
-    height: 0.15rem;
+    height: 2px;
     background: ${(props) => props.theme.text};
     transition: width 0.2s;
     width: 0;
@@ -67,6 +68,48 @@ const MenuLink = styled(Link)`
   }
 `;
 
+const gradientShift = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+const BarLink = styled(MenuLink)`
+  position: relative;
+  transition: color 0.3s ease;
+
+  &:hover,
+  &:active,
+  &:focus-within {
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(
+      90deg,
+      #ff8a00,
+      #e52e71,
+      #7b68ee,
+      #00bfff
+    );
+    background-size: 300% 100%;
+    animation: ${gradientShift} 3s ease infinite;
+    text-shadow: none;
+
+    &::after {
+      width: 100%;
+      background: linear-gradient(90deg, #ff8a00, #e52e71, #7b68ee, #00bfff);
+      background-size: 300% 100%;
+      animation: ${gradientShift} 3s ease infinite;
+    }
+  }
+`;
+
 export default function Header({ type, ...otherProps }: HeaderProps) {
   return (
     <HeaderComponent type={type} {...otherProps}>
@@ -77,7 +120,8 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
               <SpringLogo />
             </LogoLink>
             <LinksWrapper>
-              <MenuLink to="/cocktails">Cocktail Library</MenuLink>
+              <BarLink to="/">✨ What’s in Your Bar? ✨</BarLink>
+              <MenuLink to="/cocktails">Cocktails Library</MenuLink>
               <MenuLink to="/collections">Collections</MenuLink>
               <MenuLink to="/about">About</MenuLink>
             </LinksWrapper>

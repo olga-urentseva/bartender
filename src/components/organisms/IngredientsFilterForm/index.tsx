@@ -53,6 +53,7 @@ const TransparentInput = styled(Input)`
   padding: 0.6rem;
   flex-basis: 3em;
   flex-grow: 1;
+  margin-left: -0.5em;
 `;
 
 const ButtonsWrapper = styled.div<{ isDisabled: boolean }>`
