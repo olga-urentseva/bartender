@@ -4,7 +4,7 @@
     oklch(0.21 0.037 271.06)
   );
   --color-surface: light-dark(
-    oklch(0.95 0.03 297.24),
+    oklch(0.95 0.0214 288.86),
     oklch(0.41 0.0839 266.14)
   );
   --color-background-muted: light-dark(
@@ -33,13 +33,22 @@
     oklch(95.34% 0.035 275.29),
     oklch(0.26 0.1011 266.14)
   );
-  --color-secondary: light-dark(
+  --color-accent: light-dark(
     oklch(0.88 0.1589 91.46),
     oklch(0.93 0.1085 101.65)
   );
-  --color-secondary-muted: light-dark(
+  --color-accent-muted: light-dark(
     oklch(0.83 0.1603 90.12),
     oklch(0.86 0.1085 101.65)
+  );
+
+  --color-secondary: light-dark(
+    oklch(0.83 0.0594 271.26),
+    oklch(0.4 0.114 264.76)
+  );
+  --color-secondary-muted: light-dark(
+    oklch(0.72 0.0888 270.98),
+    oklch(0.31 0.0896 268.05)
   );
 
   --color-border: light-dark(oklch(0.29 0.0715 283.76), oklch(85% 0.03 250));
@@ -66,8 +75,8 @@
     --color-primary-muted: oklch(0.65 0.1309 265.23);
     --color-primary-inversion: oklch(95.34% 0.035 275.29);
 
-    --color-secondary: oklch(0.88 0.1589 91.46);
-    --color-secondary-muted: oklch(0.83 0.1603 90.12);
+    --color-accent: oklch(0.88 0.1589 91.46);
+    --color-accent-muted: oklch(0.83 0.1603 90.12);
 
     --color-border: oklch(0.29 0.0715 283.76);
 
@@ -94,8 +103,8 @@
     --color-primary-muted: oklch(0.71 0.1233 266.14);
     --color-primary-inversion: oklch(0.26 0.1011 266.14);
 
-    --color-secondary: oklch(0.93 0.1085 101.65);
-    --color-secondary-muted: oklch(0.86 0.1085 101.65);
+    --color-accent: oklch(0.93 0.1085 101.65);
+    --color-accent-muted: oklch(0.86 0.1085 101.65);
 
     --color-border: oklch(85% 0.03 250);
 

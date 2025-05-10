@@ -5,11 +5,11 @@ const Svg = styled.svg`
 `;
 
 const PathFirstWave = styled.path`
-  fill: ${(props) => props.theme.primary};
+  fill: ${(props) => props.theme.secondary};
 `;
 
 const PathSecondWave = styled.path`
-  fill: ${(props) => props.theme.primaryMuted};
+  fill: ${(props) => props.theme.secondaryMuted};
 `;
 
 function Wave() {

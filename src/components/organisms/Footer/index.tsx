@@ -12,7 +12,7 @@ const Wrapper = styled.footer`
 
 const InnerContainer = styled.div`
   background-color: ${(props) =>
-    props.theme.primaryMuted}; // primary color to match the wave bottom
+    props.theme.secondaryMuted}; // primary color to match the wave bottom
   padding-bottom: 1em;
 `;
 

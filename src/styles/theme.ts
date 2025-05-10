@@ -15,6 +15,9 @@ export const theme = {
   secondary: "var(--color-secondary)",
   secondaryMuted: "var(--color-secondary-muted)",
 
+  accent: "var(--color-accent)",
+  accentMuted: "var(--color-accent-muted)",
+
   border: "var(--color-border)",
 
   success: "var(--color-success)",

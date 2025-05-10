@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { SVGProps, useState, useSyncExternalStore } from "react";
+import { SVGProps, useSyncExternalStore } from "react";
 
 const Input = styled.input`
   position: absolute;

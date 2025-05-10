@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const DeleteButton = styled.button`
-  background-color: ${(props) => props.theme.secondary};
+  background-color: ${(props) => props.theme.accent};
   border: 0.1em solid transparent;
   border-radius: 50%;
   color: ${(props) => props.theme.textInversion};
