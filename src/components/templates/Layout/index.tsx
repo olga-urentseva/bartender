@@ -8,8 +8,8 @@ const Main = styled.main<{ type: "default" | "accent" }>`
   flex: 1 0 auto;
   background: ${(props) =>
     props.type === "default"
-      ? "transparent"
-      : `linear-gradient(to bottom, ${props.theme.accentPastel} 0%, transparent 80%)`};
+      ? `${props.theme.background}`
+      : `linear-gradient(to bottom, ${props.theme.backgroundMuted} 0%, ${props.theme.background} 80%)`};
 `;
 
 const Layout = ({
