@@ -120,7 +120,7 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
               <SpringLogo />
             </LogoLink>
             <LinksWrapper>
-              <BarLink to="/">✨ What’s in Your Bar? ✨</BarLink>
+              <BarLink to="/">🍹 What’s in Your Bar? 🍹</BarLink>
               <MenuLink to="/cocktails">Cocktails Library</MenuLink>
               <MenuLink to="/collections">Collections</MenuLink>
               <MenuLink to="/about">About</MenuLink>
