@@ -33,7 +33,7 @@ const InnerWrapper = styled.div`
 `;
 
 const OriginalLogo = styled(Logo)`
-  color: ${({ theme }) => theme.accentLight};
+  color: ${({ theme }) => theme.primaryMuted};
 `;
 
 const ChristmasLamp = styled.div`

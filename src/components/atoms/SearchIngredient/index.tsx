@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 const DeleteButton = styled.button`
-  background-color: ${(props) => props.theme.textInversion};
+  background-color: ${(props) => props.theme.accent};
   border: 0.1em solid transparent;
   border-radius: 50%;
-  color: ${(props) => props.theme.accent};
-  font-size: 1em;
+  color: ${(props) => props.theme.textInversion};
+  font-size: 0.85em;
   padding: 0em 0.35em;
-  box-shadow: 0.01em 0.1em 1.5em -0.1em ${(props) => props.theme.accentLight};
+  box-shadow: 0.01em 0.1em 1.5em -0.1em ${(props) => props.theme.textMuted};
   cursor: pointer;
   display: block;
   position: absolute;
@@ -24,18 +24,19 @@ const DeleteButton = styled.button`
 
 const IngredientItem = styled.div`
   color: ${(props) => props.theme.textInversion};
-  background-color: ${(props) => props.theme.accent};
+  font-weight: 600;
+  background-color: ${(props) => props.theme.primary};
   padding: 0.3em 1em;
   border-radius: 0.7em;
   position: relative;
   transition: background-color 0.2s;
   text-transform: capitalize;
-  box-shadow: 0 0.5em 0.5em -0.4em ${(props) => props.theme.accentLight};
+  box-shadow: 0 0.5em 0.5em -0.4em ${(props) => props.theme.primaryMuted};
 
   &:hover,
   &:active,
   &:focus-within {
-    background-color: ${(props) => props.theme.accentLight};
+    background-color: ${(props) => props.theme.primaryMuted};
 
     ${DeleteButton} {
       display: block;

@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import Input from "../../atoms/Input";
-import SearchButton from "../../atoms/SearchButton";
+import { SearchButton } from "../../atoms/SearchButton";
 import ResetButton from "../../atoms/ResetButton";
 import { useNavigation } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const InnerWrapper = styled.div`
 
 const Label = styled.label`
   font-size: 1.5em;
-  color: ${(props) => props.theme.accent};
+  color: ${(props) => props.theme.primary};
   font-weight: 500;
 `;
 
@@ -36,7 +36,7 @@ const ButtonsWrapper = styled.div`
 
 const Devider = styled.div`
   width: 1px;
-  background-color: ${(props) => props.theme.accentLight};
+  background-color: ${(props) => props.theme.primaryMuted};
 `;
 
 export default function SearchCocktailsForm({

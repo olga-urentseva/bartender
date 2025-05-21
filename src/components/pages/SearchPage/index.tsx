@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 
 import getCollectionInfoById from "../../../api/getCollectionById";
-import getCocktails, { CocktailsOptions } from "../../../api/getCocktails";
+import { getCocktails, CocktailsOptions } from "../../../api/getCocktails";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import Layout from "../../templates/Layout";
@@ -77,7 +77,7 @@ const CollectionDescription = styled.h3`
 
 const FormText = styled.h2`
   font-size: 1.2em;
-  color: ${(props) => props.theme.accent};
+  color: ${(props) => props.theme.primary};
   font-weight: 500;
 `;
 
@@ -94,9 +94,9 @@ export async function loader({
   let collectionInfo:
     | {
         id: string;
-        collectionName: string;
+        name: string;
         description: string;
-        imageUrl: string;
+        imageURL: string;
       }
     | undefined;
   if (collectionId) {
@@ -104,7 +104,7 @@ export async function loader({
   }
   const ingredients = url.searchParams
     .getAll("ingredients[]")
-    .map((el) => el.toLowerCase().replace(/\s+/, "_"));
+    .map((el) => el.toLowerCase().trim());
 
   const alcoholic = url.searchParams.get("alcoholic");
   const page = url.searchParams.get("page");
@@ -138,13 +138,14 @@ function SearchPage() {
       ReturnType<typeof getCollectionInfoById> | undefined
     >;
   }>;
+
   const { state, location } = useNavigation();
   const [currentSearchParams, setSearchParams] = useSearchParams();
 
   const currentParams = new URLSearchParams(currentSearchParams.toString());
   const allCocktails = cocktailsData;
 
-  const pageInfo = allCocktails.pageInfo;
+  const pageInfo = allCocktails.pagination;
   const additionalData = allCocktails.additionalData;
 
   const searchParams =
@@ -194,18 +195,18 @@ function SearchPage() {
     setInputValue("");
   }
 
-  const cocktailCards = allCocktails.data.map((cocktail) => {
+  const cocktailCards = allCocktails.cocktails.map((cocktail) => {
     return (
       <CocktailCard
         id={cocktail.id}
-        cocktailName={cocktail.cocktailName}
+        cocktailName={cocktail.name}
         picture={cocktail.pictureURL}
         key={cocktail.id}
       />
     );
   });
 
-  const isItCollection = Boolean(collectionInfo?.collectionName);
+  const isItCollection = Boolean(collectionInfo?.name);
 
   const getCollectionComponent = () => {
     if (!isItCollection || !collectionInfo?.id) return null;
@@ -220,9 +221,9 @@ function SearchPage() {
       {isItCollection && getCollectionComponent()}
       <InnerWrapper>
         <CocktailsSearch>
-          {isItCollection && collectionInfo?.collectionName && (
+          {isItCollection && collectionInfo?.name && (
             <>
-              <CollectionName>{collectionInfo.collectionName}</CollectionName>
+              <CollectionName>{collectionInfo.name}</CollectionName>
               <CollectionDescription>
                 {collectionInfo.description}
               </CollectionDescription>

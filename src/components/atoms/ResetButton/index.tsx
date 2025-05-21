@@ -2,7 +2,7 @@ import { FormEvent } from "react";
 import styled from "styled-components";
 
 const ResetIcon = styled.svg`
-  fill: ${({ theme }) => theme.accent};
+  fill: ${({ theme }) => theme.primary};
 `;
 
 const Button = styled.button<{ isDisabled?: boolean }>`
@@ -17,7 +17,7 @@ const Button = styled.button<{ isDisabled?: boolean }>`
     cursor: pointer;
 
     ${ResetIcon} {
-      fill: ${({ theme }) => theme.accentLight};
+      fill: ${({ theme }) => theme.primaryMuted};
     }
   }
 `;

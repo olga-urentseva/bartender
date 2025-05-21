@@ -8,7 +8,7 @@ type ImageProps = {
 };
 
 const Image = styled.div<ImageProps>`
-  box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.accentLight};
+  box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.shadow};
   border-radius: 1em;
   background-image: url(${(props) => props.picture});
   background-position: center;
@@ -19,9 +19,9 @@ const Image = styled.div<ImageProps>`
   position: relative;
 
   &::after {
-    background-color: ${(props) => props.theme.accentLight};
+    background-color: ${(props) => props.theme.primaryInversion};
     border-radius: 1em;
-    opacity: 20%;
+    opacity: 10%;
     display: block;
     content: "";
     position: absolute;
@@ -39,7 +39,7 @@ const Card = styled.div`
   &:focus-within {
     ${Image} {
       background-size: 105%;
-      box-shadow: 0 1.2em 1.5em -0.8em ${(props) => props.theme.accentLight};
+      box-shadow: 0 1em 1em -0.8em ${(props) => props.theme.primaryMuted};
     }
   }
 `;
@@ -65,7 +65,7 @@ const CocktailTitle = styled.h2<{ highlight?: string }>`
 `;
 
 const HighlightSymbols = styled.span`
-  color: ${(props) => props.theme.textLight};
+  color: ${(props) => props.theme.textMuted};
 `;
 
 type CocktailCardProps = {
@@ -100,7 +100,7 @@ function CocktailCard({
                           {highlight}
                         </HighlightSymbols>,
                         part,
-                      ]
+                      ],
                 )
                 .map((part, i) => (
                   <React.Fragment key={i}>{part}</React.Fragment>

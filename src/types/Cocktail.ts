@@ -1,14 +1,17 @@
 export type Cocktail = {
-  id: string;
-  cocktailName: string;
-  instruction: string;
-  pictureURL: string;
-  isAlcoholic: string;
-  glass: string;
+  cocktail: {
+    id: string;
+    name: string;
+    instruction: string;
+    pictureURL: string;
+    isAlcoholic: string;
+    glass: string;
+    credits?: string | null;
+  };
+
   ingredients: {
     id: string;
     measure: string;
     name: string;
   }[];
-  credits?: string;
 };

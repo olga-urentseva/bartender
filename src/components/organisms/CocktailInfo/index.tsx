@@ -25,9 +25,9 @@ const RecipeWrapper = styled.div`
 const Image = styled.img`
   display: block;
   border-radius: 1em;
-  -webkit-box-shadow: 0 0.3em 1.5em 0 ${(props) => props.theme.accentLight};
-  -moz-box-shadow: 0 0.3em 1.5em 0 ${(props) => props.theme.accentLight};
-  box-shadow: 0 0.3em 1em 0 ${(props) => props.theme.accentLight};
+  -webkit-box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.shadow};
+  -moz-box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.shadow};
+  box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.shadow};
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -68,10 +68,10 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
 
   return (
     <Wrapper>
-      <CocktailTitle>{`${data.cocktailName}`}</CocktailTitle>
+      <CocktailTitle>{`${data.cocktail.name}`}</CocktailTitle>
       <FirstColumn>
         <ImageWrapper>
-          <Image src={data.pictureURL} />
+          <Image src={data.cocktail.pictureURL} />
         </ImageWrapper>
         <RecipeWrapper>
           <SubTitle>Ingredients:</SubTitle>
@@ -80,18 +80,18 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
       </FirstColumn>
       <AdditionalInfoWrapper>
         <InfoText>
-          <strong>How to prepare:</strong> {data.instruction}
+          <strong>How to prepare:</strong> {data.cocktail.instruction}
         </InfoText>
         <InfoText>
           <strong>Alcoholic:</strong>{" "}
-          {data.isAlcoholic === "true" ? "Yes" : "No"}
+          {data.cocktail.isAlcoholic === "true" ? "Yes" : "No"}
         </InfoText>
         <InfoText>
-          <strong>Glass:</strong> {data.glass}
+          <strong>Glass:</strong> {data.cocktail.glass}
         </InfoText>
-        {data.credits && (
+        {data.cocktail.credits && (
           <InfoText>
-            <strong>Credits:</strong> {data.credits}
+            <strong>Credits:</strong> {data.cocktail.credits}
           </InfoText>
         )}
       </AdditionalInfoWrapper>
