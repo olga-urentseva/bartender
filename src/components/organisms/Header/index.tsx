@@ -1,9 +1,9 @@
 import styled from "styled-components";
+import { keyframes } from "styled-components";
+
 import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
-
-import SpringLogo from "../../atoms/Logo/SpringLogo.tsx";
-import { keyframes } from "styled-components";
+import SummerLogo from "../../atoms/Logo/SummerLogo";
 
 interface HeaderProps {
   type: "default" | "accent";
@@ -117,7 +117,7 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
         <Container>
           <InnerWrapper>
             <LogoLink to="/">
-              <SpringLogo />
+              <SummerLogo />
             </LogoLink>
             <LinksWrapper>
               <BarLink to="/">🍹 What’s in Your Bar? 🍹</BarLink>
