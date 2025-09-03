@@ -4,6 +4,7 @@ import { keyframes } from "styled-components";
 import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
 import SummerLogo from "../../atoms/Logo/SummerLogo";
+import LogoComponent from "../../atoms/Logo";
 
 interface HeaderProps {
   type: "default" | "accent";
@@ -118,7 +119,7 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
         <Container>
           <InnerWrapper>
             <LogoLink to="/">
-              <SummerLogo />
+              <LogoComponent />
             </LogoLink>
             <LinksWrapper>
               <BarLink to="/">🍹 What’s in Your Bar? 🍹</BarLink>
