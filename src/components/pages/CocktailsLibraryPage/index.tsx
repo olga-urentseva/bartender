@@ -12,7 +12,8 @@ import ErrorMessage from "../../atoms/ErrorMessage";
 import Layout from "../../templates/Layout";
 import SearchCocktailsForm from "./SearchCocktailsForm";
 import Pagination from "../../organisms/Pagination";
-import { LoaderPage } from "../LoaderPage";
+import Loader from "../../atoms/Loader";
+
 
 const CocktailCardsWrapper = styled.div`
   display: grid;
@@ -73,7 +74,7 @@ export default function CocktailsLibraryPage() {
         currentName={currentName}
       />
       {state === "loading" ? (
-        <LoaderPage />
+        <Loader />
       ) : cocktailCards?.length > 0 ? (
         <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
       ) : (

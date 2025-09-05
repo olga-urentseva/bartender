@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Layout from "../../templates/Layout";
 import {
   Link,
   useLoaderData,
@@ -7,10 +6,14 @@ import {
   useNavigation,
 } from "react-router-dom";
 import { FormEvent, useState } from "react";
+
+import Layout from "../../templates/Layout";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import Collections from "../../organisms/Collections";
+import Loader from "../../atoms/Loader";
+
 import getCollections from "../../../api/getCollections";
-import { LoaderPage } from "../LoaderPage";
+
 
 const SearchInnerWrapper = styled.div`
   display: flex;
@@ -79,7 +82,7 @@ const MainPage = () => {
   return (
     <Layout type="accent">
       {state === "loading" ? (
-        <LoaderPage />
+        <Loader />
       ) : (
         <SearchHero>
           <SearchInnerWrapper>

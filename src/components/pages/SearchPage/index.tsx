@@ -5,25 +5,23 @@ import {
   useNavigation,
   useSearchParams,
 } from "react-router-dom";
+import { FormEvent } from "react";
 import styled from "styled-components";
-
-import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
-
-import getCollectionInfoById from "../../../api/getCollectionById";
-import { getCocktails, CocktailsOptions } from "../../../api/getCocktails";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import Layout from "../../templates/Layout";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
-import { FormEvent } from "react";
-
+import Loader from "../../atoms/Loader";
 import AlcoholicOrNonFilter from "./AlcoholicOrNonFilter";
 import Pagination from "../../organisms/Pagination";
-
 import HalloweenSpider from "../../atoms/HalloweenSpider";
 import Snowfall from "../../atoms/Snowfall";
-import { LoaderPage } from "../LoaderPage";
+
+import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
+import getCollectionInfoById from "../../../api/getCollectionById";
+import { getCocktails, CocktailsOptions } from "../../../api/getCocktails";
+
 
 enum CollectionsWithAdElements {
   Christmas = "christmas",
@@ -244,7 +242,7 @@ function SearchPage() {
           </FormWrapper>
 
           {state === "loading" ? (
-            <LoaderPage />
+            <Loader />
           ) : cocktailCards.length > 0 ? (
             <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
           ) : (

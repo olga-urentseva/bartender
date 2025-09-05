@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 import { Cocktail } from "../../../types/Cocktail";
 
-import { LoaderPage } from "../LoaderPage";
 import Layout from "../../templates/Layout";
 import CocktailInfo from "../../organisms/CocktailInfo";
+import Loader from "../../atoms/Loader";
+
 import getCocktailById from "../../../api/getCocktailById";
 
 const Wrapper = styled.div``;
@@ -28,7 +29,7 @@ const CocktailPage = () => {
     <Layout>
       <Wrapper>
         {!cocktailData ? (
-          <LoaderPage />
+          <Loader />
         ) : null}
         {cocktail}
       </Wrapper>
