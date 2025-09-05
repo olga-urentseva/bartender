@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 
 const lookAnimation = keyframes`
   0%, 40%, 100% {
@@ -164,13 +165,12 @@ const Heart = styled.div<{ delay: number; spreadX: number }>`
 `;
 
 function HalloweenSpider() {
-  const [isSpiderOnTheRight, setIsSpiderOnTheRight] = useState(true);
-
+  const [isSpiderOnTheRight, changeSpiderPlacement] = useLocalStorage("isSpiderOnTheRight", true);
   function escape() {
     if (areHeartsFalling) {
       return
     } else {
-      setIsSpiderOnTheRight(!isSpiderOnTheRight);
+      changeSpiderPlacement(!isSpiderOnTheRight);
     }
     
   }
