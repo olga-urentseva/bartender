@@ -39,7 +39,7 @@ const LogoLink = styled(Link)`
 
 const LinksWrapper = styled.div`
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
   gap: 2em;
   padding: 0.6em 0; // pseudo-element compensation for centering
 `;
