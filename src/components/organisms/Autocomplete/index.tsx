@@ -16,7 +16,7 @@ const InnerWrapper = styled.div`
   padding: 1em 1.5em;
   border-radius: 1em;
   max-height: 15em;
-  overflow: scroll;
+  overflow: auto;
   box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.primaryMuted};
 `;
 
