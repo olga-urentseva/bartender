@@ -8,9 +8,9 @@ import {
 } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
-import Loader from "../../atoms/Loader";
 import Collections from "../../organisms/Collections";
 import getCollections from "../../../api/getCollections";
+import { LoaderPage } from "../LoaderPage";
 
 const SearchInnerWrapper = styled.div`
   display: flex;
@@ -79,7 +79,7 @@ const MainPage = () => {
   return (
     <Layout type="accent">
       {state === "loading" ? (
-        <Loader />
+        <LoaderPage />
       ) : (
         <SearchHero>
           <SearchInnerWrapper>

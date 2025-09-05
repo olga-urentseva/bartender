@@ -9,10 +9,10 @@ import { CocktailsOptions, getCocktails } from "../../../api/getCocktails";
 
 import CocktailCard from "../../atoms/CocktailCard";
 import ErrorMessage from "../../atoms/ErrorMessage";
-import Loader from "../../atoms/Loader";
 import Layout from "../../templates/Layout";
 import SearchCocktailsForm from "./SearchCocktailsForm";
 import Pagination from "../../organisms/Pagination";
+import { LoaderPage } from "../LoaderPage";
 
 const CocktailCardsWrapper = styled.div`
   display: grid;
@@ -73,7 +73,7 @@ export default function CocktailsLibraryPage() {
         currentName={currentName}
       />
       {state === "loading" ? (
-        <Loader />
+        <LoaderPage />
       ) : cocktailCards?.length > 0 ? (
         <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
       ) : (

@@ -22,7 +22,14 @@ const loading = (theme: CustomTheme) => keyframes`
    }
 `;
 
-const Loader = styled.div`
+const LoaderContainer = styled.div`
+  min-height: calc(100vh - 20em);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LoaderDots = styled.div`
   width: 1em;
   height: 1em;
   background: ${(props) => props.theme.primaryMuted};
@@ -32,7 +39,12 @@ const Loader = styled.div`
     1.5em 0,
     -1.5em 0;
   animation: ${(props) => loading(props.theme)} 1s infinite linear alternate;
-  margin: 5em auto;
 `;
 
-export default Loader;
+export default function Loader() {
+  return (
+    <LoaderContainer>
+      <LoaderDots />
+    </LoaderContainer>
+  );
+}

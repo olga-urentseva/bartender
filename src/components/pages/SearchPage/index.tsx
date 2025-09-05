@@ -15,7 +15,6 @@ import { getCocktails, CocktailsOptions } from "../../../api/getCocktails";
 import CocktailCard from "../../atoms/CocktailCard";
 import Layout from "../../templates/Layout";
 import ErrorMessage from "../../atoms/ErrorMessage";
-import Loader from "../../atoms/Loader";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import { FormEvent } from "react";
 
@@ -24,6 +23,7 @@ import Pagination from "../../organisms/Pagination";
 
 import HalloweenSpider from "../../atoms/HalloweenSpider";
 import Snowfall from "../../atoms/Snowfall";
+import { LoaderPage } from "../LoaderPage";
 
 enum CollectionsWithAdElements {
   Christmas = "christmas",
@@ -244,7 +244,7 @@ function SearchPage() {
           </FormWrapper>
 
           {state === "loading" ? (
-            <Loader />
+            <LoaderPage />
           ) : cocktailCards.length > 0 ? (
             <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
           ) : (
