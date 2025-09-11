@@ -6,7 +6,7 @@ import getCollections from "../../../api/getCollections";
 const Wrapper = styled.div`
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
   grid-auto-rows: 1fr;
 `;
 
