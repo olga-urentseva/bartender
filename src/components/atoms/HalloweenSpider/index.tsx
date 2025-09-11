@@ -39,8 +39,11 @@ const SpiderWrapper = styled.div<{ isSpiderOnTheRight: boolean }>`
   position: absolute;
   display: inline-block;
   top: 0;
-  left: ${({ isSpiderOnTheRight }) => (isSpiderOnTheRight ? "85%" : "10%")};
-  margin-right: 5em;
+  ${({ isSpiderOnTheRight }) => 
+    isSpiderOnTheRight 
+      ? "left: clamp(70%, 85%, calc(100vw - 10rem));" // Responsive positioning
+      : "left: 10%;"
+  }
   animation: ${swingAnimation} 2s infinite;
   transform-origin: top;
   transition: 0.8s ease-in-out;
@@ -134,16 +137,30 @@ const Leg = styled.div<{ index: number; isLeft?: boolean; clickCount: number }>`
   transition: border-top-color 0.3s ease;
 
   ${(props) => {
-    const angle = props.isLeft
+    const baseAngle = props.isLeft
       ? [10, -20, -50][props.index]
       : [-10, 20, 50][props.index];
     const margin = props.isLeft
       ? [5, 10, 15][props.index]
       : [-5, -10, -15][props.index];
+    
+    const wiggleAnimation = `
+      @keyframes leg-wiggle-${props.index}-${props.isLeft} {
+        0%, 100% { 
+          transform: rotate(${baseAngle}deg); 
+        }
+        50% { 
+          transform: rotate(${baseAngle + (props.isLeft ? -10 : 10)}deg); 
+        }
+      }
+    `;
 
     return `
-      transform: rotate(${angle}deg);
+      ${wiggleAnimation}
+      transform: rotate(${baseAngle}deg);
       margin-left: ${margin}px;
+      animation: leg-wiggle-${props.index}-${props.isLeft} 3s ease-in-out infinite;
+      animation-delay: ${props.index * 0.4}s;
     `;
   }}
 `;
