@@ -2,6 +2,10 @@ import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 
+import clickAudio from "./click-audio.wav";
+import heartsAudio from "./hearts-audio.wav";
+import swishAudio from "./swish-audio.mp3";
+
 const lookAnimation = keyframes`
   0%, 40%, 100% {
     transform: translateX(0);
@@ -181,18 +185,29 @@ const Heart = styled.div<{ delay: number; spreadX: number }>`
   }
 `;
 
+// audio
+const audioClick = new Audio(clickAudio);
+const audioHearts = new Audio(heartsAudio);
+audioHearts.volume = 0.5;
+const audioSwish = new Audio(swishAudio);
+
 function HalloweenSpider() {
   const [isSpiderOnTheRight, changeSpiderPlacement] = useLocalStorage("isSpiderOnTheRight", true);
+  
   function escape() {
     if (areHeartsFalling) {
       return
     } else {
+      audioSwish.play();
       changeSpiderPlacement(!isSpiderOnTheRight);
     }
     
   }
 
-  const [clickCount, setClickCount] = useState(0);
+  // const [clickCount, setClickCount] = useState(0);
+  const [clickCount, setClickCount] = useLocalStorage("clickCount", 0);
+  console.log(clickCount)
+
   const [showHearts, setShowHearts] = useState(false);
   const [areHeartsFalling, setAreHeartsFalling] = useState(false);
   const [heartPositions, setHeartPositions] = useState<number[]>([]);
@@ -201,8 +216,10 @@ function HalloweenSpider() {
     if (!areHeartsFalling) {
       const newClickCount = clickCount + 1;
       setClickCount(newClickCount);
+      audioClick.play();
 
       if (newClickCount === 5) {
+        audioHearts.play();
         setAreHeartsFalling(true);
         setHeartPositions(Array.from({ length: 5 }, () => (Math.random() - 0.5) * 120));
         setShowHearts(true);
