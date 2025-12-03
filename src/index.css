@@ -1,7 +1,7 @@
 :root:root:root {
   --color-background: light-dark(
     oklch(0.99 0.0105 320.98),
-    oklch(0.21 0.037 271.06)
+    oklch(20.366% 0.05825 270.317)
   );
   --color-surface: light-dark(
     oklch(0.95 0.0214 288.86),
@@ -9,7 +9,7 @@
   );
   --color-background-muted: light-dark(
     oklch(0.93 0.03 297.24),
-    oklch(0.24 0.0666 271.06)
+    oklch(23.564% 0.07491 269.989)
   );
   --color-text: light-dark(oklch(43.61% 0.085 271.69), oklch(98% 0.03 250));
   --color-text-muted: light-dark(
