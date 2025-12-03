@@ -4,6 +4,7 @@ import Container from "../../atoms/Container";
 import Footer from "../../organisms/Footer";
 import Header from "../../organisms/Header";
 import HalloweenSpider from "../../atoms/HalloweenSpider";
+import Snowfall from "../../atoms/Snowfall";
 
 const Main = styled.main<{ type: "default" | "accent" }>`
   flex: 1 0 auto;
@@ -23,7 +24,7 @@ const Layout = ({
   return (
     <>
       <Header type={type} />
-      <HalloweenSpider />
+      <Snowfall />
       <Main type={type}>
         <Container>{children}</Container>
       </Main>

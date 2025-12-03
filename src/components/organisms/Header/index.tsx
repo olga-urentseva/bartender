@@ -3,8 +3,8 @@ import { keyframes } from "styled-components";
 
 import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
-import SummerLogo from "../../atoms/Logo/SummerLogo";
-import LogoComponent from "../../atoms/Logo";
+
+import ChristmasLogo from "../../atoms/Logo/ChristmasLogo";
 
 interface HeaderProps {
   type: "default" | "accent";
@@ -119,7 +119,7 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
         <Container>
           <InnerWrapper>
             <LogoLink to="/">
-              <LogoComponent />
+              <ChristmasLogo />
             </LogoLink>
             <LinksWrapper>
               <BarLink to="/">🍹 What’s in Your Bar? 🍹</BarLink>
