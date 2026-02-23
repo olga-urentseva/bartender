@@ -39,7 +39,7 @@ const Card = styled.div`
   &:focus-within {
     ${Image} {
       background-size: 105%;
-      box-shadow: 0 1em 1em -0.8em ${(props) => props.theme.primaryMuted};
+      box-shadow: 0 1em 1em -0.8em ${(props) => props.theme.shadow};
     }
   }
 `;
