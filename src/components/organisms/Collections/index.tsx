@@ -67,7 +67,7 @@ const Card = styled.div<{ imgUrl: string }>`
     transform: scale(1.05);
 
     &::before {
-      background-color: ${(props) => props.theme.accent};
+      background-color: ${(props) => props.theme.primaryMuted};
     }
 
     ${Description}, ${Title} {

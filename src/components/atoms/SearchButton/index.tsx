@@ -31,7 +31,7 @@ const ButtonAccent = styled(Button)`
   white-space: nowrap;
 
   &:hover {
-    background-color: ${(props) => props.theme.primaryMuted};
+    background-color: ${(props) => props.theme.primary};
     box-shadow: 0 0.2em 0.5em -0.4em ${(props) => props.theme.primaryMuted};
   }
 
