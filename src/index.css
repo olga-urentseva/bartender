@@ -1,7 +1,7 @@
 :root:root:root {
   --color-background: light-dark(
     oklch(0.99 0.0105 320.98),
-    oklch(20.366% 0.05825 270.317)
+    oklch(13.709% 0.02553 268.319)
   );
   --color-surface: light-dark(
     oklch(0.95 0.0214 288.86),
@@ -34,12 +34,12 @@
     oklch(0.26 0.1011 266.14)
   );
   --color-accent: light-dark(
-    oklch(0.88 0.1589 91.46),
-    oklch(0.93 0.1085 101.65)
+    oklch(73.847% 0.06921 318.006),
+    oklch(66.001% 0.07535 271.094)
   );
   --color-accent-muted: light-dark(
-    oklch(0.83 0.1603 90.12),
-    oklch(0.86 0.1085 101.65)
+    oklch(78.767% 0.06224 337.634),
+    oklch(83.175% 0.06495 272.332)
   );
 
   --color-secondary: light-dark(
@@ -57,7 +57,7 @@
   --color-warning: light-dark(oklch(85% 0.3 80), oklch(85% 0.3 80));
   --color-error: light-dark(oklch(65% 0.28 15), oklch(65% 0.28 15));
 
-  --color-shadow: light-dark(oklch(0% 0 0), oklch(0.74 0.074 266.14));
+  --color-shadow: light-dark(oklch(46.215% 0.05328 288.282 / 0.641), oklch(0.74 0.074 266.14));
 }
 
 @media (prefers-color-scheme: light) {
