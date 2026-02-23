@@ -1,0 +1,155 @@
+import styled, { keyframes } from "styled-components";
+
+const sway = keyframes`
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+`;
+
+const bloom = keyframes`
+  0% { transform: scaleY(0.7) scaleX(0.85); }
+  60% { transform: scaleY(1.08) scaleX(1.05); }
+  100% { transform: scaleY(1) scaleX(1); }
+`;
+
+const grow = keyframes`
+  0% { transform: scaleY(0.6); transform-origin: bottom; }
+  100% { transform: scaleY(1); transform-origin: bottom; }
+`;
+
+const Wrapper = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 48px;
+  gap: 0;
+  position: relative;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    border-radius: 4px;
+  }
+`;
+
+const TulipSvg = styled.svg`
+  overflow: visible;
+  transform-origin: bottom center;
+  transform: rotate(7deg);
+
+  .stem {
+    transform-origin: bottom center;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .petals {
+    transform-origin: bottom center;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .leaf {
+    transform-origin: 50% 100%;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0.9;
+  }
+
+  ${Wrapper}:hover & {
+    animation: ${sway} 1.2s ease-in-out infinite;
+
+    .stem {
+      animation: ${grow} 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .petals {
+      animation: ${bloom} 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .leaf-left {
+      transform: rotate(-20deg) scaleX(1.2);
+    }
+
+    .leaf-right {
+      transform: rotate(20deg) scaleX(1.2);
+    }
+  }
+`;
+
+const Shadow = styled.div`
+  background: rgba(13, 54, 31, 0.1);
+  width: 1.8rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 7px;
+`;
+
+interface Props {
+  isSpring: boolean;
+  onClick: () => void;
+}
+
+export function TulipToggleButton({ isSpring, onClick }: Props) {
+  const petalColor = isSpring ? "#e87ea1" : "#a78bfa";
+  const petalDark = isSpring ? "#c45c7e" : "#7c3aed";
+  const stemColor = isSpring ? "#5da277" : "#7bb188";
+  const leafColor = isSpring ? "#5da277" : "#7bb188";
+
+  return (
+    <Wrapper onClick={onClick} title={isSpring ? "Switch to Default theme" : "Switch to Spring theme"}>
+      <Shadow />
+      <TulipSvg width="52" height="60" viewBox="0 0 36 52">
+        {/* Stem */}
+        <g className="stem">
+          <path
+            d="M18 50 Q17 38 18 28"
+            stroke={stemColor}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            fill="none"
+          />
+          {/* Leaf left */}
+          <path
+            className="leaf leaf-left"
+            d="M17.5 40 Q10 36 9 30 Q14 33 17.5 38Z"
+            fill={leafColor}
+          />
+          {/* Leaf right */}
+          <path
+            className="leaf leaf-right"
+            d="M18.5 40 Q26 36 27 30 Q22 33 18.5 38Z"
+            fill={leafColor}
+          />
+        </g>
+
+        {/* Petals */}
+        <g className="petals">
+          {/* Center petal */}
+          <ellipse cx="18" cy="17" rx="5" ry="9" fill={petalColor} />
+          {/* Left petal */}
+          <ellipse
+            cx="15"
+            cy="19"
+            rx="4.5"
+            ry="8"
+            fill={petalColor}
+            transform="rotate(-18 12 24)"
+          />
+          {/* Right petal */}
+          <ellipse
+            cx="21"
+            cy="19"
+            rx="4.5"
+            ry="8"
+            fill={petalColor}
+            transform="rotate(18 24 24)"
+          />
+          {/* Inner shading */}
+          <ellipse cx="18" cy="19" rx="3" ry="5.5" fill={petalDark} opacity="0.35" />
+        </g>
+      </TulipSvg>
+      
+    </Wrapper>
+  );
+}
