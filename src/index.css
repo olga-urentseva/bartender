@@ -1,7 +1,7 @@
 :root:root:root {
   --color-background: light-dark(
     oklch(0.99 0.0105 320.98),
-    oklch(20.366% 0.05825 270.317)
+    oklch(13.709% 0.02553 268.319)
   );
   --color-surface: light-dark(
     oklch(0.95 0.0214 288.86),
@@ -34,12 +34,12 @@
     oklch(0.26 0.1011 266.14)
   );
   --color-accent: light-dark(
-    oklch(0.88 0.1589 91.46),
-    oklch(0.93 0.1085 101.65)
+    oklch(73.847% 0.06921 318.006),
+    oklch(66.001% 0.07535 271.094)
   );
   --color-accent-muted: light-dark(
-    oklch(0.83 0.1603 90.12),
-    oklch(0.86 0.1085 101.65)
+    oklch(78.767% 0.06224 337.634),
+    oklch(83.175% 0.06495 272.332)
   );
 
   --color-secondary: light-dark(
@@ -57,7 +57,68 @@
   --color-warning: light-dark(oklch(85% 0.3 80), oklch(85% 0.3 80));
   --color-error: light-dark(oklch(65% 0.28 15), oklch(65% 0.28 15));
 
-  --color-shadow: light-dark(oklch(0% 0 0), oklch(0.74 0.074 266.14));
+  --color-shadow: light-dark(oklch(46.215% 0.05328 288.282 / 0.641), oklch(82.477% 0.06833 267.352));
+}
+
+.spring:root:root:root {
+  body {
+    --color-background: light-dark(
+    oklch(0.99 0.012 150),
+    oklch(22.086% 0.03643 213.802)
+  );
+  --color-surface: light-dark(
+    oklch(91.523% 0.03236 158.461),
+    oklch(38.565% 0.0352 212.71)
+  );
+  --color-background-muted: light-dark(
+    oklch(93.047% 0.02146 143.438),
+    oklch(28.358% 0.02311 209.768)
+  );
+
+  --color-text: light-dark(oklch(0.32 0.09 145), oklch(0.97 0.03 145));
+  --color-text-muted: light-dark(oklch(0.48 0.08 145), oklch(81.413% 0.04024 208.563));
+  --color-text-inversion: light-dark(oklch(1 0 0), oklch(13.69% 0.05869 270.786));
+  --color-text-photo: light-dark(oklch(1 0 0), oklch(0.97 0.03 145));
+
+  --color-primary: light-dark(
+    oklch(56.316% 0.10067 150.907),
+    oklch(84.099% 0.04518 236.922)
+  );
+  --color-primary-muted: light-dark(
+    oklch(53.622% 0.08017 151.745),
+    oklch(70.435% 0.07005 216.587)
+  );
+  --color-primary-inversion: light-dark(
+    oklch(0.93 0.05 145),
+    oklch(0.24 0.09 145)
+  );
+
+  --color-accent: light-dark(
+    oklch(0.7 0.1 5),
+    oklch(74.602% 0.09261 4.694)
+  );
+  --color-accent-muted: light-dark(
+    oklch(71.849% 0.12875 348.848),
+    oklch(0.80 0.12 355)
+  );
+
+  --color-secondary: light-dark(
+    oklch(0.75 0.1 155),
+    oklch(78.864% 0.06139 205.352)
+  );
+  --color-secondary-muted: light-dark(
+    oklch(0.65 0.09 155),
+    oklch(63.032% 0.04934 217.497)
+  );
+
+  --color-border: light-dark(oklch(0.35 0.1 145), oklch(0.82 0.04 145));
+
+  --color-success: light-dark(oklch(70% 0.25 145), oklch(70% 0.25 145));
+  --color-warning: light-dark(oklch(85% 0.3 80), oklch(85% 0.3 80));
+  --color-error: light-dark(oklch(65% 0.28 15), oklch(65% 0.28 15));
+
+  --color-shadow: light-dark(oklch(0% 0 0), oklch(0.4 0.1 145));
+  }
 }
 
 @media (prefers-color-scheme: light) {

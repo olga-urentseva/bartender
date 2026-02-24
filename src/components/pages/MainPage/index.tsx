@@ -11,9 +11,9 @@ import Layout from "../../templates/Layout";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import Collections from "../../organisms/Collections";
 import Loader from "../../atoms/Loader";
+import { TulipToggleButton } from "../../atoms/TulipToggleButton";
 
 import getCollections from "../../../api/getCollections";
-
 
 const SearchInnerWrapper = styled.div`
   display: flex;
@@ -53,6 +53,13 @@ const CollectionsLink = styled(Link)`
   }
 `;
 
+const InnerWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 100%;
+`;
+
 export async function loader() {
   const collections = await getCollections();
   return { collectionsData: collections };
@@ -79,6 +86,11 @@ const MainPage = () => {
     navigate(`/search?${newSearchParams.toString()}`);
   }
 
+  function handleToggle() {
+    const isSpring = document.documentElement.classList.toggle("spring");
+    localStorage.setItem("theme", isSpring ? "spring" : "default");
+  }
+
   return (
     <Layout type="accent">
       {state === "loading" ? (
@@ -87,11 +99,17 @@ const MainPage = () => {
         <SearchHero>
           <SearchInnerWrapper>
             <MainText>Bart-t-tender is your home bar companion.</MainText>
-            <IngredientsFilterForm
-              ingredients={ingredients}
-              setIngredients={setIngredients}
-              handleFormSubmit={handleFormSubmit}
-            />
+            <InnerWrapper>
+              <IngredientsFilterForm
+                ingredients={ingredients}
+                setIngredients={setIngredients}
+                handleFormSubmit={handleFormSubmit}
+              />
+              <TulipToggleButton
+                isSpring={localStorage.getItem("theme") === "spring"}
+                onClick={handleToggle}
+              />
+            </InnerWrapper>
           </SearchInnerWrapper>
           <CollectionsInnerWrapper>
             <CollectionsLink to="/collections">
