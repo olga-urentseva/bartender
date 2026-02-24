@@ -15,8 +15,6 @@ import { TulipToggleButton } from "../../atoms/TulipToggleButton";
 
 import getCollections from "../../../api/getCollections";
 
-
-
 const SearchInnerWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -60,7 +58,7 @@ const InnerWrapper = styled.div`
   flex-direction: row;
   align-items: flex-end;
   width: 100%;
-`; 
+`;
 
 export async function loader() {
   const collections = await getCollections();
@@ -89,11 +87,10 @@ const MainPage = () => {
   }
 
   function handleToggle() {
-      const current = localStorage.getItem("theme");
-      localStorage.setItem("theme", current === "spring" ? "default" : "spring");
-      document.documentElement.style.setProperty("--varrr", current === "spring" ? "default" : "spring");
-    }
-    
+    const isSpring = document.documentElement.classList.toggle("spring");
+    localStorage.setItem("theme", isSpring ? "spring" : "default");
+  }
+
   return (
     <Layout type="accent">
       {state === "loading" ? (
@@ -104,13 +101,15 @@ const MainPage = () => {
             <MainText>Bart-t-tender is your home bar companion.</MainText>
             <InnerWrapper>
               <IngredientsFilterForm
-              ingredients={ingredients}
-              setIngredients={setIngredients}
-              handleFormSubmit={handleFormSubmit}
+                ingredients={ingredients}
+                setIngredients={setIngredients}
+                handleFormSubmit={handleFormSubmit}
               />
-              <TulipToggleButton isSpring={localStorage.getItem("theme") === "spring"} onClick={handleToggle} />
+              <TulipToggleButton
+                isSpring={localStorage.getItem("theme") === "spring"}
+                onClick={handleToggle}
+              />
             </InnerWrapper>
-            
           </SearchInnerWrapper>
           <CollectionsInnerWrapper>
             <CollectionsLink to="/collections">

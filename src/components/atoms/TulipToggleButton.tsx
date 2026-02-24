@@ -39,6 +39,34 @@ const TulipSvg = styled.svg`
   transform-origin: bottom center;
   transform: rotate(7deg);
 
+  /* default colors */
+  .petal {
+    fill: #a78bfa;
+  }
+  .petal-dark {
+    fill: #7c3aed;
+  }
+  .leaf {
+    fill: #7bb188;
+  }
+  .stem-line {
+    stroke: #7bb188;
+  }
+
+  /* spring colors */
+  .spring:root & .petal {
+    fill: #e87ea1;
+  }
+  .spring:root & .petal-dark {
+    fill: #c45c7e;
+  }
+  .spring:root & .leaf {
+    fill: #5da277;
+  }
+  .spring:root & .stem-line {
+    stroke: #5da277;
+  }
+
   .stem {
     transform-origin: bottom center;
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -91,11 +119,6 @@ interface Props {
 }
 
 export function TulipToggleButton({ isSpring, onClick }: Props) {
-  const petalColor = isSpring ? "#e87ea1" : "#a78bfa";
-  const petalDark = isSpring ? "#c45c7e" : "#7c3aed";
-  const stemColor = isSpring ? "#5da277" : "#7bb188";
-  const leafColor = isSpring ? "#5da277" : "#7bb188";
-
   return (
     <Wrapper
       onClick={onClick}
@@ -106,8 +129,8 @@ export function TulipToggleButton({ isSpring, onClick }: Props) {
         {/* Stem */}
         <g className="stem">
           <path
+            className="stem-line"
             d="M18 50 Q17 38 18 28"
-            stroke={stemColor}
             strokeWidth="2.2"
             strokeLinecap="round"
             fill="none"
@@ -116,45 +139,43 @@ export function TulipToggleButton({ isSpring, onClick }: Props) {
           <path
             className="leaf leaf-left"
             d="M17.5 40 Q10 36 9 30 Q14 33 17.5 38Z"
-            fill={leafColor}
           />
           {/* Leaf right */}
           <path
             className="leaf leaf-right"
             d="M18.5 40 Q26 36 27 30 Q22 33 18.5 38Z"
-            fill={leafColor}
           />
         </g>
 
         {/* Petals */}
         <g className="petals">
           {/* Center petal */}
-          <ellipse cx="18" cy="17" rx="5" ry="9" fill={petalColor} />
+          <ellipse className="petal" cx="18" cy="17" rx="5" ry="9" />
           {/* Left petal */}
           <ellipse
+            className="petal"
             cx="15"
             cy="19"
             rx="4.5"
             ry="8"
-            fill={petalColor}
             transform="rotate(-18 12 24)"
           />
           {/* Right petal */}
           <ellipse
+            className="petal"
             cx="21"
             cy="19"
             rx="4.5"
             ry="8"
-            fill={petalColor}
             transform="rotate(18 24 24)"
           />
           {/* Inner shading */}
           <ellipse
+            className="petal-dark"
             cx="18"
             cy="19"
             rx="3"
             ry="5.5"
-            fill={petalDark}
             opacity="0.35"
           />
         </g>

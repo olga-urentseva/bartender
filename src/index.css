@@ -60,7 +60,7 @@
   --color-shadow: light-dark(oklch(46.215% 0.05328 288.282 / 0.641), oklch(82.477% 0.06833 267.352));
 }
 
-@container style(--varrr: spring) {
+.spring:root:root:root {
   body {
     --color-background: light-dark(
     oklch(0.99 0.012 150),

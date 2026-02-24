@@ -5,10 +5,11 @@ import App from "./App";
 import "./index.css";
 
 const savedTheme = localStorage.getItem("theme");
-document.documentElement.style.setProperty("--varrr", savedTheme === "spring" ? "spring" : "default");
+// document.documentElement.style.setProperty("--varrr", savedTheme === "spring" ? "spring" : "default");
+document.documentElement.classList.toggle("spring", savedTheme === "spring");
 
-  ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-  );
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
