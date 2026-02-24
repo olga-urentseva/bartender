@@ -77,7 +77,7 @@ const TulipSvg = styled.svg`
 `;
 
 const Shadow = styled.div`
-  background: rgba(13, 54, 31, 0.1);
+  background-color: ${(props) => props.theme.secondary};
   width: 1.8rem;
   height: 0.25rem;
   border-radius: 50%;
@@ -97,7 +97,10 @@ export function TulipToggleButton({ isSpring, onClick }: Props) {
   const leafColor = isSpring ? "#5da277" : "#7bb188";
 
   return (
-    <Wrapper onClick={onClick} title={isSpring ? "Switch to Default theme" : "Switch to Spring theme"}>
+    <Wrapper
+      onClick={onClick}
+      title={isSpring ? "Switch to Default theme" : "Switch to Spring theme"}
+    >
       <Shadow />
       <TulipSvg width="52" height="60" viewBox="0 0 36 52">
         {/* Stem */}
@@ -146,10 +149,16 @@ export function TulipToggleButton({ isSpring, onClick }: Props) {
             transform="rotate(18 24 24)"
           />
           {/* Inner shading */}
-          <ellipse cx="18" cy="19" rx="3" ry="5.5" fill={petalDark} opacity="0.35" />
+          <ellipse
+            cx="18"
+            cy="19"
+            rx="3"
+            ry="5.5"
+            fill={petalDark}
+            opacity="0.35"
+          />
         </g>
       </TulipSvg>
-      
     </Wrapper>
   );
 }

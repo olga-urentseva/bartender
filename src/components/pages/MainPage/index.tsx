@@ -91,11 +91,9 @@ const MainPage = () => {
   function handleToggle() {
       const current = localStorage.getItem("theme");
       localStorage.setItem("theme", current === "spring" ? "default" : "spring");
-      window.location.reload();
+      document.documentElement.style.setProperty("--varrr", current === "spring" ? "default" : "spring");
     }
-    // very naive, but at the same time simple solution without introducing additional dependencies or complex state management just for theme toggling.
-    // works perfectly with native browser theme support, which is the key point of the theme toggle of the whole app.
-
+    
   return (
     <Layout type="accent">
       {state === "loading" ? (
