@@ -3,16 +3,13 @@ import styled from "styled-components";
 
 import { Cocktail } from "../../../types/Cocktail";
 
-import Loader from "../../atoms/Loader";
 import Layout from "../../templates/Layout";
 import CocktailInfo from "../../organisms/CocktailInfo";
+import Loader from "../../atoms/Loader";
+
 import getCocktailById from "../../../api/getCocktailById";
 
 const Wrapper = styled.div``;
-const LoaderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
 
 export async function loader({ params }: { params: Params }) {
   const response = await getCocktailById(params.cocktailId);
@@ -32,9 +29,7 @@ const CocktailPage = () => {
     <Layout>
       <Wrapper>
         {!cocktailData ? (
-          <LoaderWrapper>
-            <Loader />
-          </LoaderWrapper>
+          <Loader />
         ) : null}
         {cocktail}
       </Wrapper>

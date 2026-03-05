@@ -1,12 +1,28 @@
 export const theme = {
-  primary: "oklch(94.9% 0 89.876)",
-  text: "oklch(43.61% 0.085 271.69)",
-  textLight: "oklch(54.97% 0.085 271.69)",
-  textInversion: "oklch(100% 0 0)",
-  accent: "oklch(58.61% 0.085 271.69)",
-  accentLight: "oklch(70.61% 0.085 271.69)",
-  accentPastel: "oklch(95.34% 0.035 275.29)",
-  shadow: "oklch(0% 0 0)",
-  error: "oklch(61.27% 0.157 356.57)",
-  secondary: "oklch(94.41% 0.012 263.65)",
+  background: "var(--color-background)",
+  surface: "var(--color-surface)",
+  backgroundMuted: "var(--color-background-muted)",
+
+  text: "var(--color-text)",
+  textMuted: "var(--color-text-muted)",
+  textInversion: "var(--color-text-inversion)",
+  textPhoto: "var(--color-text-photo)",
+
+  primary: "var(--color-primary)",
+  primaryMuted: "var(--color-primary-muted)",
+  primaryInversion: "var(--color-primary-inversion)",
+
+  secondary: "var(--color-secondary)",
+  secondaryMuted: "var(--color-secondary-muted)",
+
+  accent: "var(--color-accent)",
+  accentMuted: "var(--color-accent-muted)",
+
+  border: "var(--color-border)",
+
+  success: "var(--color-success)",
+  warning: "var(--color-warning)",
+  error: "var(--color-error)",
+
+  shadow: "var(--color-shadow)",
 };

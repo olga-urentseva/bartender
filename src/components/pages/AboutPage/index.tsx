@@ -11,14 +11,14 @@ const Text = styled.p`
 
 const TextLink = styled(Link)`
   text-decoration: none;
-  color: ${(props) => props.theme.textLight};
+  color: ${(props) => props.theme.textMuted};
   display: inline-block;
 
   ::after {
     content: "";
     display: block;
     height: 0.15rem;
-    background: ${(props) => props.theme.textLight};
+    background: ${(props) => props.theme.textMuted};
     transition: width 0.2s;
     width: 0;
   }

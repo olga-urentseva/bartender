@@ -32,11 +32,11 @@ const PageLink = styled(Link)<{ $isHighlighted?: boolean; disabled?: boolean }>`
   font-size: 1rem;
   font-weight: 600;
   color: ${(props) =>
-    props.$isHighlighted ? props.theme.accent : props.theme.text};
+    props.$isHighlighted ? props.theme.primary : props.theme.text};
   &:hover,
   &:focus,
   &:active {
-    color: ${(props) => props.theme.accent};
+    color: ${(props) => props.theme.primary};
   }
   &:disabled {
     background-color: transparent;
@@ -92,8 +92,8 @@ export default function Pagination(props: PaginationProps) {
         {Array(
           Math.min(
             SURROUNDING_PAGES_NUMBER,
-            Math.max(props.currentPageNumber - 2, 0)
-          )
+            Math.max(props.currentPageNumber - 2, 0),
+          ),
         )
           .fill(null)
           .map((_, i, a) => {
@@ -122,8 +122,8 @@ export default function Pagination(props: PaginationProps) {
         {Array(
           Math.min(
             SURROUNDING_PAGES_NUMBER,
-            Math.max(props.totalPagesNumber - props.currentPageNumber - 1, 0)
-          )
+            Math.max(props.totalPagesNumber - props.currentPageNumber - 1, 0),
+          ),
         )
           .fill(null)
           .map((_, i) => {

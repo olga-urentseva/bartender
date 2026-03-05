@@ -5,7 +5,7 @@ const GithubIcon = (props: SVGProps<SVGSVGElement>) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 30 35"
-      width="1.5em"
+      width="1.2em"
       {...props}
     >
       <path

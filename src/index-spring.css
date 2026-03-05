@@ -1,0 +1,122 @@
+/* theme-spring.css */
+
+:root:root:root {
+  --color-background: light-dark(
+    oklch(0.99 0.012 150),
+    oklch(22.086% 0.03643 213.802)
+  );
+  --color-surface: light-dark(
+    oklch(91.523% 0.03236 158.461),
+    oklch(38.565% 0.0352 212.71)
+  );
+  --color-background-muted: light-dark(
+    oklch(93.047% 0.02146 143.438),
+    oklch(28.358% 0.02311 209.768)
+  );
+
+  --color-text: light-dark(oklch(0.32 0.09 145), oklch(0.97 0.03 145));
+  --color-text-muted: light-dark(oklch(0.48 0.08 145), oklch(81.413% 0.04024 208.563));
+  --color-text-inversion: light-dark(oklch(1 0 0), oklch(13.69% 0.05869 270.786));
+  --color-text-photo: light-dark(oklch(1 0 0), oklch(0.97 0.03 145));
+
+  --color-primary: light-dark(
+    oklch(56.316% 0.10067 150.907),
+    oklch(84.099% 0.04518 236.922)
+  );
+  --color-primary-muted: light-dark(
+    oklch(53.622% 0.08017 151.745),
+    oklch(89.453% 0.04342 216.834)
+  );
+  --color-primary-inversion: light-dark(
+    oklch(0.93 0.05 145),
+    oklch(0.24 0.09 145)
+  );
+
+  --color-accent: light-dark(
+    oklch(0.7 0.1 5),
+    oklch(74.602% 0.09261 4.694)
+  );
+  --color-accent-muted: light-dark(
+    oklch(71.849% 0.12875 348.848),
+    oklch(0.80 0.12 355)
+  );
+
+  --color-secondary: light-dark(
+    oklch(0.75 0.1 155),
+    oklch(78.864% 0.06139 205.352)
+  );
+  --color-secondary-muted: light-dark(
+    oklch(0.65 0.09 155),
+    oklch(63.032% 0.04934 217.497)
+  );
+
+  --color-border: light-dark(oklch(0.35 0.1 145), oklch(0.82 0.04 145));
+
+  --color-success: light-dark(oklch(70% 0.25 145), oklch(70% 0.25 145));
+  --color-warning: light-dark(oklch(85% 0.3 80), oklch(85% 0.3 80));
+  --color-error: light-dark(oklch(65% 0.28 15), oklch(65% 0.28 15));
+
+  --color-shadow: light-dark(oklch(0% 0 0), oklch(0.4 0.1 145));
+}
+
+@media (prefers-color-scheme: light) {
+  [data-theme="spring"] {
+    --color-background: oklch(0.99 0.012 150);
+    --color-surface: oklch(0.94 0.025 145);
+    --color-background-muted: oklch(0.91 0.035 145);
+
+    --color-text: oklch(0.32 0.09 145);
+    --color-text-muted: oklch(0.48 0.08 145);
+    --color-text-inversion: oklch(1 0 0);
+    --color-text-photo: oklch(1 0 0);
+
+    --color-primary: oklch(0.55 0.18 145);
+    --color-primary-muted: oklch(0.48 0.15 145);
+    --color-primary-inversion: oklch(0.93 0.05 145);
+
+    --color-accent: oklch(0.78 0.18 350);
+    --color-accent-muted: oklch(0.72 0.16 350);
+
+    --color-secondary: oklch(0.75 0.1 155);
+    --color-secondary-muted: oklch(0.65 0.09 155);
+
+    --color-border: oklch(0.35 0.1 145);
+
+    --color-success: oklch(70% 0.25 145);
+    --color-warning: oklch(85% 0.3 80);
+    --color-error: oklch(65% 0.28 15);
+
+    --color-shadow: oklch(0% 0 0);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="spring"] {
+    --color-background: oklch(0.18 0.05 145);
+    --color-surface: oklch(0.28 0.07 145);
+    --color-background-muted: oklch(0.22 0.06 145);
+
+    --color-text: oklch(0.97 0.03 145);
+    --color-text-muted: oklch(0.82 0.04 145);
+    --color-text-inversion: oklch(0.2 0.06 145);
+    --color-text-photo: oklch(0.97 0.03 145);
+
+    --color-primary: oklch(0.72 0.2 145);
+    --color-primary-muted: oklch(0.62 0.17 145);
+    --color-primary-inversion: oklch(0.24 0.09 145);
+
+    --color-accent: oklch(0.88 0.14 355);
+    --color-accent-muted: oklch(0.80 0.12 355);
+
+    --color-secondary: oklch(0.38 0.1 150);
+    --color-secondary-muted: oklch(0.30 0.08 150);
+
+    --color-border: oklch(0.82 0.04 145);
+
+    --color-success: oklch(70% 0.25 145);
+    --color-warning: oklch(85% 0.3 80);
+    --color-error: oklch(65% 0.28 15);
+
+    --color-shadow: oklch(0.4 0.1 145);
+  }
+}

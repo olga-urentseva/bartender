@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Layout from "../../templates/Layout";
 import {
   Link,
   useLoaderData,
@@ -7,9 +6,13 @@ import {
   useNavigation,
 } from "react-router-dom";
 import { FormEvent, useState } from "react";
+
+import Layout from "../../templates/Layout";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
-import Loader from "../../atoms/Loader";
 import Collections from "../../organisms/Collections";
+import Loader from "../../atoms/Loader";
+import { TulipToggleButton } from "../../atoms/TulipToggleButton";
+
 import getCollections from "../../../api/getCollections";
 
 const SearchInnerWrapper = styled.div`
@@ -36,7 +39,7 @@ const MainText = styled.h2`
 `;
 
 const CollectionsLink = styled(Link)`
-  color: ${(props) => props.theme.accent};
+  color: ${(props) => props.theme.textMuted};
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: 500;
@@ -46,8 +49,15 @@ const CollectionsLink = styled(Link)`
   &:hover,
   &:focus,
   &:active {
-    color: ${(props) => props.theme.accentLight};
+    color: ${(props) => props.theme.text};
   }
+`;
+
+const InnerWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 100%;
 `;
 
 export async function loader() {
@@ -76,6 +86,11 @@ const MainPage = () => {
     navigate(`/search?${newSearchParams.toString()}`);
   }
 
+  function handleToggle() {
+    const isSpring = document.documentElement.classList.toggle("spring");
+    localStorage.setItem("theme", isSpring ? "spring" : "default");
+  }
+
   return (
     <Layout type="accent">
       {state === "loading" ? (
@@ -84,11 +99,17 @@ const MainPage = () => {
         <SearchHero>
           <SearchInnerWrapper>
             <MainText>Bart-t-tender is your home bar companion.</MainText>
-            <IngredientsFilterForm
-              ingredients={ingredients}
-              setIngredients={setIngredients}
-              handleFormSubmit={handleFormSubmit}
-            />
+            <InnerWrapper>
+              <IngredientsFilterForm
+                ingredients={ingredients}
+                setIngredients={setIngredients}
+                handleFormSubmit={handleFormSubmit}
+              />
+              <TulipToggleButton
+                isSpring={localStorage.getItem("theme") === "spring"}
+                onClick={handleToggle}
+              />
+            </InnerWrapper>
           </SearchInnerWrapper>
           <CollectionsInnerWrapper>
             <CollectionsLink to="/collections">

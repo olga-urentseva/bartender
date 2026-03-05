@@ -4,11 +4,15 @@ import Wave from "./Wave";
 import GithubIcon from "./GithubIcon";
 import { Link } from "react-router-dom";
 import AboutIcon from "./AboutIcon";
+import ThemeSwitcher from "./ThemeSwitcher";
 
-const Wrapper = styled.footer``;
+const Wrapper = styled.footer`
+  background-color: ${(props) => props.theme.background};
+`;
 
 const InnerContainer = styled.div`
-  background-color: ${(props) => props.theme.accent};
+  background-color: ${(props) =>
+    props.theme.secondaryMuted}; // primary color to match the wave bottom
   padding-bottom: 1em;
 `;
 
@@ -21,15 +25,15 @@ const LinkInnerWrapper = styled.div`
 `;
 
 const FooterGithubIcon = styled(GithubIcon)`
-  stroke: ${({ theme }) => theme.textInversion};
+  stroke: ${({ theme }) => theme.textPhoto};
 `;
 
 const FooterAboutIcon = styled(AboutIcon)`
-  stroke: ${({ theme }) => theme.textInversion};
+  stroke: ${({ theme }) => theme.textPhoto};
 `;
 
 const FooterLink = styled(Link)`
-  color: ${(props) => props.theme.textInversion};
+  color: ${(props) => props.theme.textPhoto};
   font-weight: 600;
   text-decoration: none;
   display: flex;
@@ -41,7 +45,7 @@ const FooterLink = styled(Link)`
 `;
 
 const HomePageLink = styled(Link)`
-  color: ${(props) => props.theme.textInversion};
+  color: ${(props) => props.theme.textPhoto};
   font-weight: 600;
   font-size: 1.5rem;
   text-decoration: none;
@@ -53,13 +57,14 @@ const LinksWrapper = styled.div`
   gap: 0.5rem;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 1em;
 
   ${HomePageLink}, ${FooterLink} {
     ::after {
       content: "";
       display: block;
       height: 0.15rem;
-      background: ${(props) => props.theme.textInversion};
+      background: ${(props) => props.theme.textPhoto};
       transition: width 0.2s;
       width: 0;
       box-shadow: 0.01rem 0.1rem 1.5rem -0.1rem ${(props) => props.theme.textInversion};
@@ -96,6 +101,7 @@ function Footer() {
               </LinkInnerWrapper>
             </FooterLink>
           </LinksWrapper>
+          <ThemeSwitcher />
         </Container>
       </InnerContainer>
     </Wrapper>

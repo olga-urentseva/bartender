@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 const InnerWrapper = styled.div`
-  position: fixed;
+  position: absolute;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   top: 0;
   left: 0;
   overflow: hidden;
@@ -15,6 +16,7 @@ interface SnowFlakeProps {
   left: number;
   duration: number;
   delay: number;
+  startPosition: number;
 }
 
 const SnowFlake = styled.div<SnowFlakeProps>`
@@ -23,12 +25,12 @@ const SnowFlake = styled.div<SnowFlakeProps>`
   border-radius: 50%;
   background-color: #b6e3ff;
   position: absolute;
-  top: -1em; // Start slightly above viewport
-  opacity: 0; // Start with 0 opacity
+  top: ${(props) => props.startPosition}vh;
+  opacity: 0;
   animation: fall ${(props) => props.duration}s linear infinite;
   animation-delay: ${(props) => props.delay}s;
   left: ${(props) => props.left}%;
-  will-change: transform, opacity; // Optimize animation performance
+  will-change: transform, opacity;
 
   @keyframes fall {
     0% {
@@ -51,19 +53,28 @@ const SnowFlake = styled.div<SnowFlakeProps>`
   }
 `;
 
-const SNOWFLAKES_NUMBER = 30;
+const SNOWFLAKES_NUMBER = 50;
 
 function Snowfall() {
   return (
     <InnerWrapper>
-      {Array.from({ length: SNOWFLAKES_NUMBER }).map((_, index) => (
-        <SnowFlake
-          key={index}
-          left={Math.random() * 100}
-          duration={Math.random() * 3 + 7}
-          delay={Math.random() * 5}
-        />
-      ))}
+      {Array.from({ length: SNOWFLAKES_NUMBER }).map((_, index) => {
+        
+        const shouldStartOnScreen = Math.random() > 0.3;
+        const startPosition = shouldStartOnScreen 
+          ? Math.random() * 100  
+          : -5;                   
+        
+        return (
+          <SnowFlake
+            key={index}
+            left={Math.random() * 100}
+            duration={Math.random() * 3 + 7}
+            delay={Math.random() * 5}
+            startPosition={startPosition}
+          />
+        );
+      })}
     </InnerWrapper>
   );
 }
