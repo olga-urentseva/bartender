@@ -31,6 +31,12 @@ const Wrapper = styled.button`
   gap: 0;
   position: relative;
 
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
   &:focus-visible {
     outline: 2px solid var(--color-primary);
     border-radius: 4px;
