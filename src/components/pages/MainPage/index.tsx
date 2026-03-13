@@ -6,6 +6,8 @@ import {
   useNavigation,
 } from "react-router-dom";
 import { FormEvent, useState } from "react";
+import { enableMainThreadBlocking } from "ios-vibrator-pro-max";
+import "ios-vibrator-pro-max";
 
 import Layout from "../../templates/Layout";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
@@ -65,6 +67,8 @@ export async function loader() {
   return { collectionsData: collections };
 }
 
+enableMainThreadBlocking(true);
+
 const MainPage = () => {
   const [ingredients, setIngredients] = useState(new Set(""));
   const navigate = useNavigate();
@@ -87,6 +91,7 @@ const MainPage = () => {
   }
 
   function handleToggle() {
+    navigator.vibrate(2000);
     const isSpring = document.documentElement.classList.toggle("spring");
     localStorage.setItem("theme", isSpring ? "spring" : "default");
   }
