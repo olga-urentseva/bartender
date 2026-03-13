@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import "ios-vibrator-pro-max";
 
 const sway = keyframes`
   0%, 100% { transform: rotate(-3deg); }
@@ -118,10 +119,16 @@ interface Props {
   onClick: () => void;
 }
 
+const sound = new Audio("/sound.wav");
+
 export function TulipToggleButton({ isSpring, onClick }: Props) {
   return (
     <Wrapper
-      onClick={onClick}
+      onClick={() => {
+        navigator.vibrate(100);
+        sound.play();
+        onClick();
+      }}
       title={isSpring ? "Switch to Default theme" : "Switch to Spring theme"}
     >
       <Shadow />

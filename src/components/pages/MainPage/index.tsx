@@ -6,8 +6,6 @@ import {
   useNavigation,
 } from "react-router-dom";
 import { FormEvent, useState } from "react";
-import { enableMainThreadBlocking } from "ios-vibrator-pro-max";
-import "ios-vibrator-pro-max";
 
 import Layout from "../../templates/Layout";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
@@ -66,8 +64,6 @@ export async function loader() {
   const collections = await getCollections();
   return { collectionsData: collections };
 }
-
-enableMainThreadBlocking(true);
 
 const MainPage = () => {
   const [ingredients, setIngredients] = useState(new Set(""));
