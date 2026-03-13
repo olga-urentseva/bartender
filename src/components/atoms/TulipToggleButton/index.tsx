@@ -1,6 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import "ios-vibrator-pro-max";
 
+import soundUrl from "./sound.wav";
+
 const sway = keyframes`
   0%, 100% { transform: rotate(-3deg); }
   50% { transform: rotate(3deg); }
@@ -119,7 +121,7 @@ interface Props {
   onClick: () => void;
 }
 
-const sound = new Audio("/sound.wav");
+const sound = new Audio(soundUrl);
 
 export function TulipToggleButton({ isSpring, onClick }: Props) {
   return (
