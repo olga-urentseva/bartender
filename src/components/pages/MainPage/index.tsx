@@ -91,7 +91,7 @@ const MainPage = () => {
   }
 
   function handleToggle() {
-    navigator.vibrate(2000);
+    navigator.vibrate(100);
     const isSpring = document.documentElement.classList.toggle("spring");
     localStorage.setItem("theme", isSpring ? "spring" : "default");
   }
