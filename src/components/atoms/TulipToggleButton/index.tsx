@@ -127,8 +127,9 @@ export function TulipToggleButton({ isSpring, onClick }: Props) {
   return (
     <Wrapper
       onClick={() => {
-        navigator.vibrate(100);
+        sound.currentTime = 0;
         sound.play();
+        navigator.vibrate(100);
         onClick();
       }}
       title={isSpring ? "Switch to Default theme" : "Switch to Spring theme"}
