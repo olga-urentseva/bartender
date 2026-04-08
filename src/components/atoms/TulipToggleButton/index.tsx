@@ -30,9 +30,9 @@ export function TulipToggleButton({ isSpring, onClick }: Props) {
         viewBox="0 0 36 52"
       >
         {/* Stem */}
-        <g className="stem">
+        <g className={styles.stem}>
           <path
-            className="stem-line"
+            className={styles.stemLine}
             d="M18 50 Q17 38 18 28"
             strokeWidth="2.2"
             strokeLinecap="round"
@@ -40,23 +40,23 @@ export function TulipToggleButton({ isSpring, onClick }: Props) {
           />
           {/* Leaf left */}
           <path
-            className="leaf leaf-left"
+            className={`${styles.leaf} ${styles.leafLeft}`}
             d="M17.5 40 Q10 36 9 30 Q14 33 17.5 38Z"
           />
           {/* Leaf right */}
           <path
-            className="leaf leaf-right"
+            className={`${styles.leaf} ${styles.leafRight}`}
             d="M18.5 40 Q26 36 27 30 Q22 33 18.5 38Z"
           />
         </g>
 
         {/* Petals */}
-        <g className="petals">
+        <g className={styles.petals}>
           {/* Center petal */}
-          <ellipse className="petal" cx="18" cy="17" rx="5" ry="9" />
+          <ellipse className={styles.petal} cx="18" cy="17" rx="5" ry="9" />
           {/* Left petal */}
           <ellipse
-            className="petal"
+            className={styles.petal}
             cx="15"
             cy="19"
             rx="4.5"
@@ -65,7 +65,7 @@ export function TulipToggleButton({ isSpring, onClick }: Props) {
           />
           {/* Right petal */}
           <ellipse
-            className="petal"
+            className={styles.petal}
             cx="21"
             cy="19"
             rx="4.5"
@@ -74,7 +74,7 @@ export function TulipToggleButton({ isSpring, onClick }: Props) {
           />
           {/* Inner shading */}
           <ellipse
-            className="petal-dark"
+            className={styles.petalDark}
             cx="18"
             cy="19"
             rx="3"

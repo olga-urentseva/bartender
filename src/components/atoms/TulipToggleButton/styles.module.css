@@ -43,40 +43,38 @@
   transform: rotate(7deg);
 }
 
+/* default colors */
 .tulipSvg .petal {
-  fill: #a78bfa;
+  fill: oklch(0.69 0.19 293);
 }
 
-.tulipSvg .petal-dark {
-  fill: #7c3aed;
+.tulipSvg .petalDark {
+  fill: oklch(0.47 0.27 291);
 }
 
 .tulipSvg .leaf {
-  fill: #7bb188;
+  fill: oklch(0.69 0.09 152);
 }
 
-.tulipSvg .stem-line {
-  stroke: #7bb188;
+.tulipSvg .stemLine {
+  stroke: oklch(0.69 0.09 152);
 }
 
-.spring .tulipSvg .petal,
+/* spring colors */
 :global(.spring) .tulipSvg .petal {
-  fill: #e87ea1;
+  fill: oklch(0.71 0.16 349);
 }
 
-.spring .tulipSvg .petal-dark,
-:global(.spring) .tulipSvg .petal-dark {
-  fill: #c45c7e;
+:global(.spring) .tulipSvg .petalDark {
+  fill: oklch(0.55 0.16 349);
 }
 
-.spring .tulipSvg .leaf,
 :global(.spring) .tulipSvg .leaf {
-  fill: #5da277;
+  fill: oklch(0.62 0.10 152);
 }
 
-.spring .tulipSvg .stem-line,
-:global(.spring) .tulipSvg .stem-line {
-  stroke: #5da277;
+:global(.spring) .tulipSvg .stemLine {
+  stroke: oklch(0.62 0.10 152);
 }
 
 .tulipSvg .stem {
@@ -107,11 +105,11 @@
   animation: bloom 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-.wrapper:hover .tulipSvg .leaf-left {
+.wrapper:hover .tulipSvg .leafLeft {
   transform: rotate(-20deg) scaleX(1.2);
 }
 
-.wrapper:hover .tulipSvg .leaf-right {
+.wrapper:hover .tulipSvg .leafRight {
   transform: rotate(20deg) scaleX(1.2);
 }
 

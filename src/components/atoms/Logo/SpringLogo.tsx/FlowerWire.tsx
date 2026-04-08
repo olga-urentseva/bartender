@@ -40,27 +40,27 @@ export default function FlowerWire() {
         d="M1142.340357,241.376105q84.584604-78.701389-29.366752-115.326559"
       />
       <path
-        className="leaf"
+        className={styles.leaf}
         transform="translate(73.205264, 260.346963) rotate(5)"
         d="M0,0 Q10,10 20,0 Q30,-10 20,-20 Q10,-30 0,-20 Z"
       />
       <path
-        className="leaf"
+        className={styles.leaf}
         transform="translate(305.942191, 126.049545) rotate(80)"
         d="M0,0 Q10,10 20,0 Q30,-10 20,-20 Q10,-30 0,-20 Z"
       />
       <path
-        className="leaf"
+        className={styles.leaf}
         transform="translate(341.089287, 276.100612) rotate(-70)"
         d="M0,0 Q10,10 20,0 Q30,-10 20,-20 Q10,-30 0,-20 Z"
       />
       <path
-        className="leaf"
+        className={styles.leaf}
         transform="translate(481.677675, 170.659321) rotate(30)"
         d="M0,0 Q10,10 20,0 Q30,-10 20,-20 Q10,-30 0,-20 Z"
       />
       <path
-        className="leaf"
+        className={styles.leaf}
         transform="translate(914.257327, 301.785029) rotate(45)"
         d="M0,0 Q10,10 20,0 Q30,-10 20,-20 Q10,-30 0,-20 Z"
       />
