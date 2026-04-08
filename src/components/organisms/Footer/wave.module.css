@@ -1,0 +1,11 @@
+.svg {
+  display: block;
+}
+
+.pathFirstWave {
+  fill: var(--color-secondary);
+}
+
+.pathSecondWave {
+  fill: var(--color-secondary-muted);
+}

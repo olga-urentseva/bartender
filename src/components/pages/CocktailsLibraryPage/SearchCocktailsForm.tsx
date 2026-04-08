@@ -1,43 +1,14 @@
 import { FormEvent, useState } from "react";
-import styled from "styled-components";
 import Input from "../../atoms/Input";
 import { SearchButton } from "../../atoms/SearchButton";
 import ResetButton from "../../atoms/ResetButton";
 import { useNavigation } from "react-router-dom";
+import styles from "./searchForm.module.css";
 
 type SearchCocktailsFormProps = {
   setCocktailName: (input: string) => void;
   currentName: string;
 };
-
-const SearchForm = styled.form`
-  margin-bottom: 2em;
-`;
-
-const InnerWrapper = styled.div`
-  display: flex;
-  position: relative;
-  max-width: 40em;
-`;
-
-const Label = styled.label`
-  font-size: 1.5em;
-  color: ${(props) => props.theme.primary};
-  font-weight: 500;
-`;
-
-const ButtonsWrapper = styled.div`
-  position: absolute;
-  top: 30%;
-  right: 1em;
-  display: flex;
-  gap: 0.5em;
-`;
-
-const Devider = styled.div`
-  width: 1px;
-  background-color: ${(props) => props.theme.primaryMuted};
-`;
 
 export default function SearchCocktailsForm({
   setCocktailName,
@@ -48,9 +19,7 @@ export default function SearchCocktailsForm({
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (typeof inputValue !== "string" || inputValue.length === 0) {
-      return;
-    }
+    if (typeof inputValue !== "string" || inputValue.length === 0) return;
     setCocktailName(inputValue);
   }
 
@@ -61,28 +30,26 @@ export default function SearchCocktailsForm({
   }
 
   return (
-    <SearchForm onSubmit={handleSubmit}>
-      <Label htmlFor="cocktails-input">
+    <form className={styles.searchForm} onSubmit={handleSubmit}>
+      <label className={styles.label} htmlFor="cocktails-input">
         What cocktail are you looking for?
-      </Label>
-      <InnerWrapper>
+      </label>
+      <div className={styles.innerWrapper}>
         <Input
           id="cocktails-input"
           type="text"
           placeholder="Name"
           name="search"
           value={inputValue}
-          onChange={(e) => {
-            setInputValue(e.target.value);
-          }}
+          onChange={(e) => setInputValue(e.target.value)}
           disabled={state === "loading"}
         />
-        <ButtonsWrapper>
+        <div className={styles.buttonsWrapper}>
           <ResetButton onClick={handleReset} isDisabled={!inputValue} />
-          <Devider />
+          <div className={styles.devider} />
           <SearchButton />
-        </ButtonsWrapper>
-      </InnerWrapper>
-    </SearchForm>
+        </div>
+      </div>
+    </form>
   );
 }

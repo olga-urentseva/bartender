@@ -1,68 +1,39 @@
-import styled from "styled-components";
 import AutocompleteLoader from "./AutocompleteLoader";
+import styles from "./styles.module.css";
 
 type AutocompleteProps = {
   items: string[];
   setItem: (item: string) => void;
   isLoading: boolean;
+  className?: string;
 };
-
-const InnerWrapper = styled.div`
-  background-color: ${(props) => props.theme.surface};
-  gap: 0.5em 0;
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  padding: 1em 1.5em;
-  border-radius: 1em;
-  max-height: 15em;
-  overflow: auto;
-  box-shadow: 0 0.2em 1.5em -0.8em ${(props) => props.theme.primaryMuted};
-`;
-
-const AutocompleteItem = styled.div<{ onClick: () => void }>`
-  cursor: pointer;
-  font-weight: 500;
-  transition: color 0.1s;
-  color: ${(props) => props.theme.text};
-  padding: 0.1rem 0.5rem;
-  transition: 0.2s;
-
-  &:hover,
-  &:active,
-  &:focus-within {
-    color: ${(props) => props.theme.primaryMuted};
-  }
-`;
-
-const NoItemsText = styled.p`
-  font-size: 1em;
-  font-weight: 500;
-  color: ${(props) => props.theme.text};
-  margin: 0;
-`;
 
 export default function Autocomplete({
   items,
   setItem,
   isLoading,
-  ...rest
+  className,
 }: AutocompleteProps) {
   const suggestions = items.map((item) => (
-    <AutocompleteItem key={item} onClick={() => setItem(item)} tabIndex={0}>
+    <div
+      key={item}
+      className={styles.autocompleteItem}
+      onClick={() => setItem(item)}
+      tabIndex={0}
+    >
       {item}
-    </AutocompleteItem>
+    </div>
   ));
 
   return (
-    <InnerWrapper {...rest}>
+    <div className={`${styles.innerWrapper}${className ? ` ${className}` : ""}`}>
       {isLoading ? (
         <AutocompleteLoader />
       ) : suggestions.length === 0 ? (
-        <NoItemsText>There are no such ingredients...</NoItemsText>
+        <p className={styles.noItemsText}>There are no such ingredients...</p>
       ) : (
         suggestions
       )}
-    </InnerWrapper>
+    </div>
   );
 }

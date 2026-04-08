@@ -1,3 +1,34 @@
+/* Global layout styles (migrated from App.tsx GlobalStyles) */
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 :root:root:root {
   --color-background: light-dark(
     oklch(0.99 0.0105 320.98),

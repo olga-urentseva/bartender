@@ -1,8 +1,6 @@
-import styled from "styled-components";
+import { ReactNode } from "react";
+import styles from "./styles.module.css";
 
-const ErrorMessage = styled.h3`
-  color: ${(props) => props.theme.error};
-  margin: 0.3em 0;
-  font-size: 1em;
-`;
-export default ErrorMessage;
+export default function ErrorMessage({ children }: { children: ReactNode }) {
+  return <h3 className={styles.errorMessage}>{children}</h3>;
+}

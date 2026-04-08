@@ -1,216 +1,37 @@
 import { useState } from "react";
-import styled, { keyframes } from "styled-components";
 import useLocalStorage from "../../../hooks/useLocalStorage";
+import styles from "./styles.module.css";
 
 import clickAudio from "./click-audio.wav";
 import heartsAudio from "./hearts-audio.wav";
 import swishAudio from "./swish-audio.mp3";
 
-const lookAnimation = keyframes`
-  0%, 40%, 100% {
-    transform: translateX(0);
-  }
-  45%, 95% {
-    transform: translateX(-110%);
-  }
-`;
+const spiderColors = ["#222", "#4169E1", "#1E90FF", "#00BFFF", "#87CEEB", "#ADD8E6"];
+const legColors = ["#333", "#2E4BC6", "#1873CC", "#0099CC", "#6BB1D4", "#8BC2D1"];
 
-const swingAnimation = keyframes`
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-`;
+const getSpiderColor = (clickCount: number) => spiderColors[clickCount] ?? "#222";
+const getLegColor = (clickCount: number) => legColors[clickCount] ?? "#333";
 
-const fireworkFallAnimation = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(0rem) translateX(0rem) rotate(0deg);
-  }
-  10% {
-    opacity: 1;
-    transform: translateY(-1.875rem) translateX(var(--spread-x)) rotate(90deg);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(12.5rem) translateX(var(--spread-x)) rotate(720deg);
-  }
-`;
-
-const SpiderWrapper = styled.div<{ isSpiderOnTheRight: boolean }>`
-  position: absolute;
-  display: inline-block;
-  top: 0;
-  ${({ isSpiderOnTheRight }) => 
-    isSpiderOnTheRight 
-      ? "left: clamp(70%, 85%, calc(100vw - 10rem));" // Responsive positioning
-      : "left: 10%;"
-  }
-  animation: ${swingAnimation} 2s infinite;
-  transform-origin: top;
-  transition: 0.8s ease-in-out;
-  transform: scale(0.5);
-`;
-
-const Spiderweb = styled.div`
-  width: 2px;
-  height: 100px;
-  margin-left: 24px;
-  background: rgba(77, 75, 75, 0.7);
-`;
-
-interface SpiderBodyProps {
-  clickCount: number;
-}
-
-const getSpiderColor = (clickCount: number) => {
-  const colors = [
-    "#222",      // 0 clicks - black
-    "#4169E1",   // 1 click - royal blue
-    "#1E90FF",   // 2 clicks - dodger blue
-    "#00BFFF",   // 3 clicks - deep sky blue
-    "#87CEEB",   // 4 clicks - sky blue
-    "#ADD8E6"    // 5 clicks - light blue
-  ];
-  return colors[clickCount] || "#222";
-};
-
-const SpiderBody = styled.div<SpiderBodyProps>`
-  width: 50px;
-  height: 40px;
-  background: ${(props) => getSpiderColor(props.clickCount)};
-  position: relative;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.3s ease;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
-
-const Eye = styled.div<{ isLeft?: boolean }>`
-  width: 12px;
-  height: 12px;
-  position: absolute;
-  bottom: 10px;
-  background: #fff;
-  border-radius: 50%;
-  ${(props) => (props.isLeft ? "left: 10px;" : "right: 10px;")}
-
-  &:after {
-    background: #222;
-    width: 3px;
-    height: 3px;
-    content: "";
-    display: block;
-    margin: 55%;
-    border-radius: 50%;
-    animation: ${lookAnimation} 4s infinite;
-  }
-`;
-
-const LegsContainer = styled.div<{ isLeft?: boolean; clickCount: number }>`
-  position: absolute;
-  bottom: -10%;
-  z-index: -1;
-  ${(props) => (props.isLeft ? "left: -70%;" : "right: -60%;")}
-`;
-
-const getColor = (clickCount: number) => {
-  const colors = [
-    "#333",      // 0 clicks - dark gray
-    "#2E4BC6",   // 1 click - darker royal blue
-    "#1873CC",   // 2 clicks - darker dodger blue
-    "#0099CC",   // 3 clicks - darker deep sky blue
-    "#6BB1D4",   // 4 clicks - darker sky blue
-    "#8BC2D1"    // 5 clicks - darker light blue
-  ];
-  return colors[clickCount] || "#333";
-};
-
-const Leg = styled.div<{ index: number; isLeft?: boolean; clickCount: number }>`
-  width: 40px;
-  height: 20px;
-  margin-top: -10px;
-  border: 2.5px solid transparent;
-  border-top-color: ${(props) => getColor(props.clickCount)};
-  border-radius: 20px 20px 0 0;
-  transition: border-top-color 0.3s ease;
-
-  ${(props) => {
-    const baseAngle = props.isLeft
-      ? [10, -20, -50][props.index]
-      : [-10, 20, 50][props.index];
-    const margin = props.isLeft
-      ? [5, 10, 15][props.index]
-      : [-5, -10, -15][props.index];
-    
-    const wiggleAnimation = `
-      @keyframes leg-wiggle-${props.index}-${props.isLeft} {
-        0%, 100% { 
-          transform: rotate(${baseAngle}deg); 
-        }
-        50% { 
-          transform: rotate(${baseAngle + (props.isLeft ? -10 : 10)}deg); 
-        }
-      }
-    `;
-
-    return `
-      ${wiggleAnimation}
-      transform: rotate(${baseAngle}deg);
-      margin-left: ${margin}px;
-      animation: leg-wiggle-${props.index}-${props.isLeft} 3s ease-in-out infinite;
-      animation-delay: ${props.index * 0.4}s;
-    `;
-  }}
-`;
-
-const Heart = styled.div<{ delay: number; spreadX: number }>`
-  position: absolute;
-  font-size: 1.25rem;
-  animation: ${fireworkFallAnimation} 3s ease-out forwards;
-  animation-delay: ${(props) => props.delay}ms;
-  left: 1.5625rem;
-  top: 7.1875rem;
-  pointer-events: none;
-  z-index: -2;
-  --spread-x: ${(props) => props.spreadX / 16}rem;
-  
-  &:before {
-    content: '❤️';
-  }
-`;
-
-// audio
 const audioClick = new Audio(clickAudio);
 const audioHearts = new Audio(heartsAudio);
 audioHearts.volume = 0.5;
 const audioSwish = new Audio(swishAudio);
 
+const legLeftClasses = [styles.legLeft0, styles.legLeft1, styles.legLeft2];
+const legRightClasses = [styles.legRight0, styles.legRight1, styles.legRight2];
+
 function HalloweenSpider() {
   const [isSpiderOnTheRight, changeSpiderPlacement] = useLocalStorage("isSpiderOnTheRight", true);
-  
-  function escape() {
-    if (areHeartsFalling) {
-      return
-    } else {
-      audioSwish.play();
-      changeSpiderPlacement(!isSpiderOnTheRight);
-    }
-    
-  }
-
-  // const [clickCount, setClickCount] = useState(0);
   const [clickCount, setClickCount] = useLocalStorage("clickCount", 0);
-  console.log(clickCount)
-
   const [showHearts, setShowHearts] = useState(false);
   const [areHeartsFalling, setAreHeartsFalling] = useState(false);
   const [heartPositions, setHeartPositions] = useState<number[]>([]);
+
+  function escape() {
+    if (areHeartsFalling) return;
+    audioSwish.play();
+    changeSpiderPlacement(!isSpiderOnTheRight);
+  }
 
   const handleClick = () => {
     if (!areHeartsFalling) {
@@ -232,31 +53,56 @@ function HalloweenSpider() {
     }
   };
 
+  const spiderLeft = isSpiderOnTheRight
+    ? "clamp(70%, 85%, calc(100vw - 10rem))"
+    : "10%";
+
   return (
-    <SpiderWrapper isSpiderOnTheRight={isSpiderOnTheRight}>
-      <Spiderweb />
-      <SpiderBody clickCount={clickCount} onClick={handleClick}>
-        <Eye isLeft />
-        <Eye />
-      </SpiderBody>
-      {showHearts && heartPositions.map((spreadX, index) => (
-        <Heart 
-          key={index}
-          delay={index * 200}
-          spreadX={spreadX}
-        />
-      ))}
-      <LegsContainer isLeft clickCount={clickCount} onClick={escape}>
-        {[0, 1, 2].map((index) => (
-          <Leg key={`left-${index}`} index={index} isLeft clickCount={clickCount} />
+    <div className={styles.spiderWrapper} style={{ left: spiderLeft }}>
+      <div className={styles.spiderweb} />
+      <div
+        className={styles.spiderBody}
+        style={{ background: getSpiderColor(clickCount) }}
+        onClick={handleClick}
+      >
+        <div className={`${styles.eye} ${styles.eyeLeft}`} />
+        <div className={styles.eye} />
+      </div>
+      {showHearts &&
+        heartPositions.map((spreadX, index) => (
+          <div
+            key={index}
+            className={styles.heart}
+            style={
+              {
+                animationDelay: `${index * 200}ms`,
+                "--spread-x": `${spreadX / 16}rem`,
+              } as React.CSSProperties
+            }
+          />
         ))}
-      </LegsContainer>
-      <LegsContainer clickCount={clickCount} onClick={escape}>
+      <div
+        className={`${styles.legsContainer} ${styles.legsContainerLeft}`}
+        onClick={escape}
+      >
         {[0, 1, 2].map((index) => (
-          <Leg key={`right-${index}`} index={index} clickCount={clickCount} />
+          <div
+            key={`left-${index}`}
+            className={`${styles.leg} ${legLeftClasses[index]}`}
+            style={{ borderTopColor: getLegColor(clickCount) }}
+          />
         ))}
-      </LegsContainer>
-    </SpiderWrapper>
+      </div>
+      <div className={styles.legsContainer} onClick={escape}>
+        {[0, 1, 2].map((index) => (
+          <div
+            key={`right-${index}`}
+            className={`${styles.leg} ${legRightClasses[index]}`}
+            style={{ borderTopColor: getLegColor(clickCount) }}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

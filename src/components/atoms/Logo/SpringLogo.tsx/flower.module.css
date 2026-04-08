@@ -1,0 +1,30 @@
+.wrapper {
+  width: var(--flower-size);
+  height: var(--flower-size);
+  position: absolute;
+  top: 1em;
+  left: 5em;
+}
+
+.miolo {
+  width: calc(var(--flower-size) * 0.3);
+  height: calc(var(--flower-size) * 0.3);
+  border-radius: 50%;
+  background-color: var(--miolo-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0.125rem 0.25rem rgba(96, 95, 95, 0.3);
+}
+
+.petal {
+  width: calc(var(--flower-size) * 0.2);
+  height: calc(var(--flower-size) * 0.42);
+  background-color: var(--petal-color);
+  border-radius: 45%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform-origin: 51% 125%;
+}

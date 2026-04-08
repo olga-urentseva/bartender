@@ -1,0 +1,57 @@
+.image {
+  box-shadow: 0 0.5em 1.5em -0.8em var(--color-shadow);
+  border-radius: 1em;
+  background-position: center;
+  background-size: 100%;
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+  padding-bottom: 70%;
+  position: relative;
+}
+
+.image::after {
+  background-color: var(--color-primary-inversion);
+  border-radius: 1em;
+  opacity: 10%;
+  display: block;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.card {
+  position: relative;
+}
+
+.card:hover .image,
+.card:focus-within .image {
+  background-size: 105%;
+  box-shadow: 0 1em 1em -0.8em var(--color-primary-muted);
+}
+
+.cardLink {
+  text-decoration: none;
+}
+
+.cardLink::before {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.cocktailTitle {
+  font-size: 1.2em;
+  color: var(--color-text);
+  text-transform: capitalize;
+}
+
+.highlightSymbols {
+  color: var(--color-text-muted);
+}

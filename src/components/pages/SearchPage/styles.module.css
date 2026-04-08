@@ -1,0 +1,45 @@
+.formWrapper {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: start;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.cocktailCardsWrapper {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-auto-rows: max-content;
+}
+
+.cocktailsSearch {
+  flex: 1 1 20rem;
+}
+
+.innerWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.collectionName {
+  color: var(--color-text);
+  font-weight: 800;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.collectionDescription {
+  color: var(--color-text);
+  font-size: 1rem;
+  margin: 0.5rem 0 2rem 0;
+  display: inline-block;
+}
+
+.formText {
+  font-size: 1.2em;
+  color: var(--color-primary);
+  font-weight: 500;
+}

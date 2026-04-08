@@ -1,0 +1,22 @@
+.wire {
+  width: 13.9em;
+  height: auto;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  position: absolute;
+  top: -11px;
+  left: -1em;
+}
+
+.wire path {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+  stroke: oklch(0.57 0.17 145);
+}
+
+.wire .leaf {
+  fill: oklch(0.57 0.17 145);
+  stroke: none;
+}
