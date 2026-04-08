@@ -1,0 +1,27 @@
+.text {
+  color: var(--color-text);
+  width: 100%;
+  max-width: 40em;
+  font-weight: 500;
+}
+
+.textLink {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  display: inline-block;
+}
+
+.textLink::after {
+  content: "";
+  display: block;
+  height: 0.15rem;
+  background: var(--color-text-muted);
+  transition: width 0.2s;
+  width: 0;
+}
+
+.textLink:hover::after,
+.textLink:active::after,
+.textLink:focus-within::after {
+  width: 100%;
+}

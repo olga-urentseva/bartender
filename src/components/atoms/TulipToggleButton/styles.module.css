@@ -1,0 +1,125 @@
+@keyframes sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes bloom {
+  0% { transform: scaleY(0.7) scaleX(0.85); }
+  60% { transform: scaleY(1.08) scaleX(1.05); }
+  100% { transform: scaleY(1) scaleX(1); }
+}
+
+@keyframes grow {
+  0% { transform: scaleY(0.6); transform-origin: bottom; }
+  100% { transform: scaleY(1); transform-origin: bottom; }
+}
+
+.wrapper {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 48px;
+  gap: 0;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wrapper:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.wrapper:focus-visible {
+  outline: 2px solid var(--color-primary);
+  border-radius: 4px;
+}
+
+.tulipSvg {
+  overflow: visible;
+  transform-origin: bottom center;
+  transform: rotate(7deg);
+}
+
+.tulipSvg .petal {
+  fill: #a78bfa;
+}
+
+.tulipSvg .petal-dark {
+  fill: #7c3aed;
+}
+
+.tulipSvg .leaf {
+  fill: #7bb188;
+}
+
+.tulipSvg .stem-line {
+  stroke: #7bb188;
+}
+
+.spring .tulipSvg .petal,
+:global(.spring) .tulipSvg .petal {
+  fill: #e87ea1;
+}
+
+.spring .tulipSvg .petal-dark,
+:global(.spring) .tulipSvg .petal-dark {
+  fill: #c45c7e;
+}
+
+.spring .tulipSvg .leaf,
+:global(.spring) .tulipSvg .leaf {
+  fill: #5da277;
+}
+
+.spring .tulipSvg .stem-line,
+:global(.spring) .tulipSvg .stem-line {
+  stroke: #5da277;
+}
+
+.tulipSvg .stem {
+  transform-origin: bottom center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tulipSvg .petals {
+  transform-origin: bottom center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tulipSvg .leaf {
+  transform-origin: 50% 100%;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0.9;
+}
+
+.wrapper:hover .tulipSvg {
+  animation: sway 1.2s ease-in-out infinite;
+}
+
+.wrapper:hover .tulipSvg .stem {
+  animation: grow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.wrapper:hover .tulipSvg .petals {
+  animation: bloom 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.wrapper:hover .tulipSvg .leaf-left {
+  transform: rotate(-20deg) scaleX(1.2);
+}
+
+.wrapper:hover .tulipSvg .leaf-right {
+  transform: rotate(20deg) scaleX(1.2);
+}
+
+.shadow {
+  background-color: var(--color-secondary);
+  width: 1.8rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 7px;
+}

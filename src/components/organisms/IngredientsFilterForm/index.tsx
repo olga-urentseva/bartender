@@ -1,84 +1,12 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-
 import Input from "../../atoms/Input";
 import Ingredient from "../../atoms/SearchIngredient";
 import { SearchButtonAccent } from "../../atoms/SearchButton";
 import ResetButton from "../../atoms/ResetButton";
 import Autocomplete from "../Autocomplete";
-
 import { CaseInsensitiveSet } from "../../../lib/case-insensetive-set";
 import { getIngredientsByName } from "../../../api/getIngredientsByName";
-
-const Form = styled.form<{
-  onBlur: (e: React.FocusEvent) => void;
-}>`
-  width: 100%;
-  max-width: 40em;
-  position: relative;
-`;
-
-const FormContentWrapper = styled.div`
-  display: flex;
-  gap: 0.5em;
-  width: 100%;
-  position: relative;
-  margin-bottom: 0.5rem;
-`;
-
-const Combobox = styled.div`
-  display: flex;
-  align-items: stretch;
-  border: 0.05em ${(props) => props.theme.primary} solid;
-  border-radius: 1rem;
-  padding: 0.5em 0.7em;
-  flex: 99 1 auto;
-  justify-content: space-between;
-  cursor: text;
-`;
-
-const TagsInputWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5em;
-  align-items: center;
-  width: 100%;
-`;
-
-const TransparentInput = styled(Input)`
-  border: none;
-  box-shadow: none;
-  margin: 0;
-  outline: none;
-  padding: 0.6rem;
-  flex-basis: 3em;
-  flex-grow: 1;
-  margin-left: -0.5em;
-`;
-
-const ButtonsWrapper = styled.div<{ isDisabled: boolean }>`
-  display: ${(props) => (props.isDisabled ? "none" : "flex")};
-  gap: 0.5rem;
-  padding: 0.2em;
-`;
-
-const Devider = styled.div`
-  width: 1px;
-  background-color: ${(props) => props.theme.primary};
-`;
-
-const StyledAutocomplete = styled(Autocomplete)`
-  position: absolute;
-  z-index: 1;
-  top: 100%;
-  left: 0;
-  width: calc(100% - 4.5em);
-`;
-
-const SubmitButtonWrapper = styled.div`
-  display: flex;
-  flex: none;
-`;
+import styles from "./styles.module.css";
 
 interface IngredientsFilterFormProps {
   ingredients: Set<string>;
@@ -96,13 +24,8 @@ function IngredientsFilterForm({
   handleFormSubmit,
 }: IngredientsFilterFormProps) {
   const [inputValue, setInputValue] = useState("");
-  const [autocompleteIngredients, setAutocompleteIngredients] = useState<
-    string[] | []
-  >([]);
-  const [
-    isAutocompleteIngredientsLoading,
-    setIsAutocompleteIngredientsLoading,
-  ] = useState(false);
+  const [autocompleteIngredients, setAutocompleteIngredients] = useState<string[]>([]);
+  const [isAutocompleteIngredientsLoading, setIsAutocompleteIngredientsLoading] = useState(false);
   const [isAutocompleteOpen, setIsAutocompleteOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -114,18 +37,13 @@ function IngredientsFilterForm({
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const splitted = e.target.value.split(",").map((el) => el);
-
     if (splitted.length > 1) {
       const filtered = splitted.filter((el) => el !== "");
-      const newIngredients = new CaseInsensitiveSet([
-        ...ingredients,
-        ...filtered,
-      ]);
+      const newIngredients = new CaseInsensitiveSet([...ingredients, ...filtered]);
       setIngredients(newIngredients);
       setInputValue("");
       return;
     }
-
     setInputValue(e.target.value);
   }
 
@@ -147,12 +65,8 @@ function IngredientsFilterForm({
         setAutocompleteIngredients([]);
         return;
       }
-
       try {
-        const autocompleteIngredients = await getIngredientsByName(
-          inputValue,
-          abortController.signal,
-        );
+        const autocompleteIngredients = await getIngredientsByName(inputValue, abortController.signal);
         const ingredientNames = autocompleteIngredients.map((ing) => ing.name);
         setAutocompleteIngredients(ingredientNames);
       } catch (err) {
@@ -163,17 +77,23 @@ function IngredientsFilterForm({
       setIsAutocompleteIngredientsLoading(false);
       setIsAutocompleteOpen(true);
     })();
-
-    return () => {
-      abortController.abort();
-    };
+    return () => { abortController.abort(); };
   }, [inputValue]);
 
+  const isButtonsHidden = ingredients.size === 0 && inputValue === "";
+
   return (
-    <Form onSubmit={handleSubmitWrapper} onBlur={(e) => toggleAutocomplete(e)}>
-      <FormContentWrapper>
-        <Combobox onClick={() => inputRef.current?.focus()}>
-          <TagsInputWrapper>
+    <form
+      className={styles.form}
+      onSubmit={handleSubmitWrapper}
+      onBlur={(e) => toggleAutocomplete(e)}
+    >
+      <div className={styles.formContentWrapper}>
+        <div
+          className={styles.combobox}
+          onClick={() => inputRef.current?.focus()}
+        >
+          <div className={styles.tagsInputWrapper}>
             {[...ingredients].map((ingredient, i) => (
               <Ingredient
                 key={ingredient}
@@ -181,8 +101,8 @@ function IngredientsFilterForm({
                 removeIngredient={() => removeIngredient(i)}
               />
             ))}
-
-            <TransparentInput
+            <Input
+              className={styles.transparentInput}
               id="tags-input"
               type="text"
               placeholder={[...ingredients].length > 0 ? "" : "Lime"}
@@ -192,11 +112,9 @@ function IngredientsFilterForm({
               ref={inputRef}
               autoComplete="off"
             />
-          </TagsInputWrapper>
-          <ButtonsWrapper
-            isDisabled={ingredients.size === 0 && inputValue === ""}
-          >
-            <Devider />
+          </div>
+          <div className={isButtonsHidden ? styles.buttonsWrapperHidden : styles.buttonsWrapper}>
+            <div className={styles.devider} />
             <ResetButton
               onClick={(e) => {
                 e.preventDefault();
@@ -204,16 +122,15 @@ function IngredientsFilterForm({
                 setInputValue("");
               }}
             />
-          </ButtonsWrapper>
-        </Combobox>
-
-        <SubmitButtonWrapper>
+          </div>
+        </div>
+        <div className={styles.submitButtonWrapper}>
           <SearchButtonAccent />
-        </SubmitButtonWrapper>
-      </FormContentWrapper>
-
+        </div>
+      </div>
       {isAutocompleteOpen && inputValue.trim().length > 0 && (
-        <StyledAutocomplete
+        <Autocomplete
+          className={styles.styledAutocomplete}
           isLoading={isAutocompleteIngredientsLoading}
           items={autocompleteIngredients}
           setItem={(item) => {
@@ -225,7 +142,7 @@ function IngredientsFilterForm({
           }}
         />
       )}
-    </Form>
+    </form>
   );
 }
 

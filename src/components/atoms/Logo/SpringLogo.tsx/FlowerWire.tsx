@@ -1,31 +1,12 @@
-import styled from "styled-components";
-
-const Wire = styled.svg`
-  width: 13.9em;
-  height: auto;
-  shape-rendering: geometricPrecision;
-  text-rendering: geometricPrecision;
-  position: absolute;
-  top: -11px;
-  left: -1em;
-
-  path {
-    fill: none;
-    stroke-width: 10;
-    stroke-linecap: round;
-    stroke-miterlimit: 10;
-    stroke: #4caf50;
-  }
-
-  .leaf {
-    fill: #4caf50;
-    stroke: none;
-  }
-`;
+import styles from "./flowerWire.module.css";
 
 export default function FlowerWire() {
   return (
-    <Wire xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1334 454">
+    <svg
+      className={styles.wire}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1334 454"
+    >
       <path
         id="path-1"
         d="M73.205264,260.346963q63.774245,84.182002,198.975644,29.336152"
@@ -58,7 +39,6 @@ export default function FlowerWire() {
         id="path-8"
         d="M1142.340357,241.376105q84.584604-78.701389-29.366752-115.326559"
       />
-
       <path
         className="leaf"
         transform="translate(73.205264, 260.346963) rotate(5)"
@@ -84,6 +64,6 @@ export default function FlowerWire() {
         transform="translate(914.257327, 301.785029) rotate(45)"
         d="M0,0 Q10,10 20,0 Q30,-10 20,-20 Q10,-30 0,-20 Z"
       />
-    </Wire>
+    </svg>
   );
 }

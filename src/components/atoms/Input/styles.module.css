@@ -1,0 +1,18 @@
+.input {
+  border-radius: 1em;
+  padding: 1em;
+  width: 100%;
+  box-shadow: 0 0.2em 1.5em -0.8em var(--color-primary);
+  color: var(--color-text);
+  font-size: 1em;
+  font-weight: 600;
+  background-color: transparent;
+  margin: 0.5em 0;
+  text-transform: capitalize;
+  border: 0.05em var(--color-primary) solid;
+}
+
+.input::placeholder {
+  color: var(--color-primary);
+  font-weight: 600;
+}
