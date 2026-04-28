@@ -20,8 +20,14 @@ export default function AlcoholicOrNonFilter(props: {
   setValue: (value: string | undefined) => void;
   alcoholParams: string | null;
   numberOfCocktails: { alcoholic: number; nonAlcoholic: number };
+  exact: boolean;
+  setExact: (value: boolean) => void;
 }) {
   const value = POSSIBLE_VALUES.has(props.alcoholParams) ? props.alcoholParams : null;
+
+  function handleExactChange() {
+    props.setExact(!props.exact);
+  }
 
   function handleAlcoholicOptionChange() {
     props.setValue(ALCOHOLIC_FILTER_CONFIG.get(value));
@@ -57,6 +63,16 @@ export default function AlcoholicOrNonFilter(props: {
         <span className={styles.numberOfCocktailsInfo}>
           {props.numberOfCocktails.nonAlcoholic}
         </span>
+      </label>
+
+      <label className={styles.label}>
+        <input
+          className={styles.checkboxInput}
+          type="checkbox"
+          onChange={handleExactChange}
+          checked={props.exact}
+        />
+        Exact match
       </label>
     </div>
   );

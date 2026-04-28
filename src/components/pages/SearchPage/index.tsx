@@ -50,12 +50,14 @@ export async function loader({
     .map((el) => el.toLowerCase().trim());
   const alcoholic = url.searchParams.get("alcoholic");
   const page = url.searchParams.get("page");
+  const exact = url.searchParams.get("exact") === "true";
 
   const options: CocktailsOptions = {};
   if (ingredients.length > 0 || !collectionId) options.ingredients = ingredients;
   if (collectionId) options.collection = collectionId;
   if (alcoholic) options.alcoholic = alcoholic;
   if (page) options.page = page;
+  if (exact) options.exact = true;
 
   const cocktailsResult = await getCocktails(options);
   return { cocktailsData: cocktailsResult, collectionInfo };
@@ -81,6 +83,7 @@ function SearchPage() {
       : currentSearchParams;
   const ingredients = new Set(searchParams.getAll("ingredients[]"));
   const alcoholParams = searchParams.get("alcoholic");
+  const exactParam = searchParams.get("exact") === "true";
 
   function setIngredients(newIngredients: Set<string>) {
     currentParams.delete("ingredients[]");
@@ -98,6 +101,16 @@ function SearchPage() {
       currentParams.set("alcoholic", value);
       currentParams.delete("page");
     }
+    setSearchParams(currentParams);
+  }
+
+  function setExact(value: boolean) {
+    if (value) {
+      currentParams.set("exact", "true");
+    } else {
+      currentParams.delete("exact");
+    }
+    currentParams.delete("page");
     setSearchParams(currentParams);
   }
 
@@ -155,6 +168,8 @@ function SearchPage() {
               setValue={setAlcohol}
               alcoholParams={alcoholParams}
               numberOfCocktails={additionalData.numberOfCocktails}
+              exact={exactParam}
+              setExact={setExact}
             />
           </div>
 
