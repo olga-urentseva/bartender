@@ -40,7 +40,7 @@ export default function Pagination(props: PaginationProps) {
           1
         </Link>
 
-        {props.currentPageNumber > SURROUNDING_PAGES_NUMBER * 2 && (
+        {props.currentPageNumber - SURROUNDING_PAGES_NUMBER > 2 && (
           <span>&hellip;</span>
         )}
 
@@ -90,7 +90,7 @@ export default function Pagination(props: PaginationProps) {
             );
           })}
 
-        {props.totalPagesNumber - (props.currentPageNumber - 1) > SURROUNDING_PAGES_NUMBER * 2 && (
+        {props.totalPagesNumber - props.currentPageNumber - SURROUNDING_PAGES_NUMBER > 1 && (
           <span>&hellip;</span>
         )}
 
