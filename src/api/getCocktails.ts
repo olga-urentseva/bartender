@@ -9,6 +9,7 @@ export type CocktailsOptions = {
   alcoholic?: string;
   page?: string;
   name?: string;
+  exact?: boolean;
 };
 
 type CocktailsResult = {
@@ -31,7 +32,7 @@ type CocktailsResultFull = CocktailsResult & {
 };
 
 export async function getCocktails(options: CocktailsOptions) {
-  const { ingredients, collection, alcoholic, page, name } = options;
+  const { ingredients, collection, alcoholic, page, name, exact } = options;
 
   const url = new URL("https://bartender-api.mooo.com/cocktails?");
 
@@ -57,6 +58,10 @@ export async function getCocktails(options: CocktailsOptions) {
 
   if (name) {
     url.searchParams.set("name", name);
+  }
+
+  if (exact) {
+    url.searchParams.set("exact", "true");
   }
 
   const cocktailsListPromise = get<CocktailsResult>(url.toString());
