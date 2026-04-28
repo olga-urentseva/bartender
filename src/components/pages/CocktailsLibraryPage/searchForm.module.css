@@ -1,0 +1,28 @@
+.searchForm {
+  margin-bottom: 2em;
+}
+
+.innerWrapper {
+  display: flex;
+  position: relative;
+  max-width: 40em;
+}
+
+.label {
+  font-size: 1.5em;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.buttonsWrapper {
+  position: absolute;
+  top: 30%;
+  right: 1em;
+  display: flex;
+  gap: 0.5em;
+}
+
+.devider {
+  width: 1px;
+  background-color: var(--color-primary-muted);
+}

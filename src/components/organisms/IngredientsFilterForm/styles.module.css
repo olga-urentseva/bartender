@@ -1,0 +1,83 @@
+.form {
+  width: 100%;
+  max-width: 40em;
+  position: relative;
+}
+
+.formContentWrapper {
+  display: flex;
+  gap: 0.5em;
+  width: 100%;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.combobox {
+  display: flex;
+  align-items: stretch;
+  border: 0.05em var(--color-primary) solid;
+  border-radius: 1rem;
+  padding: 0.5em 0.7em;
+  flex: 99 1 auto;
+  justify-content: space-between;
+  cursor: text;
+}
+
+.tagsInputWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  align-items: center;
+  width: 100%;
+}
+
+.transparentInput {
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  outline: none;
+  padding: 0.6rem;
+  flex-basis: 3em;
+  flex-grow: 1;
+  margin-left: -0.5em;
+  border-radius: 1em;
+  width: 100%;
+  color: var(--color-text);
+  font-size: 1em;
+  font-weight: 600;
+  background-color: transparent;
+  text-transform: capitalize;
+}
+
+.transparentInput::placeholder {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.buttonsWrapper {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.2em;
+}
+
+.buttonsWrapperHidden {
+  display: none;
+}
+
+.devider {
+  width: 1px;
+  background-color: var(--color-primary);
+}
+
+.styledAutocomplete {
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 4.5em);
+}
+
+.submitButtonWrapper {
+  display: flex;
+  flex: none;
+}

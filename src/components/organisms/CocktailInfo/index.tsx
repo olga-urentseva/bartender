@@ -1,58 +1,12 @@
-import styled from "styled-components";
 import { Cocktail } from "../../../types/Cocktail";
-
-const Wrapper = styled.div``;
-
-const CocktailTitle = styled.h2`
-  color: ${(props) => props.theme.text};
-  margin: 0 0 1em 0;
-`;
-
-const FirstColumn = styled.div`
-  display: flex;
-  gap: 1em;
-  flex-wrap: wrap;
-`;
-
-const ImageWrapper = styled.div`
-  flex: 1 1 10rem;
-`;
-
-const RecipeWrapper = styled.div`
-  flex: 5 0 15rem;
-`;
-
-const Image = styled.img`
-  display: block;
-  border-radius: 1em;
-  -webkit-box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.shadow};
-  -moz-box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.shadow};
-  box-shadow: 0 0.5em 1.5em -0.8em ${(props) => props.theme.shadow};
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-`;
-
-const SubTitle = styled.h3`
-  margin: 0 0 1em 0;
-  color: ${(props) => props.theme.text};
-`;
-
-const InfoText = styled.h4`
-  margin: 0.5em 0;
-  color: ${(props) => props.theme.text};
-  font-weight: inherit;
-`;
-
-const AdditionalInfoWrapper = styled.div`
-  margin: 2em 0;
-`;
+import styles from "./styles.module.css";
 
 type Ingredient = {
   measure: string;
   id: string;
   name: string;
 };
+
 const CocktailInfo = ({ data }: { data: Cocktail }) => {
   const recipe = data.ingredients.map((ingredient: Ingredient) => {
     const measure = ingredient.measure;
@@ -60,42 +14,42 @@ const CocktailInfo = ({ data }: { data: Cocktail }) => {
       .charAt(0)
       .toLocaleUpperCase()}${ingredient.name.slice(1)}`;
     return (
-      <InfoText key={ingredient.id}>{`${ingredientName}: ${
+      <h4 key={ingredient.id} className={styles.infoText}>{`${ingredientName}: ${
         measure || "up to you"
-      }`}</InfoText>
+      }`}</h4>
     );
   });
 
   return (
-    <Wrapper>
-      <CocktailTitle>{`${data.cocktail.name}`}</CocktailTitle>
-      <FirstColumn>
-        <ImageWrapper>
-          <Image src={data.cocktail.pictureURL} />
-        </ImageWrapper>
-        <RecipeWrapper>
-          <SubTitle>Ingredients:</SubTitle>
+    <div>
+      <h2 className={styles.cocktailTitle}>{`${data.cocktail.name}`}</h2>
+      <div className={styles.firstColumn}>
+        <div className={styles.imageWrapper}>
+          <img className={styles.image} src={data.cocktail.pictureURL} />
+        </div>
+        <div className={styles.recipeWrapper}>
+          <h3 className={styles.subTitle}>Ingredients:</h3>
           {recipe}
-        </RecipeWrapper>
-      </FirstColumn>
-      <AdditionalInfoWrapper>
-        <InfoText>
+        </div>
+      </div>
+      <div className={styles.additionalInfoWrapper}>
+        <h4 className={styles.infoText}>
           <strong>How to prepare:</strong> {data.cocktail.instruction}
-        </InfoText>
-        <InfoText>
+        </h4>
+        <h4 className={styles.infoText}>
           <strong>Alcoholic:</strong>{" "}
           {data.cocktail.isAlcoholic === "true" ? "Yes" : "No"}
-        </InfoText>
-        <InfoText>
+        </h4>
+        <h4 className={styles.infoText}>
           <strong>Glass:</strong> {data.cocktail.glass}
-        </InfoText>
+        </h4>
         {data.cocktail.credits && (
-          <InfoText>
+          <h4 className={styles.infoText}>
             <strong>Credits:</strong> {data.cocktail.credits}
-          </InfoText>
+          </h4>
         )}
-      </AdditionalInfoWrapper>
-    </Wrapper>
+      </div>
+    </div>
   );
 };
 

@@ -1,0 +1,8 @@
+.logo {
+  color: var(--color-text);
+  font-size: 2rem;
+  font-family: "Oleo Script Swash Caps", serif;
+  margin: 0;
+  display: inline-block;
+  white-space: nowrap;
+}

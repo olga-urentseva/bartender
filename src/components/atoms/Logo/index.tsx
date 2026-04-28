@@ -1,15 +1,16 @@
-import { PropsWithChildren } from "react";
-import styled from "styled-components";
+import { ReactNode } from "react";
+import styles from "./styles.module.css";
 
-const Logo = styled.h2<PropsWithChildren>`
-  color: ${(props) => props.theme.text};
-  font-size: 2rem;
-  font-family: "Oleo Script Swash Caps", serif;
-  margin: 0;
-  display: inline-block;
-  white-space: nowrap;
-`;
-
-export default function LogoComponent(props: PropsWithChildren) {
-  return <Logo {...props}>Bart-t-tender</Logo>;
+export default function LogoComponent({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
+  return (
+    <h2 className={`${styles.logo}${className ? ` ${className}` : ""}`}>
+      {children ?? "Bart-t-tender"}
+    </h2>
+  );
 }

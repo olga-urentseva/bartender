@@ -1,0 +1,21 @@
+.wrapper {
+  background-color: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  text-align: center;
+}
+
+.errorTitle {
+  color: var(--color-error);
+  font-size: 1.5rem;
+}
+
+.errorText {
+  color: var(--color-primary);
+  font-size: 1rem;
+  max-width: 80%;
+}

@@ -1,26 +1,12 @@
-import {
-  useLoaderData,
-  useNavigation,
-  useSearchParams,
-} from "react-router-dom";
-import styled from "styled-components";
-
+import { useLoaderData, useNavigation, useSearchParams } from "react-router-dom";
 import { CocktailsOptions, getCocktails } from "../../../api/getCocktails";
-
 import CocktailCard from "../../atoms/CocktailCard";
 import ErrorMessage from "../../atoms/ErrorMessage";
 import Layout from "../../templates/Layout";
 import SearchCocktailsForm from "./SearchCocktailsForm";
 import Pagination from "../../organisms/Pagination";
 import Loader from "../../atoms/Loader";
-
-
-const CocktailCardsWrapper = styled.div`
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
-  grid-auto-rows: max-content;
-`;
+import styles from "./styles.module.css";
 
 export const loader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url);
@@ -28,21 +14,15 @@ export const loader = async ({ request }: { request: Request }) => {
   const page = url.searchParams.get("page");
 
   const options: CocktailsOptions = {};
-
-  if (name) {
-    options.name = name;
-  }
-  if (page) {
-    options.page = page;
-  }
+  if (name) options.name = name;
+  if (page) options.page = page;
 
   return getCocktails(options);
 };
 
 export default function CocktailsLibraryPage() {
   const [currentSearchParams, setSearchParams] = useSearchParams();
-  const currentName =
-    currentSearchParams.get("name")?.replaceAll(",", ", ") || "";
+  const currentName = currentSearchParams.get("name")?.replaceAll(",", ", ") || "";
 
   const apiData = useLoaderData() as Awaited<ReturnType<typeof getCocktails>>;
   const { state } = useNavigation();
@@ -54,17 +34,15 @@ export default function CocktailsLibraryPage() {
   const cocktailsData = apiData.cocktails;
   const pageInfo = apiData.pagination;
 
-  const cocktailCards = cocktailsData?.map((cocktail) => {
-    return (
-      <CocktailCard
-        cocktailName={cocktail.name}
-        picture={cocktail.pictureURL}
-        id={cocktail.id}
-        key={cocktail.id}
-        highlight={currentName}
-      />
-    );
-  });
+  const cocktailCards = cocktailsData?.map((cocktail) => (
+    <CocktailCard
+      cocktailName={cocktail.name}
+      picture={cocktail.pictureURL}
+      id={cocktail.id}
+      key={cocktail.id}
+      highlight={currentName}
+    />
+  ));
 
   return (
     <Layout>
@@ -76,7 +54,7 @@ export default function CocktailsLibraryPage() {
       {state === "loading" ? (
         <Loader />
       ) : cocktailCards?.length > 0 ? (
-        <CocktailCardsWrapper>{cocktailCards}</CocktailCardsWrapper>
+        <div className={styles.cocktailCardsWrapper}>{cocktailCards}</div>
       ) : (
         <ErrorMessage>
           There are no cocktails with this name &#128557;
@@ -90,7 +68,7 @@ export default function CocktailsLibraryPage() {
           cocktailCards.length === 0 ||
           pageInfo.totalPages === 1
         }
-      ></Pagination>
+      />
     </Layout>
   );
 }

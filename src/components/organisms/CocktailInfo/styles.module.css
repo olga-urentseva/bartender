@@ -1,0 +1,44 @@
+.cocktailTitle {
+  color: var(--color-text);
+  margin: 0 0 1em 0;
+}
+
+.firstColumn {
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.imageWrapper {
+  flex: 1 1 10rem;
+}
+
+.recipeWrapper {
+  flex: 5 0 15rem;
+}
+
+.image {
+  display: block;
+  border-radius: 1em;
+  -webkit-box-shadow: 0 0.5em 1.5em -0.8em var(--color-shadow);
+  -moz-box-shadow: 0 0.5em 1.5em -0.8em var(--color-shadow);
+  box-shadow: 0 0.5em 1.5em -0.8em var(--color-shadow);
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.subTitle {
+  margin: 0 0 1em 0;
+  color: var(--color-text);
+}
+
+.infoText {
+  margin: 0.5em 0;
+  color: var(--color-text);
+  font-weight: inherit;
+}
+
+.additionalInfoWrapper {
+  margin: 2em 0;
+}

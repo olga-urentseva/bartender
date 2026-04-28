@@ -1,0 +1,66 @@
+.wrapper {
+  background-color: var(--color-background);
+}
+
+.innerContainer {
+  background-color: var(--color-secondary-muted);
+  padding-bottom: 1em;
+}
+
+.linkInnerWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footerIcon {
+  stroke: var(--color-text-photo);
+}
+
+.footerLink {
+  color: var(--color-text-photo);
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.footerLink::after {
+  margin-top: 0.3rem;
+}
+
+.homePageLink {
+  color: var(--color-text-photo);
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-decoration: none;
+  font-family: "Oleo Script Swash Caps", serif;
+}
+
+.linksWrapper {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1em;
+}
+
+.linksWrapper .homePageLink::after,
+.linksWrapper .footerLink::after {
+  content: "";
+  display: block;
+  height: 0.15rem;
+  background: var(--color-text-photo);
+  transition: width 0.2s;
+  width: 0;
+  box-shadow: 0.01rem 0.1rem 1.5rem -0.1rem var(--color-text-inversion);
+}
+
+.linksWrapper .homePageLink:hover::after,
+.linksWrapper .homePageLink:active::after,
+.linksWrapper .homePageLink:focus-within::after,
+.linksWrapper .footerLink:hover::after,
+.linksWrapper .footerLink:active::after,
+.linksWrapper .footerLink:focus-within::after {
+  width: 100%;
+}

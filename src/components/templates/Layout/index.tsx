@@ -1,17 +1,8 @@
 import { ReactNode } from "react";
-import styled from "styled-components";
 import Container from "../../atoms/Container";
 import Footer from "../../organisms/Footer";
 import Header from "../../organisms/Header";
-
-
-const Main = styled.main<{ type: "default" | "accent" }>`
-  flex: 1 0 auto;
-  background: ${(props) =>
-    props.type === "default"
-      ? `${props.theme.background}`
-      : `linear-gradient(to bottom, ${props.theme.backgroundMuted} 0%, ${props.theme.background} 80%)`};
-`;
+import styles from "./styles.module.css";
 
 const Layout = ({
   children,
@@ -23,9 +14,9 @@ const Layout = ({
   return (
     <>
       <Header type={type} />
-      <Main type={type}>
+      <main className={type === "accent" ? styles.mainAccent : styles.main}>
         <Container>{children}</Container>
-      </Main>
+      </main>
       <Footer />
     </>
   );

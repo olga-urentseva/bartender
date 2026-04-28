@@ -1,0 +1,13 @@
+.main {
+  flex: 1 0 auto;
+  background: var(--color-background);
+}
+
+.mainAccent {
+  flex: 1 0 auto;
+  background: linear-gradient(
+    to bottom,
+    var(--color-background-muted) 0%,
+    var(--color-background) 80%
+  );
+}

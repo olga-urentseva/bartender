@@ -1,110 +1,42 @@
-import styled from "styled-components";
 import Container from "../../atoms/Container";
 import Wave from "./Wave";
 import GithubIcon from "./GithubIcon";
 import { Link } from "react-router-dom";
 import AboutIcon from "./AboutIcon";
 import ThemeSwitcher from "./ThemeSwitcher";
-
-const Wrapper = styled.footer`
-  background-color: ${(props) => props.theme.background};
-`;
-
-const InnerContainer = styled.div`
-  background-color: ${(props) =>
-    props.theme.secondaryMuted}; // primary color to match the wave bottom
-  padding-bottom: 1em;
-`;
-
-const StyledWave = styled(Wave)``;
-
-const LinkInnerWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
-
-const FooterGithubIcon = styled(GithubIcon)`
-  stroke: ${({ theme }) => theme.textPhoto};
-`;
-
-const FooterAboutIcon = styled(AboutIcon)`
-  stroke: ${({ theme }) => theme.textPhoto};
-`;
-
-const FooterLink = styled(Link)`
-  color: ${(props) => props.theme.textPhoto};
-  font-weight: 600;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-
-  ::after {
-    margin-top: 0.3rem;
-  }
-`;
-
-const HomePageLink = styled(Link)`
-  color: ${(props) => props.theme.textPhoto};
-  font-weight: 600;
-  font-size: 1.5rem;
-  text-decoration: none;
-  font-family: "Oleo Script Swash Caps", serif;
-`;
-
-const LinksWrapper = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 1em;
-
-  ${HomePageLink}, ${FooterLink} {
-    ::after {
-      content: "";
-      display: block;
-      height: 0.15rem;
-      background: ${(props) => props.theme.textPhoto};
-      transition: width 0.2s;
-      width: 0;
-      box-shadow: 0.01rem 0.1rem 1.5rem -0.1rem ${(props) => props.theme.textInversion};
-    }
-
-    &:hover,
-    &:active,
-    &:focus-within {
-      ::after {
-        width: 100%;
-      }
-    }
-  }
-`;
+import styles from "./styles.module.css";
 
 function Footer() {
   return (
-    <Wrapper>
-      <StyledWave />
-      <InnerContainer>
+    <footer className={styles.wrapper}>
+      <Wave />
+      <div className={styles.innerContainer}>
         <Container>
-          <LinksWrapper>
-            <HomePageLink to="/">Bart-t-tender</HomePageLink>
-            <FooterLink to="/about">
-              <LinkInnerWrapper>
-                <FooterAboutIcon />
+          <div className={styles.linksWrapper}>
+            <Link to="/" className={styles.homePageLink}>
+              Bart-t-tender
+            </Link>
+            <Link to="/about" className={styles.footerLink}>
+              <div className={styles.linkInnerWrapper}>
+                <AboutIcon className={styles.footerIcon} />
                 About
-              </LinkInnerWrapper>
-            </FooterLink>
-            <FooterLink to="https://github.com/olga-urentseva" target="_blank">
-              <LinkInnerWrapper>
-                <FooterGithubIcon />
+              </div>
+            </Link>
+            <Link
+              to="https://github.com/olga-urentseva"
+              target="_blank"
+              className={styles.footerLink}
+            >
+              <div className={styles.linkInnerWrapper}>
+                <GithubIcon className={styles.footerIcon} />
                 GitHub
-              </LinkInnerWrapper>
-            </FooterLink>
-          </LinksWrapper>
+              </div>
+            </Link>
+          </div>
           <ThemeSwitcher />
         </Container>
-      </InnerContainer>
-    </Wrapper>
+      </div>
+    </footer>
   );
 }
 

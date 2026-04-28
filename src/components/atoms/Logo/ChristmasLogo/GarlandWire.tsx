@@ -1,27 +1,12 @@
-import styled from "styled-components";
+import styles from "./garlandWire.module.css";
 
-const Wire = styled.svg`
-  width: 13.9em;
-  height: auto;
-  shape-rendering: geometricPrecision;
-  text-rendering: geometricPrecision;
-  position: absolute;
-  top: -11px;
-  left: -1em;
-
-  path {
-    fill: none;
-    stroke-width: 10;
-    stroke-linecap: round;
-    stroke-miterlimit: 10;
-    stroke: #000;
-  }
-`;
-
-// couldn't make it as a styled-component, because of "d" property
 export default function GarlandWire() {
   return (
-    <Wire xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1334 454">
+    <svg
+      className={styles.wire}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1334 454"
+    >
       <path id="path1" />
       <path
         id="path1"
@@ -55,6 +40,6 @@ export default function GarlandWire() {
         id="path8"
         d="M1142.340357,241.376105q84.584604-78.701389-29.366752-115.326559"
       />
-    </Wire>
+    </svg>
   );
 }

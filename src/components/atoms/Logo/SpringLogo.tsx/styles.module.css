@@ -1,0 +1,16 @@
+.innerWrapper {
+  position: relative;
+}
+
+.flower {
+  position: absolute;
+}
+
+.flower1 { top: 1.2em; left: -0.6em; }
+.flower2 { top: 2em; left: 1.7em; }
+.flower3 { top: -0.3em; left: 6.7em; }
+.flower4 { top: 2.2em; left: 7.8em; }
+.flower5 { top: 1.7em; left: 10.2em; }
+.flower6 { top: 0; left: 10em; }
+.flower7 { top: 2em; left: 5em; }
+.flower8 { top: 0em; left: 2em; }

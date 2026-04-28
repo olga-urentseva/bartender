@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
+import styles from "./styles.module.css";
 
 type PaginationProps = {
   currentPageNumber: number;
@@ -7,117 +7,68 @@ type PaginationProps = {
   isDisabled: boolean;
 };
 
-const PaginationWrapper = styled.div<{ disabled: boolean }>`
-  display: ${(props) => (props.disabled ? "none" : "flex")};
-  flex-direction: row;
-  justify-content: center;
-  margin: 1.5em 0;
-  gap: 1em;
-  align-items: center;
-`;
-
-const PaginationInfoWrapper = styled.div`
-  display: flex;
-  gap: 1em;
-  align-items: flex-end;
-`;
-
-const PageLink = styled(Link)<{ $isHighlighted?: boolean; disabled?: boolean }>`
-  text-decoration: none;
-  width: 1rem;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  font-size: 1rem;
-  font-weight: 600;
-  color: ${(props) =>
-    props.$isHighlighted ? props.theme.primary : props.theme.text};
-  &:hover,
-  &:focus,
-  &:active {
-    color: ${(props) => props.theme.primary};
-  }
-  &:disabled {
-    background-color: transparent;
-    opacity: 50%;
-    box-shadow: none;
-  }
-`;
-
-const Ellip = styled.span``;
-
 export default function Pagination(props: PaginationProps) {
   const { pathname, search } = useLocation();
 
   function getUrlWithPage(page: number): string {
     const searchParams = new URLSearchParams(search);
     searchParams.set("page", String(page));
-
-    const updatedSearch = searchParams.toString();
-
-    const updatedUrl = `${pathname}?${updatedSearch}`;
-
-    return updatedUrl;
+    return `${pathname}?${searchParams.toString()}`;
   }
 
   const isNextPageDisabled = props.currentPageNumber >= props.totalPagesNumber;
-
   const isPrevPageDisabled = props.currentPageNumber === 1;
   const SURROUNDING_PAGES_NUMBER = 1;
 
   return (
-    <PaginationWrapper disabled={props.isDisabled}>
+    <div className={props.isDisabled ? styles.paginationWrapperHidden : styles.paginationWrapper}>
       {props.currentPageNumber > 1 && (
-        <PageLink
+        <Link
           to={getUrlWithPage(props.currentPageNumber - 1)}
-          disabled={isPrevPageDisabled}
+          className={styles.pageLink}
+          aria-disabled={isPrevPageDisabled}
         >
           ⬅️
-        </PageLink>
+        </Link>
       )}
 
-      <PaginationInfoWrapper>
-        <PageLink
+      <div className={styles.paginationInfoWrapper}>
+        <Link
           to={getUrlWithPage(1)}
-          $isHighlighted={props.currentPageNumber === 1}
+          className={`${styles.pageLink}${props.currentPageNumber === 1 ? ` ${styles.pageLinkHighlighted}` : ""}`}
         >
           1
-        </PageLink>
+        </Link>
 
         {props.currentPageNumber > SURROUNDING_PAGES_NUMBER * 2 && (
-          <Ellip>&hellip;</Ellip>
+          <span>&hellip;</span>
         )}
 
         {Array(
-          Math.min(
-            SURROUNDING_PAGES_NUMBER,
-            Math.max(props.currentPageNumber - 2, 0),
-          ),
+          Math.min(SURROUNDING_PAGES_NUMBER, Math.max(props.currentPageNumber - 2, 0)),
         )
           .fill(null)
           .map((_, i, a) => {
             const pageNumber = props.currentPageNumber - a.length + i;
             return (
-              <PageLink
+              <Link
                 to={getUrlWithPage(pageNumber)}
-                $isHighlighted={false}
+                className={styles.pageLink}
                 key={pageNumber}
               >
                 {pageNumber}
-              </PageLink>
+              </Link>
             );
           })}
 
-        {props.currentPageNumber > 1 &&
-          props.currentPageNumber < props.totalPagesNumber && (
-            <PageLink
-              to={getUrlWithPage(props.currentPageNumber)}
-              $isHighlighted={true}
-            >
-              {props.currentPageNumber}
-            </PageLink>
-          )}
+        {props.currentPageNumber > 1 && props.currentPageNumber < props.totalPagesNumber && (
+          <Link
+            to={getUrlWithPage(props.currentPageNumber)}
+            className={`${styles.pageLink} ${styles.pageLinkHighlighted}`}
+          >
+            {props.currentPageNumber}
+          </Link>
+        )}
 
         {Array(
           Math.min(
@@ -129,35 +80,37 @@ export default function Pagination(props: PaginationProps) {
           .map((_, i) => {
             const pageNumber = props.currentPageNumber + i + 1;
             return (
-              <PageLink
+              <Link
                 to={getUrlWithPage(pageNumber)}
-                $isHighlighted={false}
+                className={styles.pageLink}
                 key={pageNumber}
               >
                 {pageNumber}
-              </PageLink>
+              </Link>
             );
           })}
 
-        {props.totalPagesNumber - (props.currentPageNumber - 1) >
-          SURROUNDING_PAGES_NUMBER * 2 && <Ellip>&hellip;</Ellip>}
+        {props.totalPagesNumber - (props.currentPageNumber - 1) > SURROUNDING_PAGES_NUMBER * 2 && (
+          <span>&hellip;</span>
+        )}
 
-        <PageLink
+        <Link
           to={getUrlWithPage(props.totalPagesNumber)}
-          $isHighlighted={props.currentPageNumber === props.totalPagesNumber}
+          className={`${styles.pageLink}${props.currentPageNumber === props.totalPagesNumber ? ` ${styles.pageLinkHighlighted}` : ""}`}
         >
           {props.totalPagesNumber}
-        </PageLink>
-      </PaginationInfoWrapper>
+        </Link>
+      </div>
 
       {props.currentPageNumber < props.totalPagesNumber && (
-        <PageLink
+        <Link
           to={getUrlWithPage(props.currentPageNumber + 1)}
-          disabled={isNextPageDisabled}
+          className={styles.pageLink}
+          aria-disabled={isNextPageDisabled}
         >
           ➡️
-        </PageLink>
+        </Link>
       )}
-    </PaginationWrapper>
+    </div>
   );
 }

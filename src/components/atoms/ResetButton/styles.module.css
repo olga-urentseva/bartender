@@ -1,0 +1,21 @@
+.icon {
+  fill: var(--color-primary);
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: inline;
+}
+
+.button:hover .icon,
+.button:focus .icon,
+.button:active .icon {
+  cursor: pointer;
+  fill: var(--color-primary-muted);
+}
+
+.hidden {
+  display: none;
+}

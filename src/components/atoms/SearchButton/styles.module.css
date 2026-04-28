@@ -1,0 +1,53 @@
+.button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.button svg {
+  stroke: var(--color-primary);
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+  cursor: pointer;
+}
+
+.button:hover svg,
+.button:focus svg,
+.button:active svg {
+  stroke: var(--color-primary-muted);
+}
+
+.buttonAccent {
+  background-color: var(--color-primary);
+  width: 100%;
+  border-radius: 1em;
+  padding: 0.8em 1.2em;
+  font-weight: bold;
+  align-self: stretch;
+  white-space: nowrap;
+  border: none;
+}
+
+.buttonAccent svg {
+  stroke: var(--color-primary-inversion);
+}
+
+.buttonAccent:hover {
+  background-color: var(--color-primary);
+  box-shadow: 0 0.2em 0.5em -0.4em var(--color-primary-muted);
+}
+
+.buttonAccent:hover,
+.buttonAccent:focus,
+.buttonAccent:active {
+  cursor: pointer;
+}
+
+.buttonAccent:hover svg,
+.buttonAccent:focus svg,
+.buttonAccent:active svg {
+  stroke: var(--color-primary-inversion);
+}
