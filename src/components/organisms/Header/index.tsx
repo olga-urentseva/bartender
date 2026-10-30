@@ -2,6 +2,8 @@ import Container from "../../atoms/Container";
 import { Link } from "react-router-dom";
 import SpringLogo from "../../atoms/Logo/SpringLogo.tsx";
 import styles from "./styles.module.css";
+import LogoComponent from "../../atoms/Logo";
+import HalloweenSpider from "../../atoms/HalloweenSpider";
 
 interface HeaderProps {
   type: "default" | "accent";
@@ -17,8 +19,9 @@ export default function Header({ type, ...otherProps }: HeaderProps) {
         <Container>
           <div className={styles.innerWrapper}>
             <Link to="/" className={styles.logoLink}>
-              <SpringLogo />
+              <LogoComponent />
             </Link>
+            <HalloweenSpider />
             <div className={styles.linksWrapper}>
               <Link to="/" className={styles.barLink}>
                 🍹 What&apos;s in Your Bar? 🍹

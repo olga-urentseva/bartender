@@ -1,10 +1,16 @@
-import { Link, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import { FormEvent, useState } from "react";
 import Layout from "../../templates/Layout";
 import IngredientsFilterForm from "../../organisms/IngredientsFilterForm";
 import Collections from "../../organisms/Collections";
 import Loader from "../../atoms/Loader";
-import { TulipToggleButton } from "../../atoms/TulipToggleButton";
+// import { TulipToggleButton } from "../../atoms/TulipToggleButton";
+
 import getCollections from "../../../api/getCollections";
 import styles from "./styles.module.css";
 
@@ -45,17 +51,19 @@ const MainPage = () => {
       ) : (
         <div className={styles.searchHero}>
           <div className={styles.searchInnerWrapper}>
-            <h2 className={styles.mainText}>Bart-t-tender is your home bar companion.</h2>
+            <h2 className={styles.mainText}>
+              Bart-t-tender is your home bar companion.
+            </h2>
             <div className={styles.innerWrapper}>
               <IngredientsFilterForm
                 ingredients={ingredients}
                 setIngredients={setIngredients}
                 handleFormSubmit={handleFormSubmit}
               />
-              <TulipToggleButton
+              {/* <TulipToggleButton
                 isSpring={localStorage.getItem("theme") === "spring"}
                 onClick={handleToggle}
-              />
+              /> */}
             </div>
           </div>
           <div>

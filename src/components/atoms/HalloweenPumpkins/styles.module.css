@@ -1,0 +1,43 @@
+.pumpkins {
+  position: fixed;
+  z-index: 100;
+  right: 2rem;
+  bottom: 0;
+  width: clamp(8rem, 18vw, 14rem);
+  pointer-events: none;
+}
+
+.orange {
+  --stem-color: #5b7a2b;
+  --rib-color: #d9621a;
+  --body-color: #f28c28;
+}
+
+.red {
+  --stem-color: #4f6b2a;
+  --rib-color: #a8381a;
+  --body-color: #d4532a;
+}
+
+.yellow {
+  --stem-color: #6b7f2e;
+  --rib-color: #e09a1c;
+  --body-color: #f5b82e;
+}
+
+.shadow {
+  fill: var(--color-shadow);
+  opacity: 0.25;
+}
+
+.stem {
+  fill: var(--stem-color);
+}
+
+.rib {
+  fill: var(--rib-color);
+}
+
+.body {
+  fill: var(--body-color);
+}

@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import Container from "../../atoms/Container";
+import HalloweenPumpkins from "../../atoms/HalloweenPumpkins";
 import Footer from "../../organisms/Footer";
 import Header from "../../organisms/Header";
 import styles from "./styles.module.css";
@@ -18,6 +19,7 @@ const Layout = ({
         <Container>{children}</Container>
       </main>
       <Footer />
+      <HalloweenPumpkins />
     </>
   );
 };
