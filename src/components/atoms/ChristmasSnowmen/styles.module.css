@@ -1,0 +1,109 @@
+@keyframes drip {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+@keyframes beat {
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.snowmen {
+  position: fixed;
+  z-index: 100;
+  right: 2rem;
+  bottom: 0;
+  width: clamp(8rem, 18vw, 14rem);
+  pointer-events: none;
+}
+
+.man {
+  --scarf-color: #2f8a4c;
+  --hat-color: #23232b;
+}
+
+.woman {
+  --scarf-color: #e86a9a;
+  --hat-color: #c8302c;
+}
+
+.puddle {
+  fill: #a9d3f2;
+  opacity: 0.6;
+}
+
+.heart {
+  fill: #e0475b;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: beat 1.2s ease-in-out infinite;
+}
+
+.snow {
+  fill: #fbfdff;
+  stroke: #c9d6e6;
+  stroke-width: 1.5;
+}
+
+.drop {
+  fill: #a9d3f2;
+  animation: drip 2s ease-in infinite;
+}
+
+.lateDrop {
+  animation-delay: -1s;
+}
+
+.arm {
+  stroke: #6b4a2b;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.hat {
+  fill: var(--hat-color);
+}
+
+.hatBand {
+  fill: #c8302c;
+}
+
+.coal {
+  fill: #23232b;
+}
+
+.cheek {
+  fill: #f29bb5;
+  opacity: 0.8;
+}
+
+.heartButton {
+  fill: #c8302c;
+}
+
+.closedEye,
+.lashes,
+.brow {
+  fill: none;
+  stroke: #23232b;
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.nose {
+  fill: #f28c28;
+}
+
+.scarf {
+  fill: var(--scarf-color);
+}
