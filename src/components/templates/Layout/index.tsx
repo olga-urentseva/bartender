@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Container from "../../atoms/Container";
-import HalloweenPumpkins from "../../atoms/HalloweenPumpkins";
+import ChristmasSnowmen from "../../atoms/ChristmasSnowmen";
+import Snowfall from "../../atoms/Snowfall";
 import Footer from "../../organisms/Footer";
 import Header from "../../organisms/Header";
 import styles from "./styles.module.css";
@@ -15,11 +16,12 @@ const Layout = ({
   return (
     <>
       <Header type={type} />
+      <Snowfall />
       <main className={type === "accent" ? styles.mainAccent : styles.main}>
         <Container>{children}</Container>
       </main>
       <Footer />
-      <HalloweenPumpkins />
+      <ChristmasSnowmen />
     </>
   );
 };
