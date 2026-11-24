@@ -26,46 +26,54 @@
   left: 2em;
   top: 2.1em;
   background-color: oklch(0.629 0.257 29.11);
+  animation-delay: -0.3s;
 }
 
 .lamp2 {
   left: 2.3em;
   top: 0.4em;
   background-color: oklch(0.849 0.273 140.592);
+  animation-delay: -1.4s;
 }
 
 .lamp3 {
   left: -0.5em;
   top: 1.5em;
   background-color: oklch(0.899 0.185 97.822);
+  animation-delay: -0.8s;
 }
 
 .lamp4 {
   left: 10.7em;
   top: 2em;
   background-color: oklch(0.54 0.254 266.069);
+  animation-delay: -1.9s;
 }
 
 .lamp5 {
   left: 5em;
   top: 1.8em;
   background-color: oklch(0.899 0.185 97.822);
+  animation-delay: -0.5s;
 }
 
 .lamp6 {
   left: 8em;
   top: 2.2em;
   background-color: oklch(0.54 0.254 266.069);
+  animation-delay: -1.1s;
 }
 
 .lamp7 {
   left: 7em;
   top: 0.4em;
   background-color: oklch(0.899 0.185 97.822);
+  animation-delay: -1.7s;
 }
 
 .lamp8 {
   left: 10em;
   top: 0.4em;
   background-color: oklch(0.74 0.153 237.621);
+  animation-delay: -0.1s;
 }
